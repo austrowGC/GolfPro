@@ -1,0 +1,43 @@
+﻿@using Capstone.Web.Models;
+@model League
+
+<head>
+    @*As a league organizer, I need the ability to set up a "league" 
+    for my friends so that we can view each other's leaderboard and form friendly competitions.
+    A league requires a course to be associated with it.*@
+</head>
+
+<div class="main">
+    <form method="post" action="@Url.Action("CreateLeague","HomeController")">
+        <table>
+            <tr>
+                <td class="box">
+                    League Name:
+                </td>
+                <td>
+                    <input type="text" name="League Name" required />
+                </td>
+            </tr>
+            <tr>
+                <td class="box">
+                    Choose Course:
+                </td>
+                <td>
+                    <select name="Course" required>
+                        <option value="">Select</option>
+                        <option value="Course1"> Course 1</option>
+                        <option value="Course2"> Course 2</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="box">
+                    Thank you!
+                </td>
+                <td>
+                    <input type="submit" value="Submit" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

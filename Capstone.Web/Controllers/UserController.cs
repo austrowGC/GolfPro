@@ -1,6 +1,6 @@
-﻿using Capstone.Web.DALs;
+﻿
 using Capstone.Web.Models;
-using Capstone.Web.ViewModels;
+using Capstone.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +12,6 @@ namespace Capstone.Web.Controllers
 {
     public class UserController
     {
-        private readonly IUserDAL userDal;
-
-
-        public UserController(IUserDAL userDal)
-        {
-            this.userDal = userDal;
-        }
-
 
     }
 }
