@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using Capstone.Web.DALs.Interfaces;
@@ -18,20 +19,23 @@ namespace Capstone.Web.DALs
 
         public bool AddNewCourse(Course course)
         {
-            string SQL_AddNewCourse = @"Insert into forum_post (username, subject, message) 
-            values (@username, @subject, @message); Select Cast(Scope_identity() as int);";
+            bool isSuccessful = true;
+
+            string SQL_AddNewCourse = @"Insert into courses (name, par, holeCount, totalLengthYards) 
+            values (@name, @par, @holeCount, @totalLengthYards)";
             try
             {
-                using (SqlConnection conn = new SqlConnection(_connectionString))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand(SQL_SaveNewPost, conn);
+                    SqlCommand cmd = new SqlCommand(SQL_AddNewCourse, conn);
 
-                    cmd.Parameters.Add(new SqlParameter("@username", post.Username));
-                    cmd.Parameters.Add(new SqlParameter("@subject", post.Subject));
-                    cmd.Parameters.Add(new SqlParameter("@message", post.Message));
-                    int newId = (int)cmd.ExecuteScalar();
+                    cmd.Parameters.Add(new SqlParameter("@name", course.Name));
+                    cmd.Parameters.Add(new SqlParameter("@par", course.Par));
+                    cmd.Parameters.Add(new SqlParameter("@holeCount", course.NumberOfHoles));
+                    cmd.Parameters.Add(new SqlParameter("@totalLengthYards", course.LengthInYards));
+                    cmd.ExecuteNonQuery();
                 }
             }
 
@@ -40,6 +44,7 @@ namespace Capstone.Web.DALs
                 Console.WriteLine(e.Message);
                 isSuccessful = false;
             }
+
             return isSuccessful;
         }
 
