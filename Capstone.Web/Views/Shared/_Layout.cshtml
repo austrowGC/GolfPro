@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{ 
     Layout = null;
 }
 
@@ -15,6 +14,17 @@
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </head>
 <body>
-    @RenderBody()
+    <header>
+        <h1>The Outer Dimension</h1>
+    </header>
+    <nav>
+        <ul>
+            <li>@Html.ActionLink("Leaderboards", "LeagueLeaderBoard", "Home")</li>
+            @Html.Action("Navigation", "User")
+        </ul>
+    </nav>
+    <main>
+        @RenderBody()
+    </main>
 </body>
 </html>

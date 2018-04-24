@@ -25,6 +25,7 @@ namespace Capstone.Web.Controllers
             return View("CreateMatch");
         }
 
+
         public ActionResult CreateLeague()
         {
             return View("CreateLeague");

@@ -11,6 +11,24 @@ namespace Capstone.Web.Controllers
 {
     public class UserController : Controller
     {
+        [ChildActionOnly]
+        public ActionResult Navigation()
+        {
+            if (Session[SessionKeys.Username] == null)
+            {
+                return PartialView("_NavAnon");
+            }
+            else
+            {
+                return PartialView("_NavAuth");
+            }
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
         public ActionResult Registration()
         {
             return View();

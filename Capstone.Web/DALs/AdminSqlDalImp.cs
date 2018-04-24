@@ -47,6 +47,5 @@ namespace Capstone.Web.DALs
 
             return isSuccessful;
         }
-
     }
 }
