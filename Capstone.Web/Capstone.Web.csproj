@@ -149,6 +149,8 @@
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerRound.cs" />
+    <Compile Include="Models\ViewModels\Login.cs" />
+    <Compile Include="Models\ViewModels\Registration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +161,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Admin\AddNewCourse.cshtml" />
+    <Content Include="Views\Home\Registration.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\LeagueLeaderboard.cshtml" />
     <Content Include="Views\Home\CreateMatch.cshtml" />
     <None Include="Web.Debug.config">
