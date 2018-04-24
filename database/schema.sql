@@ -123,7 +123,8 @@ ALTER TABLE [leagues_matches] CHECK CONSTRAINT [FK_matches_leagues_id]
 
 CREATE TABLE [users_matches](
 	[userId] [int] NOT NULL,
-	[matcheId] [int] NOT NULL
+	[matcheId] [int] NOT NULL,
+	[score] [int] NOT NULL
 ) ON [PRIMARY]
 
 
