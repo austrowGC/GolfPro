@@ -11,7 +11,6 @@ namespace Capstone.Web.DALs
     public class AdminSqlDalImp : AdminSqlDal
     {
         private readonly string connectionString;
-
         public AdminSqlDalImp(string connectionString)
         {
             this.connectionString = connectionString;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace Capstone.Web.DALs.Interfaces
 {
     public interface AdminSqlDal
     {
+         bool AddNewCourse(Course course);
+
     }
 }
