@@ -169,9 +169,9 @@
     <Content Include="Views\Admin\AddNewCourse.cshtml" />
     <Content Include="Views\User\Registration.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
-    <Content Include="Views\Home\LeagueLeaderboard.cshtml" />
-    <Content Include="Views\Home\CreateMatch.cshtml" />
-    <Content Include="Views\Home\CreateLeague.cshtml" />
+    <Content Include="Views\User\LeagueLeaderboard.cshtml" />
+    <Content Include="Views\User\CreateMatch.cshtml" />
+    <Content Include="Views\User\CreateLeague.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Partial\_NavAuth.cshtml" />
     <Content Include="Views\Partial\_NavAnon.cshtml" />

@@ -39,5 +39,21 @@ namespace Capstone.Web.Controllers
         {
             return View("Index");
         }
+
+        public ActionResult LeagueLeaderBoard()
+        {
+            return View("LeagueLeaderBoard");
+        }
+
+        public ActionResult CreateMatch()
+        {
+            return View("CreateMatch");
+        }
+
+        public ActionResult CreateLeague()
+        {
+            return View("CreateLeague");
+        }
+
     }
 }
