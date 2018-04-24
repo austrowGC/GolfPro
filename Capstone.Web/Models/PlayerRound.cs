@@ -8,6 +8,5 @@ namespace Capstone.Web.Models
     public class PlayerRound
     {
         public int Scores { get; set; }
-
     }
 }
