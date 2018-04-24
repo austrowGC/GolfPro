@@ -138,6 +138,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DALs\AdminSqlDalImp.cs" />
     <Compile Include="DALs\Interfaces\AdminSqlDal.cs" />
@@ -146,7 +147,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Leaderboard.cs" />
+    <Compile Include="Models\ViewModels\Leaderboard.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Invitation.cs" />
     <Compile Include="Models\League.cs" />
@@ -165,9 +166,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Admin\AddNewCourse.cshtml" />
-    <Content Include="Views\Home\Registration.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\User\Registration.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Home\LeagueLeaderboard.cshtml" />
+    <Content Include="Views\Home\CreateMatch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
