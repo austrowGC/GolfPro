@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="register">
+    <h2>Registration</h2>
+
+    @using (Html.BeginForm("Register", "User", FormMethod.Post))
+    {
+        <div>
+            @Html.PasswordFor(m => m.FirstName, new { placeholder = "Don" })
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+
+        <div>
+            @Html.PasswordFor(m => m.LastName, new { placeholder = "Joe" })
+            @Html.ValidationMessageFor(m => m.LastName)
+        </div>
+
+        <div>
+            @Html.TextBoxFor(m => m.UserName, new { placeholder = "DonJoe555" })
+            @Html.ValidationMessageFor(m => m.UserName)
+            @Html.ValidationMessage("username-exists")
+        </div>
+        <div>
+            @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
+            @Html.ValidationMessageFor(m => m.Password)
+            
+        </div>
+        <div>
+            @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Confirm Password" })
+            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+        </div>
+
+        <button>Register</button>
+    }
+</div>
