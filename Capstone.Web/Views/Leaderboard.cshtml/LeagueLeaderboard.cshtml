@@ -1,0 +1,25 @@
+﻿@using Capstone.Web.Models;
+@model Leaderboard
+
+<div class="main">
+    <table>
+        <th>First Name</th>
+        <tr>
+            @foreach (Player player in Model.Players)
+            {
+                //gggggggggggggggggggggggggggg
+                @player.FirstName;
+            }
+        </tr>
+        <th>Last Name</th>
+
+
+        
+        <tr>
+            <td class="box"></td>
+            <td>
+                <input type="text" name="Name" required />
+            </td>
+        </tr>
+    </table>
+</div>

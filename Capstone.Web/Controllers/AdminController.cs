@@ -6,15 +6,12 @@ using System.Web.Mvc;
 
 namespace Capstone.Web.Controllers
 {
-    public class HomeController : Controller
+    public class AdminController : Controller
     {
 
-        // GET: Home
-        public ActionResult Index()
+        public ActionResult AddNewCourse()
         {
-            return View("Index");
+            return View("AddNewCourse");
         }
-
-
     }
 }
