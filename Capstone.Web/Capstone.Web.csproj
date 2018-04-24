@@ -173,8 +173,9 @@
     <Content Include="Views\User\CreateMatch.cshtml" />
     <Content Include="Views\User\CreateLeague.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Partial\_NavAuth.cshtml" />
-    <Content Include="Views\Partial\_NavAnon.cshtml" />
+    <Content Include="Views\Shared\_NavAuth.cshtml" />
+    <Content Include="Views\Shared\_NavAnon.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
