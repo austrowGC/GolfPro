@@ -170,6 +170,7 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Home\LeagueLeaderboard.cshtml" />
     <Content Include="Views\Home\CreateMatch.cshtml" />
+    <Content Include="Views\Home\CreateLeague.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
