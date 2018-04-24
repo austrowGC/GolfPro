@@ -9,6 +9,5 @@ namespace Capstone.Web.Models
     {
         public int ID { get; set; }
         public int InvitationCode { get; set; }
-        public DateTime
     }
 }

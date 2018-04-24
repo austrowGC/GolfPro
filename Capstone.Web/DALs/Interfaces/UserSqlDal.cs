@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Capstone.Web.DALs.Interfaces
 {
-    interface UserSqlDal
+    public interface UserSqlDal
     {
 
     }

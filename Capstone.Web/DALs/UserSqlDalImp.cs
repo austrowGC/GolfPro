@@ -8,6 +8,12 @@ namespace Capstone.Web.DALs
 {
     public class UserSqlDalImp : UserSqlDal
     {
+        private readonly string connectionString;
+
+        public UserSqlDalImp(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
 
     }
 }
