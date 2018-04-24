@@ -7,14 +7,14 @@
 
 <div class="main">
 
-    <form method="post" action="@Url.Action("AddNewCourse","AdminController")">
+    <form method="post" action="@Url.Action("AddNewCourse","Admin")">
         <table>
             <tr>
                 <td class="box">
                     Enter Course Name:
                 </td>
                 <td>
-                    <input type="text" name="name" required />
+                    <input type="text" name="Name" required />
                 </td>
             </tr>
             <tr>
@@ -22,7 +22,7 @@
                     Number of Holes:
                 </td>
                 <td>
-                    <select name="holeCount" required>
+                    <select name="NumberOfHoles" required>
                         <option value="">Select</option>
                         <option value="9"> 9 </option>
                         <option value="18"> 18 </option>
@@ -34,7 +34,7 @@
                     Length in Yards:
                 </td>
                 <td>
-                    <input type="text" name="totalLengthYards" required />
+                    <input type="text" name="LengthInYards" required />
                 </td>
             </tr>
             <tr>
@@ -42,7 +42,7 @@
                     Par:
                 </td>
                 <td>
-                    <input type="text" name="par" required />
+                    <input type="text" name="Par" required />
                 </td>
             </tr>
             <tr>
@@ -50,7 +50,7 @@
                     Thank you!
                 </td>
                 <td>
-                    <input type="submit" value="Submit" />
+                    <input type="submit" name="Submit" />
                 </td>
             </tr>
 

@@ -9,6 +9,7 @@ using System.Web.Security;
 
 namespace Capstone.Web.Controllers
 {
+
     public class UserController : Controller
     {
         [ChildActionOnly]
