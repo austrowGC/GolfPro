@@ -20,6 +20,11 @@ namespace Capstone.Web.Controllers
             return View("LeagueLeaderBoard");
         }
 
+        public ActionResult CreateMatch()
+        {
+            return View("CreateMatch");
+        }
+
 
     }
 }

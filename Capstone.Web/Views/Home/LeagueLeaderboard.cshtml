@@ -3,23 +3,26 @@
 
 <div class="main">
     <table>
-        <th>First Name</th>
+        <th>Golfer Name</th>
         <tr>
             @foreach (Player player in Model.Players)
             {
-                //gggggggggggggggggggggggggggg
-                @player.FirstName;
+                @player.FirstName @player.LastName;
             }
         </tr>
-        <th>Last Name</th>
-
-
-        
+        <th>Username</th>
         <tr>
-            <td class="box"></td>
-            <td>
-                <input type="text" name="Name" required />
-            </td>
+            @foreach (Player player in Model.Players)
+            {
+                @player.Username;
+            }
+        </tr>
+        <th>Average Score</th>
+        <tr>
+            @foreach (Player player in Model.Players)
+            {
+                @((player.TotalStrokes / player.NumberofHoles) * 18);
+            }
         </tr>
     </table>
 </div>

@@ -165,6 +165,7 @@
     <Content Include="Views\User\Registration.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Home\LeagueLeaderboard.cshtml" />
+    <Content Include="Views\Home\CreateMatch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
