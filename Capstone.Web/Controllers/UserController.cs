@@ -9,8 +9,17 @@ using System.Web.Security;
 
 namespace Capstone.Web.Controllers
 {
-    public class UserController
+    public class UserController : Controller
     {
+        public ActionResult Registration()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public ActionResult PostUserRegistration()
+        {
+            return View("Index");
+        }
     }
 }
