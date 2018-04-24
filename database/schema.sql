@@ -2,15 +2,15 @@
 -- This script creates all of the database objects (tables, constraints, etc) for the database
 -- *************************************************************************************************
 
-BEGIN;
-
-CREATE DATABASE GolfProDB;
+CREATE DATABASE [GolfProDB]
 GO
 
-USE GolfProDB;
+USE [GolfProDB]
 GO
 
-CREATE TABLE [dbo].[users](
+BEGIN TRANSACTION;
+
+CREATE TABLE [users](
 	[id] [int] NOT NULL,
 	[firstName] [varchar](64) NOT NULL,
 	[lastName] [varchar](64) NOT NULL,
@@ -25,13 +25,14 @@ CREATE TABLE [dbo].[users](
 (
 	[userName] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
+)
+ ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
-ALTER TABLE [dbo].[users] ADD  CONSTRAINT [DF_users_isAdmin]  DEFAULT ((0)) FOR [isAdmin]
-GO
 
-CREATE TABLE [dbo].[courses](
+ALTER TABLE [users] ADD  CONSTRAINT [DF_users_isAdmin]  DEFAULT ((0)) FOR [isAdmin]
+
+
+CREATE TABLE [courses](
 	[id] [int] NOT NULL,
 	[name] [varchar](128) NOT NULL,
 	[par] [int] NOT NULL,
@@ -42,9 +43,9 @@ CREATE TABLE [dbo].[courses](
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-GO
 
-CREATE TABLE [dbo].[leagues](
+
+CREATE TABLE [leagues](
 	[id] [int] NOT NULL,
 	[name] [varchar](64) NOT NULL,
 	[adminId] [int] NOT NULL,
@@ -54,23 +55,23 @@ CREATE TABLE [dbo].[leagues](
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-GO
 
-ALTER TABLE [dbo].[leagues]  WITH CHECK ADD  CONSTRAINT [FK_courses_id] FOREIGN KEY([courseId])
-REFERENCES [dbo].[courses] ([id])
-GO
 
-ALTER TABLE [dbo].[leagues] CHECK CONSTRAINT [FK_courses_id]
-GO
+ALTER TABLE [leagues]  WITH CHECK ADD  CONSTRAINT [FK_courses_id] FOREIGN KEY([courseId])
+REFERENCES [courses] ([id])
 
-ALTER TABLE [dbo].[leagues]  WITH CHECK ADD  CONSTRAINT [FK_users_id] FOREIGN KEY([adminId])
-REFERENCES [dbo].[users] ([id])
-GO
 
-ALTER TABLE [dbo].[leagues] CHECK CONSTRAINT [FK_users_id]
-GO
+ALTER TABLE [leagues] CHECK CONSTRAINT [FK_courses_id]
 
-CREATE TABLE [dbo].[matches](
+
+ALTER TABLE [leagues]  WITH CHECK ADD  CONSTRAINT [FK_users_id] FOREIGN KEY([adminId])
+REFERENCES [users] ([id])
+
+
+ALTER TABLE [leagues] CHECK CONSTRAINT [FK_users_id]
+
+
+CREATE TABLE [matches](
 	[id] [int] NOT NULL,
 	[date] [datetime] NOT NULL,
  CONSTRAINT [PK_matches] PRIMARY KEY CLUSTERED 
@@ -78,69 +79,69 @@ CREATE TABLE [dbo].[matches](
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-GO
 
-CREATE TABLE [dbo].[users_leagues](
+
+CREATE TABLE [users_leagues](
 	[userId] [int] NOT NULL,
 	[leagueId] [int] NOT NULL
 ) ON [PRIMARY]
-GO
 
-ALTER TABLE [dbo].[users_leagues]  WITH CHECK ADD  CONSTRAINT [FK_league_user_id] FOREIGN KEY([userId])
-REFERENCES [dbo].[users] ([id])
-GO
 
-ALTER TABLE [dbo].[users_leagues] CHECK CONSTRAINT [FK_league_user_id]
-GO
+ALTER TABLE [users_leagues]  WITH CHECK ADD  CONSTRAINT [FK_league_user_id] FOREIGN KEY([userId])
+REFERENCES [users] ([id])
 
-ALTER TABLE [dbo].[users_leagues]  WITH CHECK ADD  CONSTRAINT [FK_user_league_id] FOREIGN KEY([leagueId])
-REFERENCES [dbo].[leagues] ([id])
-GO
 
-ALTER TABLE [dbo].[users_leagues] CHECK CONSTRAINT [FK_user_league_id]
-GO
+ALTER TABLE [users_leagues] CHECK CONSTRAINT [FK_league_user_id]
 
-CREATE TABLE [dbo].[leagues_matches](
+
+ALTER TABLE [users_leagues]  WITH CHECK ADD  CONSTRAINT [FK_user_league_id] FOREIGN KEY([leagueId])
+REFERENCES [leagues] ([id])
+
+
+ALTER TABLE [users_leagues] CHECK CONSTRAINT [FK_user_league_id]
+
+
+CREATE TABLE [leagues_matches](
 	[leagueId] [int] NOT NULL,
 	[matchId] [int] NOT NULL
 ) ON [PRIMARY]
-GO
 
-ALTER TABLE [dbo].[leagues_matches]  WITH CHECK ADD  CONSTRAINT [FK_leagues_matches_id] FOREIGN KEY([leagueId])
-REFERENCES [dbo].[matches] ([id])
-GO
 
-ALTER TABLE [dbo].[leagues_matches] CHECK CONSTRAINT [FK_leagues_matches_id]
-GO
+ALTER TABLE [leagues_matches]  WITH CHECK ADD  CONSTRAINT [FK_leagues_matches_id] FOREIGN KEY([leagueId])
+REFERENCES [matches] ([id])
 
-ALTER TABLE [dbo].[leagues_matches]  WITH CHECK ADD  CONSTRAINT [FK_matches_leagues_id] FOREIGN KEY([leagueId])
-REFERENCES [dbo].[leagues] ([id])
-GO
 
-ALTER TABLE [dbo].[leagues_matches] CHECK CONSTRAINT [FK_matches_leagues_id]
-GO
+ALTER TABLE [leagues_matches] CHECK CONSTRAINT [FK_leagues_matches_id]
 
-CREATE TABLE [dbo].[users_matches](
+
+ALTER TABLE [leagues_matches]  WITH CHECK ADD  CONSTRAINT [FK_matches_leagues_id] FOREIGN KEY([leagueId])
+REFERENCES [leagues] ([id])
+
+
+ALTER TABLE [leagues_matches] CHECK CONSTRAINT [FK_matches_leagues_id]
+
+
+CREATE TABLE [users_matches](
 	[userId] [int] NOT NULL,
 	[matcheId] [int] NOT NULL
 ) ON [PRIMARY]
-GO
 
-ALTER TABLE [dbo].[users_matches]  WITH CHECK ADD  CONSTRAINT [FK_matches_users_id] FOREIGN KEY([userId])
-REFERENCES [dbo].[users] ([id])
-GO
 
-ALTER TABLE [dbo].[users_matches] CHECK CONSTRAINT [FK_matches_users_id]
-GO
+ALTER TABLE [users_matches]  WITH CHECK ADD  CONSTRAINT [FK_matches_users_id] FOREIGN KEY([userId])
+REFERENCES [users] ([id])
 
-ALTER TABLE [dbo].[users_matches]  WITH CHECK ADD  CONSTRAINT [FK_users_matches_id] FOREIGN KEY([matcheId])
-REFERENCES [dbo].[matches] ([id])
-GO
 
-ALTER TABLE [dbo].[users_matches] CHECK CONSTRAINT [FK_users_matches_id]
-GO
+ALTER TABLE [users_matches] CHECK CONSTRAINT [FK_matches_users_id]
 
-CREATE TABLE [dbo].[leagueInvitations](
+
+ALTER TABLE [users_matches]  WITH CHECK ADD  CONSTRAINT [FK_users_matches_id] FOREIGN KEY([matcheId])
+REFERENCES [matches] ([id])
+
+
+ALTER TABLE [users_matches] CHECK CONSTRAINT [FK_users_matches_id]
+
+
+CREATE TABLE [leagueInvitations](
 	[id] [int] NOT NULL,
 	[code] [varchar](max) NOT NULL,
 	[leagueId] [int] NOT NULL,
@@ -149,13 +150,13 @@ CREATE TABLE [dbo].[leagueInvitations](
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-GO
 
-ALTER TABLE [dbo].[leagueInvitations]  WITH CHECK ADD  CONSTRAINT [FK_leagues_id] FOREIGN KEY([leagueId])
-REFERENCES [dbo].[leagues] ([id])
-GO
 
-ALTER TABLE [dbo].[leagueInvitations] CHECK CONSTRAINT [FK_leagues_id]
-GO
+ALTER TABLE [leagueInvitations]  WITH CHECK ADD  CONSTRAINT [FK_leagues_id] FOREIGN KEY([leagueId])
+REFERENCES [leagues] ([id])
 
-COMMIT;
+
+ALTER TABLE [leagueInvitations] CHECK CONSTRAINT [FK_leagues_id]
+
+
+COMMIT TRANSACTION;
