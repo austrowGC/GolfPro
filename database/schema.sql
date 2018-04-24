@@ -11,7 +11,7 @@ GO
 BEGIN TRANSACTION;
 
 CREATE TABLE [users](
-	[id] [int] NOT NULL,
+	[id] [int] IDENTITY NOT NULL,
 	[firstName] [varchar](64) NOT NULL,
 	[lastName] [varchar](64) NOT NULL,
 	[userName] [varchar](64) NOT NULL,
@@ -33,7 +33,7 @@ ALTER TABLE [users] ADD  CONSTRAINT [DF_users_isAdmin]  DEFAULT ((0)) FOR [isAdm
 
 
 CREATE TABLE [courses](
-	[id] [int] NOT NULL,
+	[id] [int] IDENTITY NOT NULL,
 	[name] [varchar](128) NOT NULL,
 	[par] [int] NOT NULL,
 	[holeCount] [int] NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE [courses](
 
 
 CREATE TABLE [leagues](
-	[id] [int] NOT NULL,
+	[id] [int] IDENTITY NOT NULL,
 	[name] [varchar](64) NOT NULL,
 	[adminId] [int] NOT NULL,
 	[courseId] [int] NOT NULL,
@@ -72,7 +72,7 @@ ALTER TABLE [leagues] CHECK CONSTRAINT [FK_users_id]
 
 
 CREATE TABLE [matches](
-	[id] [int] NOT NULL,
+	[id] [int] IDENTITY NOT NULL,
 	[date] [datetime] NOT NULL,
  CONSTRAINT [PK_matches] PRIMARY KEY CLUSTERED 
 (
@@ -143,7 +143,7 @@ ALTER TABLE [users_matches] CHECK CONSTRAINT [FK_users_matches_id]
 
 
 CREATE TABLE [leagueInvitations](
-	[id] [int] NOT NULL,
+	[id] [int] IDENTITY NOT NULL,
 	[code] [varchar](max) NOT NULL,
 	[leagueId] [int] NOT NULL,
  CONSTRAINT [PK_leagueInvitations] PRIMARY KEY CLUSTERED 
