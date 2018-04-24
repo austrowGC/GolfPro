@@ -15,6 +15,11 @@ namespace Capstone.Web.Controllers
             return View("Index");
         }
 
+        public ActionResult LeagueLeaderBoard()
+        {
+            return View("LeagueLeaderBoard");
+        }
+
 
     }
 }
