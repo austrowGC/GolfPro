@@ -86,7 +86,7 @@ namespace Capstone.Web.Controllers
             if (user != null)
             {
                 ModelState.AddModelError("username-exists", "Username unavailable");
-                return View("Register", model);
+                return View("Registration", model);
             }
             else
             {
