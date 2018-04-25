@@ -45,6 +45,14 @@ namespace Capstone.Web.Controllers
         {
             return View();
         }
+       
+        [HttpPost]
+        public ActionResult PostUserLogin(Login model)
+        {
+
+            return View("Index");
+        }
+
 
         public ActionResult Registration(Registration model)
         {
