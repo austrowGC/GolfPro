@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using Capstone.Web.Models;
+using Capstone.Web.Models.ViewModels;
 
 namespace Capstone.Web.DALs.Implementation
 {
@@ -48,6 +49,26 @@ namespace Capstone.Web.DALs.Implementation
             return isSuccessful;
         }
 
+        public User VerifyLogin(Login model)
+        {
+            User user = null;
+
+            string VerifyLoginSql = @"select id, username, firstname, lastname from users where (username = @username) AND (password = @password);";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(VerifyLoginSql, conn);
+                cmd.Parameters.AddWithValue("@username", model.Username);
+                cmd.Parameters.AddWithValue("@password", model.Password);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    user = AssembleUser(reader);
+                }
+                conn.Close();
+            }
+            return user;
+        }
 
         public User GetUsername(string username)
         {

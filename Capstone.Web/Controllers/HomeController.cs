@@ -63,9 +63,19 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult PostUserLogin(Login model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Login", model);
+            }
+
+            User user = dal.VerifyLogin(model);
+            if(user == null)
+            {
+                return View("Login", model);
+            }
             Session[SessionKeys.Username] = model.Username;
 
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
 
