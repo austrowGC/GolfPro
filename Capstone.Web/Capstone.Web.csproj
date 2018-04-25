@@ -143,12 +143,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\OpenTimes.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\ViewModels\Leaderboard.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Invitation.cs" />
     <Compile Include="Models\League.cs" />
-    <Compile Include="Models\Match.cs" />
+    <Compile Include="Models\ViewModels\Match.cs" />
     <Compile Include="Models\PlayerRound.cs" />
     <Compile Include="Models\ViewModels\Login.cs" />
     <Compile Include="Models\ViewModels\Registration.cs" />
@@ -163,12 +164,11 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Admin\AddNewCourse.cshtml" />
-    <Content Include="Views\User\Registration.cshtml" />
-    <Content Include="Views\User\Login.cshtml" />
-    <Content Include="Views\User\LeagueLeaderboard.cshtml" />
-    <Content Include="Views\User\CreateMatch.cshtml" />
-    <Content Include="Views\User\CreateLeague.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Home\Registration.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\LeagueLeaderboard.cshtml" />
+    <Content Include="Views\Home\CreateMatch.cshtml" />
+    <Content Include="Views\Home\CreateLeague.cshtml" />
     <Content Include="Views\Shared\_NavAuth.cshtml" />
     <Content Include="Views\Shared\_NavAnon.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />

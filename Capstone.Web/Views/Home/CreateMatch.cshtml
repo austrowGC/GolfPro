@@ -1,0 +1,77 @@
+﻿@using Capstone.Web.Models
+@model Match
+@{ 
+
+}
+
+<div class="main">
+
+    <form method="post" action="@Url.Action("CreateMatch","Home")">
+        <table>
+            <tr>
+                <td class="box">
+                    Choose Date:
+                </td>
+                <td>
+                        <input type="date" name="ReservationDate" value="@DateTime.Today.ToString("yyyy-MM-dd")" min="@DateTime.Today.ToString("yyyy-MM-dd")"><br><br>
+                </td>
+            </tr>
+            <tr>
+                <td class="box">
+                    Choose Tee-Time:
+                </td>
+                <td>
+                    <select name="ReservationTime" required>
+                        <option value="">Select</option>
+                        <option value="7:00:00 AM"> 7:00 AM </option>
+                        <option value="7:30:00 AM"> 7:30 AM </option>
+                        <option value="8:00:00 AM"> 8:00 AM </option>
+                        <option value="8:30:00 AM"> 8:30 AM </option>
+                        <option value="9:00:00 AM"> 9:00 AM </option>
+                        <option value="9:30:00 AM"> 9:30 AM </option>
+                        <option value="10:00:00 AM"> 10:00 AM </option>
+                        <option value="10:30:00 AM"> 10:30 AM </option>
+                        <option value="11:00:00 AM"> 11:00 AM </option>
+                        <option value="11:30:00 AM"> 11:30 AM </option>
+                        <option value="12:00:00 PM"> 12:00 PM </option>
+                        <option value="12:30:00 PM"> 12:30 PM </option>
+                        <option value="1:00:00 PM"> 1:00 PM </option>
+                        <option value="1:30:00 PM"> 1:30 PM </option>
+                        <option value="2:00:00 PM"> 2:00 PM </option>
+                        <option value="2:30:00 PM"> 2:30 PM </option>
+                        <option value="3:00:00 PM"> 3:00 PM </option>
+                        <option value="3:30:00 PM"> 3:30 PM </option>
+                        <option value="4:00:00 PM"> 4:00 PM </option>
+                        <option value="4:30:00 PM"> 4:30 PM </option>
+                        <option value="5:00:00 PM"> 5:00 PM </option>
+                        <option value="5:30:00 PM"> 5:30 PM </option>
+                        <option value="6:00:00 PM"> 6:00 PM </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="box">
+                    Number of Players:
+                </td>
+                <td>
+                    <select name="NumberOfPlayers" required>
+                        <option value="">Select</option>
+                        <option value="1"> 1 </option>
+                        <option value="2"> 2 </option>
+                        <option value="3"> 3 </option>
+                        <option value="4"> 4 </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="box">
+                    Thank you!
+                </td>
+                <td>
+                    <input type="submit" value="Submit" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+

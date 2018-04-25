@@ -67,9 +67,12 @@ namespace Capstone.Web.Controllers
             return View("LeagueLeaderBoard");
         }
 
-        public ActionResult CreateMatch()
+        [HttpPost]
+        public ActionResult CreateMatch(Match match)
         {
-            return View("CreateMatch");
+            _dal.CreateMatch(match);
+
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult CreateLeague()

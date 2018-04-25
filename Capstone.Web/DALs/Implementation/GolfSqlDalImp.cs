@@ -48,7 +48,7 @@ namespace Capstone.Web.DALs.Implementation
             return isSuccessful;
         }
 
-
+   
         public bool CheckUsername(User user)
         {
             string getUsernameSql = @"select id from users where username = @username";
@@ -62,10 +62,34 @@ namespace Capstone.Web.DALs.Implementation
                 return false;
         }
 
-        public bool CreateMatch(Match match)
-        {
-            throw new NotImplementedException();
-        }
+        //public bool CreateMatch(Match match)
+        //{
+        //    bool isSuccessful = true;
+
+        //    string SQL_CreateMatch = @"Insert into matches (date, numOfPlayers) 
+        //    values (@date, @numOfPlayers)";
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(connectionString))
+        //        {
+        //            conn.Open();
+
+        //            SqlCommand cmd = new SqlCommand(SQL_CreateMatch, conn);
+
+        //            cmd.Parameters.Add(new SqlParameter("@name", match.Reservation));
+        //            cmd.Parameters.Add(new SqlParameter("@numOfPlayers", match.NumberOfPlayers));
+        //            cmd.ExecuteNonQuery();
+        //        }
+        //    }
+
+        //    catch (SqlException e)
+        //    {
+        //        Console.WriteLine(e.Message);
+        //        isSuccessful = false;
+        //    }
+
+        //    return isSuccessful;
+        //}
 
         public bool RegisterUser(User user)
         {
