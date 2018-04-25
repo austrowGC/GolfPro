@@ -51,8 +51,8 @@ namespace Capstone.Web.DALs.Implementation
 
         public User GetUsername(string username)
         {
-            User user = new User();
-            string getUsernameSql = @"select id, username, firstname, lastname from users where username = @username";
+            User user = null;
+            string getUsernameSql = @"select id, username, firstname, lastname from users where username = @username;";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -61,7 +61,7 @@ namespace Capstone.Web.DALs.Implementation
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    AssembleUser(reader);
+                    user = AssembleUser(reader);
                 }
                 conn.Close();
             }
@@ -73,19 +73,19 @@ namespace Capstone.Web.DALs.Implementation
             throw new NotImplementedException();
         }
 
-        public bool SaveUser(User user)
+        public void SaveUser(User user)
         {
-            throw new NotImplementedException();
+            string saveUserSql = @"insert into users (firstname, lastname, username, password) values (@firstname, @lastname, @username, @password);";
         }
 
         private User AssembleUser(SqlDataReader reader)
         {
             User user = new User()
             {
-                Id = Convert.ToInt32(reader["Id"]),
-                Username = Convert.ToString(reader["Username"]),
-                FirstName = Convert.ToString(reader["Firstname"]),
-                LastName = Convert.ToString(reader["Lastname"]),
+                Id = Convert.ToInt32(reader["id"]),
+                Username = Convert.ToString(reader["username"]),
+                FirstName = Convert.ToString(reader["firstname"]),
+                LastName = Convert.ToString(reader["lastname"]),
             };
 
             return user;
