@@ -63,6 +63,7 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult PostUserLogin(Login model)
         {
+            Session[SessionKeys.Username] = model.Username;
 
             return View("Index");
         }
