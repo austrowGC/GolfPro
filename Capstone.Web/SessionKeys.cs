@@ -8,5 +8,7 @@ namespace Capstone.Web
     public class SessionKeys
     {
         public static string Username = "Username";
+        public static string UserId = "Id";
+        public static string User = "User";
     }
 }

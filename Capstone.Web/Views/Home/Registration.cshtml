@@ -6,20 +6,20 @@
 <div id="register">
     <h2>Registration</h2>
 
-    @using (Html.BeginForm("PostUserRegistration", "User", FormMethod.Post))
+    @using (Html.BeginForm("PostUserRegistration", "Home", FormMethod.Post))
     {
         <div>
-            @Html.PasswordFor(m => m.FirstName, new { placeholder = "Don" })
+            @Html.TextBoxFor(m => m.FirstName, new { placeholder = "First Name" })
             @Html.ValidationMessageFor(m => m.FirstName)
         </div>
 
         <div>
-            @Html.PasswordFor(m => m.LastName, new { placeholder = "Joe" })
+            @Html.TextBoxFor(m => m.LastName, new { placeholder = "Last Name" })
             @Html.ValidationMessageFor(m => m.LastName)
         </div>
 
         <div>
-            @Html.TextBoxFor(m => m.UserName, new { placeholder = "DonJoe555" })
+            @Html.TextBoxFor(m => m.UserName, new { placeholder = "Username" })
             @Html.ValidationMessageFor(m => m.UserName)
             @Html.ValidationMessage("username-exists")
         </div>

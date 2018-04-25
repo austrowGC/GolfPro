@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using Capstone.Web.Models;
+using Capstone.Web.Models.ViewModels;
 
 namespace Capstone.Web.DALs.Implementation
 {
@@ -48,18 +49,49 @@ namespace Capstone.Web.DALs.Implementation
             return isSuccessful;
         }
 
+
    
         public bool CheckUsername(User user)
+
+        public User VerifyLogin(Login model)
         {
-            string getUsernameSql = @"select id from users where username = @username";
+            User user = null;
+
+            string VerifyLoginSql = @"select id, username, firstname, lastname from users where (username = @username) AND (password = @password);";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(VerifyLoginSql, conn);
+                cmd.Parameters.AddWithValue("@username", model.Username);
+                cmd.Parameters.AddWithValue("@password", model.Password);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    user = AssembleUser(reader);
+                }
+                conn.Close();
+            }
+            return user;
+        }
+
+        public User GetUsername(string username)
+
+        {
+            User user = null;
+            string getUsernameSql = @"select id, username, firstname, lastname from users where username = @username;";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(getUsernameSql, conn);
-                cmd.Parameters.AddWithValue("@username", user.Username);
-
+                cmd.Parameters.AddWithValue("@username", username);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    user = AssembleUser(reader);
+                }
+                conn.Close();
             }
-                return false;
+            return user;
         }
 
         //public bool CreateMatch(Match match)
@@ -91,9 +123,22 @@ namespace Capstone.Web.DALs.Implementation
         //    return isSuccessful;
         //}
 
-        public bool RegisterUser(User user)
+        public void SaveUser(User user)
         {
-            throw new NotImplementedException();
+            string saveUserSql = @"insert into users (firstname, lastname, username, password) values (@firstname, @lastname, @username, @password);";
+        }
+
+        private User AssembleUser(SqlDataReader reader)
+        {
+            User user = new User()
+            {
+                Id = Convert.ToInt32(reader["id"]),
+                Username = Convert.ToString(reader["username"]),
+                FirstName = Convert.ToString(reader["firstname"]),
+                LastName = Convert.ToString(reader["lastname"]),
+            };
+
+            return user;
         }
     }
 }

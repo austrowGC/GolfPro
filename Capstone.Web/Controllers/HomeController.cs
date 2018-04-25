@@ -13,10 +13,10 @@ namespace Capstone.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private GolfSqlDal _dal;
+        private GolfSqlDal dal;
         public HomeController(GolfSqlDal dal)
         {
-            _dal = dal;
+            this.dal = dal;
         }
         public HomeController()
         {
@@ -28,6 +28,7 @@ namespace Capstone.Web.Controllers
         {
             return View("Index");
         }
+
         [ChildActionOnly]
         public ActionResult Navigation()
         {
@@ -40,26 +41,79 @@ namespace Capstone.Web.Controllers
                 return PartialView("_NavAuth");
             }
         }
+        [ChildActionOnly]
+        public ActionResult Content()
+        {
+            if (Session[SessionKeys.Username] == null)
+            {
+                return PartialView("_Splash");
+            }
+            else
+            {
+                return PartialView("_Dashboard");
+            }
+        }
+
 
         public ActionResult Login()
         {
             return View();
         }
-
-        public ActionResult Registration(Registration model)
+       
+        [HttpPost]
+        public ActionResult PostUserLogin(Login model)
         {
             if (!ModelState.IsValid)
             {
-                return View("Register", model);
+                return View("Login", model);
             }
 
+            User user = dal.VerifyLogin(model);
+            if(user == null)
+            {
+                return View("Login", model);
+            }
+            Session[SessionKeys.Username] = model.Username;
+
+            return RedirectToAction("Index");
+        }
+
+
+        public ActionResult Registration()
+        {
             return View();
         }
 
         [HttpPost]
-        public ActionResult PostUserRegistration()
+        public ActionResult PostUserRegistration(Registration model)
         {
-            return View("Index");
+            if (!ModelState.IsValid)
+            {
+                return View("Registration", model);
+            }
+
+            User user = dal.GetUsername(model.UserName);
+            if (user != null)
+            {
+                ModelState.AddModelError("username-exists", "Username unavailable");
+                return View("Registration", model);
+            }
+            else
+            {
+                user = new User()
+                {
+                    Username = model.UserName,
+                    Password = model.Password,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName
+                };
+
+                dal.SaveUser(user);
+                Session[SessionKeys.Username] = user.Username;
+                Session[SessionKeys.UserId] = user.Id;
+            }
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult LeagueLeaderBoard()
@@ -79,6 +133,7 @@ namespace Capstone.Web.Controllers
         {
             return View("CreateLeague");
         }
+
         public ActionResult AddNewCourse()
         {
             return View("AddNewCourse");
@@ -87,7 +142,7 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult AddNewCourse(Course course)
         {
-            _dal.AddNewCourse(course);
+            dal.AddNewCourse(course);
 
             return RedirectToAction("Index", "Home");
         }

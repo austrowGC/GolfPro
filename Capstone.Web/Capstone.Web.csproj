@@ -172,6 +172,8 @@
     <Content Include="Views\Shared\_NavAuth.cshtml" />
     <Content Include="Views\Shared\_NavAnon.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Splash.cshtml" />
+    <Content Include="Views\Shared\_Dashboard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
