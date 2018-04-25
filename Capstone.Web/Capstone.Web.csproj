@@ -137,22 +137,18 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="DALs\AdminSqlDalImp.cs" />
-    <Compile Include="DALs\Interfaces\AdminSqlDal.cs" />
-    <Compile Include="DALs\Interfaces\UserSqlDal.cs" />
-    <Compile Include="DALs\UserSqlDalImp.cs" />
+    <Compile Include="DALs\GolfSqlDal.cs" />
+    <Compile Include="DALs\Implementation\GolfSqlDalImp.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\ViewModels\Leaderboard.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Invitation.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\Match.cs" />
-    <Compile Include="Models\Player.cs" />
     <Compile Include="Models\PlayerRound.cs" />
     <Compile Include="Models\ViewModels\Login.cs" />
     <Compile Include="Models\ViewModels\Registration.cs" />

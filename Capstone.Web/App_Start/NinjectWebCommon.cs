@@ -11,7 +11,7 @@ namespace Capstone.Web.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using DALs;
-    using DALs.Interfaces;
+    using DALs.Implementation;
     using System.Configuration;
 
     public static class NinjectWebCommon 
@@ -64,8 +64,7 @@ namespace Capstone.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<AdminSqlDal>().To<AdminSqlDalImp>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["golfdb"].ConnectionString);
-            kernel.Bind<UserSqlDal>().To<UserSqlDalImp>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["golfdb"].ConnectionString);
+            kernel.Bind<GolfSqlDal>().To<GolfSqlDalImp>().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["golfdb"].ConnectionString);
         }
     }
 }
