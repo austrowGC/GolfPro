@@ -74,6 +74,7 @@ ALTER TABLE [leagues] CHECK CONSTRAINT [FK_users_id]
 CREATE TABLE [matches](
 	[id] [int] IDENTITY NOT NULL,
 	[date] [datetime] NOT NULL,
+	[playerCount] [int] NOT NULL
  CONSTRAINT [PK_matches] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC

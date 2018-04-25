@@ -9,7 +9,7 @@ namespace Capstone.Web.Models
     public class Match
     {
         public int ID { get; set; }
-        public List<Player> Players { get; set; }
+        public List<User> Users { get; set; }
         public DateTime ReservationDate { get; set; }
         public DateTime ReservationTime { get; set; }
         public Course Course { get; set; }

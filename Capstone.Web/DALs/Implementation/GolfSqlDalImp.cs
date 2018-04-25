@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using Capstone.Web.DALs.Interfaces;
 using Capstone.Web.Models;
 
-namespace Capstone.Web.DALs
+namespace Capstone.Web.DALs.Implementation
 {
-    public class AdminSqlDalImp : AdminSqlDal
+    public class GolfSqlDalImp : GolfSqlDal
     {
+        private readonly string getUserModelSql = @"select id, firstname, lastname, username from users";
+
         private readonly string connectionString;
-        public AdminSqlDalImp(string connectionString)
+
+        public GolfSqlDalImp(string connectionString)
         {
             this.connectionString = connectionString;
         }
-
         public bool AddNewCourse(Course course)
         {
             bool isSuccessful = true;
@@ -45,6 +46,30 @@ namespace Capstone.Web.DALs
             }
 
             return isSuccessful;
+        }
+
+
+        public bool CheckUsername(User user)
+        {
+            string getUsernameSql = @"select id from users where username = @username";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(getUsernameSql, conn);
+                cmd.Parameters.AddWithValue("@username", user.Username);
+
+            }
+                return false;
+        }
+
+        public bool CreateMatch(Match match)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RegisterUser(User user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

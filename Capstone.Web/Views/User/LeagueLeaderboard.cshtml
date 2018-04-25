@@ -5,23 +5,23 @@
     <table>
         <th>Golfer Name</th>
         <tr>
-            @foreach (Player player in Model.Players)
+            @foreach (User user in Model.Users)
             {
-                @player.FirstName @player.LastName;
+                @user.FirstName @user.LastName;
             }
         </tr>
         <th>Username</th>
         <tr>
-            @foreach (Player player in Model.Players)
+            @foreach (User user in Model.Users)
             {
-                @player.Username;
+                @user.Username;
             }
         </tr>
         <th>Average Score</th>
         <tr>
-            @foreach (Player player in Model.Players)
+            @foreach (User user in Model.Users)
             {
-                @((player.TotalStrokes / player.NumberofHoles) * 18);
+                @((user.TotalStrokes / user.NumberofHoles) * 18);
             }
         </tr>
     </table>
