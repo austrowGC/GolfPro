@@ -163,15 +163,16 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Admin\AddNewCourse.cshtml" />
-    <Content Include="Views\User\Registration.cshtml" />
-    <Content Include="Views\User\Login.cshtml" />
-    <Content Include="Views\User\LeagueLeaderboard.cshtml" />
-    <Content Include="Views\User\CreateMatch.cshtml" />
-    <Content Include="Views\User\CreateLeague.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Home\Registration.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\LeagueLeaderboard.cshtml" />
+    <Content Include="Views\Home\CreateMatch.cshtml" />
+    <Content Include="Views\Home\CreateLeague.cshtml" />
     <Content Include="Views\Shared\_NavAuth.cshtml" />
     <Content Include="Views\Shared\_NavAnon.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Splash.cshtml" />
+    <Content Include="Views\Shared\_Dashboard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

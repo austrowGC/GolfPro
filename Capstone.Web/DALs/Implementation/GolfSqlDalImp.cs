@@ -49,17 +49,23 @@ namespace Capstone.Web.DALs.Implementation
         }
 
 
-        public bool CheckUsername(User user)
+        public User GetUsername(string username)
         {
-            string getUsernameSql = @"select id from users where username = @username";
+            User user = new User();
+            string getUsernameSql = @"select id, username, firstname, lastname from users where username = @username";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(getUsernameSql, conn);
-                cmd.Parameters.AddWithValue("@username", user.Username);
-
+                cmd.Parameters.AddWithValue("@username", username);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    AssembleUser(reader);
+                }
+                conn.Close();
             }
-                return false;
+            return user;
         }
 
         public bool CreateMatch(Match match)
@@ -67,9 +73,22 @@ namespace Capstone.Web.DALs.Implementation
             throw new NotImplementedException();
         }
 
-        public bool RegisterUser(User user)
+        public bool SaveUser(User user)
         {
             throw new NotImplementedException();
+        }
+
+        private User AssembleUser(SqlDataReader reader)
+        {
+            User user = new User()
+            {
+                Id = Convert.ToInt32(reader["Id"]),
+                Username = Convert.ToString(reader["Username"]),
+                FirstName = Convert.ToString(reader["Firstname"]),
+                LastName = Convert.ToString(reader["Lastname"]),
+            };
+
+            return user;
         }
     }
 }
