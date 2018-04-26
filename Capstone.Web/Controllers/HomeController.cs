@@ -50,7 +50,7 @@ namespace Capstone.Web.Controllers
             }
             else
             {
-                return PartialView("_Dashboard");
+                return null;
             }
         }
         [ChildActionOnly]
@@ -140,19 +140,6 @@ namespace Capstone.Web.Controllers
             return View("LeagueLeaderBoard");
         }
 
-        //public ActionResult _DashBoard(User model)
-        //{
-        //    if (Session == null)
-        //    {
-        //        return View("Index");
-        //    }
-        //    else
-        //    {
-        //        model.Username = Session[SessionKeys.Username].ToString();
-        //        return View("_Dashboard", model.Username);
-        //    }
-        //}
-
         [HttpPost]
         public ActionResult CreateMatch(Match match)
         {
@@ -208,8 +195,6 @@ namespace Capstone.Web.Controllers
             }
 
             return RedirectToAction("Index", "Home");
-
         }
-
     }
 }
