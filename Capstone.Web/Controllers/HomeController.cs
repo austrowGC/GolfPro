@@ -140,12 +140,44 @@ namespace Capstone.Web.Controllers
             return View("AddNewCourse");
         }
 
+        public enum MessageType
+        {
+            Success,
+            Warning,
+            Error
+        }
+
+        public const string SUCCESS_MESSAGE_KEY = "postSuccessMessage.Text";
+        public const string SUCCESS_MESSAGE_TYPE_KEY = "postSuccessMessage.Type";
+
+
+        protected void SetMessage(string text, MessageType type = MessageType.Success)
+        {
+            TempData[SUCCESS_MESSAGE_KEY] = text;
+            TempData[SUCCESS_MESSAGE_TYPE_KEY] = type;
+        }
+
         [HttpPost]
         public ActionResult AddNewCourse(Course course)
         {
             dal.AddNewCourse(course);
 
+            //Check that it was successfully added
+            bool isSuccessful = true;
+
+            //If successful:
+
+            if (isSuccessful)
+            {
+                SetMessage("Course has been successfully added!", MessageType.Success);
+            }
+            else
+            {
+                SetMessage("There was an error adding your course!", MessageType.Error);
+            }
+
             return RedirectToAction("Index", "Home");
+
         }
 
     }

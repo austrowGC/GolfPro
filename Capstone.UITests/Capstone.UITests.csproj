@@ -93,6 +93,12 @@
     <Folder Include="Features\" />
     <Folder Include="StepDefinitions\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Capstone.Web\Capstone.Web.csproj">
+      <Project>{eb84d678-4bd1-4585-a956-7079bbb6caa6}</Project>
+      <Name>Capstone.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

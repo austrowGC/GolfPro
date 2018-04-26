@@ -13,7 +13,7 @@ namespace Capstone.Web.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public bool IsAdministrator { get; set; }
-        public int NumberofHoles { get; set; }
+        public int NumberOfHoles { get; set; }
         public int TotalStrokes { get; set; }
     }
 }
