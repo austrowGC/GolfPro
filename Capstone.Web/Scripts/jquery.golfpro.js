@@ -5,7 +5,7 @@
 	$("nav ul li").addClass("nav-item")
 
 	$("form").parent("div").addClass("container-fluid")
-	$("form div").addClass("form-group")
+	$("form").children().addClass("form-group")
 	$("form button:last-child").addClass("btn btn-primary")
     $("span.field-validation-error").addClass("error")
 });
