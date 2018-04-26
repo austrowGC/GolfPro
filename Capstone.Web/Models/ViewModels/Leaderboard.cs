@@ -9,6 +9,7 @@ namespace Capstone.Web.Models
     {
         public string LeagueName { get; set; }
         public List<User> Users { get; set; }
+        public Course Course { get; set; }
         
     }
 }
