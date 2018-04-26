@@ -71,6 +71,7 @@ namespace Capstone.Web.Controllers
             User user = dal.VerifyLogin(model);
             if(user == null)
             {
+                ModelState.AddModelError("invalid-credentials", "Invalid login credentials YOU FUkc boi cuck");
                 return View("Login", model);
             }
             Session[SessionKeys.Username] = model.Username;

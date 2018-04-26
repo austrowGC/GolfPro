@@ -123,9 +123,10 @@ namespace Capstone.Web.DALs.Implementation
             return isSuccessful;
         }
 
-        public void SaveUser(User user)
+        public bool SaveUser(User user)
         {
             string saveUserSql = @"insert into users (firstname, lastname, username, password) values (@firstname, @lastname, @username, @password);";
+            return false;
         }
 
         private User AssembleUser(SqlDataReader reader)

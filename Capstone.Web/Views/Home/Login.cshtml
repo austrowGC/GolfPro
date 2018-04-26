@@ -7,10 +7,12 @@
 
     <h2>Login</h2>
 
-    @using (Html.BeginForm("PostUserLogin", "User", FormMethod.Post))
+    @using (Html.BeginForm("PostUserLogin", "Home", FormMethod.Post))
     {
+        <div>
+            
         @Html.ValidationMessage("invalid-credentials")
-
+        </div>
         <div>
             @Html.TextBoxFor(m => m.Username, new { placeholder = "username" })
             @Html.ValidationMessageFor(m => m.Username)
