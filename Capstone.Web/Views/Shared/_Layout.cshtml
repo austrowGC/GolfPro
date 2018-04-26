@@ -20,7 +20,11 @@
     <nav>
         <ul>
             <li>@Html.ActionLink("Leaderboards", "LeagueLeaderBoard", "Home")</li>
+
+            @Html.Action("Navigation", "Home")
+
             @Html.Action("Navigation")
+
         </ul>
     </nav>
     <main>
