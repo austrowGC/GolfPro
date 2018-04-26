@@ -51,7 +51,7 @@ namespace Capstone.Web.DALs.Implementation
 
 
    
-        public bool CheckUsername(User user)
+        //public bool CheckUsername(User user)
 
         public User VerifyLogin(Login model)
         {
@@ -94,34 +94,34 @@ namespace Capstone.Web.DALs.Implementation
             return user;
         }
 
-        //public bool CreateMatch(Match match)
-        //{
-        //    bool isSuccessful = true;
+        public bool CreateMatch(Match match)
+        {
+            bool isSuccessful = true;
 
-        //    string SQL_CreateMatch = @"Insert into matches (date, numOfPlayers) 
-        //    values (@date, @numOfPlayers)";
-        //    try
-        //    {
-        //        using (SqlConnection conn = new SqlConnection(connectionString))
-        //        {
-        //            conn.Open();
+            string SQL_CreateMatch = @"Insert into matches (date, numOfPlayers) 
+            values (@date, @numOfPlayers)";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
 
-        //            SqlCommand cmd = new SqlCommand(SQL_CreateMatch, conn);
+                    SqlCommand cmd = new SqlCommand(SQL_CreateMatch, conn);
 
-        //            cmd.Parameters.Add(new SqlParameter("@name", match.Reservation));
-        //            cmd.Parameters.Add(new SqlParameter("@numOfPlayers", match.NumberOfPlayers));
-        //            cmd.ExecuteNonQuery();
-        //        }
-        //    }
+                    cmd.Parameters.Add(new SqlParameter("@name", match.Reservation));
+                    cmd.Parameters.Add(new SqlParameter("@numOfPlayers", match.NumberOfPlayers));
+                    cmd.ExecuteNonQuery();
+                }
+            }
 
-        //    catch (SqlException e)
-        //    {
-        //        Console.WriteLine(e.Message);
-        //        isSuccessful = false;
-        //    }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+                isSuccessful = false;
+            }
 
-        //    return isSuccessful;
-        //}
+            return isSuccessful;
+        }
 
         public void SaveUser(User user)
         {
