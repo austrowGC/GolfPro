@@ -48,7 +48,7 @@ CREATE TABLE [courses](
 CREATE TABLE [leagues](
 	[id] [int] IDENTITY NOT NULL,
 	[name] [varchar](64) NOT NULL,
-	[adminId] [int] NOT NULL,
+	[organizerId] [int] NOT NULL,
 	[courseId] [int] NOT NULL,
  CONSTRAINT [PK_leagues] PRIMARY KEY CLUSTERED 
 (
