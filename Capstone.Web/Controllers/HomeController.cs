@@ -71,7 +71,7 @@ namespace Capstone.Web.Controllers
             User user = dal.VerifyLogin(model);
             if(user == null)
             {
-                ModelState.AddModelError("invalid-credentials", "Invalid login credentials YOU FUkc boi cuck");
+                ModelState.AddModelError("invalid-credentials", "Invalid login credentials");
                 return View("Login", model);
             }
             Session[SessionKeys.Username] = model.Username;
@@ -125,7 +125,7 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult CreateMatch(Match match)
         {
-            _dal.CreateMatch(match);
+            dal.CreateMatch(match);
 
             return RedirectToAction("Index", "Home");
         }

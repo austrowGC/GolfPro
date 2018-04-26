@@ -51,7 +51,7 @@ namespace Capstone.Web.DALs.Implementation
 
 
    
-        public bool CheckUsername(User user)
+        
 
         public User VerifyLogin(Login model)
         {
@@ -125,8 +125,24 @@ namespace Capstone.Web.DALs.Implementation
 
         public bool SaveUser(User user)
         {
+            bool registrationSuccess = false;
             string saveUserSql = @"insert into users (firstname, lastname, username, password) values (@firstname, @lastname, @username, @password);";
-            return false;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(saveUserSql, conn);
+                cmd.Parameters.AddWithValue("@firstname", user.FirstName);
+                cmd.Parameters.AddWithValue("@lastname", user.LastName);
+                cmd.Parameters.AddWithValue("@username", user.Username);
+                cmd.Parameters.AddWithValue("@password", user.Password);
+                int affectedRows = cmd.ExecuteNonQuery();
+                if(affectedRows == 1)
+                {
+                    registrationSuccess = true;
+                }
+                conn.Close();
+            }
+            return registrationSuccess;
         }
 
         private User AssembleUser(SqlDataReader reader)
