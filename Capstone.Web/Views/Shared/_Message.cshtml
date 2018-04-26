@@ -1,0 +1,22 @@
+﻿@using Capstone.Web.Controllers;
+
+@{
+    string cssClass = "";
+    if (TempData[HomeController.SUCCESS_MESSAGE_TYPE_KEY] != null)
+    {
+        HomeController.MessageType type = (HomeController.MessageType)TempData[HomeController.SUCCESS_MESSAGE_TYPE_KEY];
+
+        if (type == HomeController.MessageType.Error)
+        {
+            cssClass = "danger";
+        }
+        else
+        {
+            cssClass = type.ToString().ToLower();
+        }
+    }
+}
+
+
+@*<h3 class="label label-@cssClass">@TempData[BaseController.SUCCESS_MESSAGE_KEY]</h3>*@
+<h3 style="background-color:lawngreen;text-align:center">@TempData[HomeController.SUCCESS_MESSAGE_KEY]</h3>
