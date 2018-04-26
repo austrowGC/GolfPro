@@ -53,7 +53,7 @@ namespace Capstone.Web.DALs.Implementation
         {
             User user = null;
 
-            string VerifyLoginSql = @"select id, username, firstname, lastname from users where (username = @username) AND (password = @password);";
+            string VerifyLoginSql = @"select id, username, firstname, lastname, isadmin from users where (username = @username) AND (password = @password);";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -74,7 +74,7 @@ namespace Capstone.Web.DALs.Implementation
 
         {
             User user = null;
-            string getUsernameSql = @"select id, username, firstname, lastname from users where username = @username;";
+            string getUsernameSql = @"select id, username, firstname, lastname, isadmin from users where username = @username;";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -149,7 +149,13 @@ namespace Capstone.Web.DALs.Implementation
                 Username = Convert.ToString(reader["username"]),
                 FirstName = Convert.ToString(reader["firstname"]),
                 LastName = Convert.ToString(reader["lastname"]),
+                IsAdministrator = false
             };
+
+            if (Convert.ToInt32(reader["isadmin"]) == 1)
+            {
+                user.IsAdministrator = true;
+            }
 
             return user;
         }

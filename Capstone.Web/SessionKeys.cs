@@ -10,5 +10,6 @@ namespace Capstone.Web
         public static string Username = "Username";
         public static string UserId = "Id";
         public static string User = "User";
+        public static string IsAdmin = "IsAdmin";
     }
 }

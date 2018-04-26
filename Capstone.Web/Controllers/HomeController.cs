@@ -42,6 +42,18 @@ namespace Capstone.Web.Controllers
             }
         }
         [ChildActionOnly]
+        public ActionResult NavAdmin()
+        {
+            if ((bool)Session[SessionKeys.IsAdmin])
+            {
+                return PartialView("_NavAdmin");
+            }
+            else
+            {
+                return PartialView("_Dashboard");
+            }
+        }
+        [ChildActionOnly]
         public ActionResult Content()
         {
             if (Session[SessionKeys.Username] == null)
@@ -53,6 +65,7 @@ namespace Capstone.Web.Controllers
                 return PartialView("_Dashboard");
             }
         }
+
         public ActionResult Logout()
         {
             Session.Abandon();
@@ -79,6 +92,7 @@ namespace Capstone.Web.Controllers
                 return View("Login", model);
             }
             Session[SessionKeys.Username] = model.Username;
+            Session[SessionKeys.IsAdmin] = user.IsAdministrator;
 
             return RedirectToAction("Index");
         }
@@ -125,6 +139,19 @@ namespace Capstone.Web.Controllers
         {
             return View("LeagueLeaderBoard");
         }
+
+        //public ActionResult _DashBoard(User model)
+        //{
+        //    if (Session == null)
+        //    {
+        //        return View("Index");
+        //    }
+        //    else
+        //    {
+        //        model.Username = Session[SessionKeys.Username].ToString();
+        //        return View("_Dashboard", model.Username);
+        //    }
+        //}
 
         [HttpPost]
         public ActionResult CreateMatch(Match match)
