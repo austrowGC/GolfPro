@@ -53,7 +53,11 @@ namespace Capstone.Web.Controllers
                 return PartialView("_Dashboard");
             }
         }
-
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index");
+        }
 
         public ActionResult Login()
         {
