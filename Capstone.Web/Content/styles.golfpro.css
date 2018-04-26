@@ -1,0 +1,9 @@
+﻿.form-group span.error {
+    color: orangered;
+}
+
+div.container-fluid {
+    padding-bottom: 15px;
+    border: 4px groove #337ab7;
+}
+    

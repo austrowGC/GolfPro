@@ -3,26 +3,16 @@
 
 <div class="main">
     <table>
-        <th>Golfer Name</th>
+        @foreach (User user in Model.Users)
+        {
         <tr>
-            @foreach (User user in Model.Users)
-            {
-                @user.FirstName @user.LastName;
-            }
+            <th>Golfer Name</th>
+            <td>gggg@*@user.FirstName @user.LastName*@</td>
+            <th>Golfer Username</th>
+            <td>gggg@*@user.Username*@</td>
+            <th>Average Score</th>
+            <td>gggg@*@((user.TotalStrokes / user.NumberOfHoles) * 18)*@</td>
         </tr>
-        <th>Username</th>
-        <tr>
-            @foreach (User user in Model.Users)
-            {
-                @user.Username;
-            }
-        </tr>
-        <th>Average Score</th>
-        <tr>
-            @foreach (User user in Model.Users)
-            {
-                @((user.TotalStrokes / user.NumberofHoles) * 18);
-            }
-        </tr>
-    </table>
-</div>
+        }
+        </table>
+    </div>
