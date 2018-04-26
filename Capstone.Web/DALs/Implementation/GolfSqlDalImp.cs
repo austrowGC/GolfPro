@@ -49,6 +49,37 @@ namespace Capstone.Web.DALs.Implementation
             return isSuccessful;
         }
 
+        public List<Course> GetAllCourses()
+        {
+            var list = new List<Course>();
+
+            string sql = "SELECT * FROM courses ORDER BY name ASC;";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+
+                SqlDataReader r = cmd.ExecuteReader();
+
+                while (r.Read())
+                {
+                    Course c = new Course()
+                    {
+
+                        Name = Convert.ToString(r["name"]),
+                        Par = Convert.ToInt32(r["par"]),
+                        NumberOfHoles = Convert.ToInt32(r["holeCount"]),
+                        LengthInYards = Convert.ToInt32(r["totalLengthYards"]),
+
+                    };
+
+                    list.Add(c);
+                }
+            }
+            return list;
+        }
+
         public User VerifyLogin(Login model)
         {
             User user = null;
