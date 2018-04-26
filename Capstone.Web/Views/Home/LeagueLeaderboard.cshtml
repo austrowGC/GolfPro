@@ -3,16 +3,18 @@
 
 <div class="main">
     <table>
-        @foreach (User user in Model.Users)
-        {
         <tr>
-            <th>Golfer Name</th>
-            <td>gggg@*@user.FirstName @user.LastName*@</td>
-            <th>Golfer Username</th>
-            <td>gggg@*@user.Username*@</td>
+            <th>Name</th>
+            <th>Username</th>
             <th>Average Score</th>
-            <td>gggg@*@((user.TotalStrokes / user.NumberOfHoles) * 18)*@</td>
         </tr>
-        }
-        </table>
-    </div>
+        @*@foreach(User user in Model.Users)
+        {
+            <tr>
+                <td>@user.FirstName @user.LastName</td>
+                <td>@user.Username</td>
+                <td>@((user.TotalStrokes / ((user.NumberOfMatches * Model.Course.NumberOfHoles) * 18)))</td>
+            </tr>
+        }*@
+    </table>
+</div>
