@@ -151,6 +151,11 @@ namespace Capstone.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult CreateLeague()
+        {
+            List < Course > courseList = dal.GetAllCourses();
+            return View("CreateLeague", courseList);
+        }
 
         public ActionResult AddNewCourse()
         {
