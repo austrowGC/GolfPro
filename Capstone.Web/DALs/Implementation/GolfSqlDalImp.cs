@@ -119,7 +119,7 @@ namespace Capstone.Web.DALs.Implementation
         public User GetUsername(string username)
         {
             User user = null;
-            string getUsernameSql = @"select id, username, firstname, lastname, isadmin from users where username = @username;";
+            string getUsernameSql = @"select id, username, firstname, lastname, password, isadmin, salt from users where username = @username;";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -196,7 +196,7 @@ namespace Capstone.Web.DALs.Implementation
 
         {
             List<User> users = new List<User>();
-            string getUsernameSql = @"select users.firstName, users.lastName, users.userName, users.isadmin 
+            string getUsernameSql = @"select users.firstName, users.lastName, users.userName, users.password, users.isadmin 
                                       from users 
                                       join users_leagues on users_leagues.userId = users.id
                                       join leagues on leagues.id = users_leagues.leagueId
