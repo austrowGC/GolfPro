@@ -13,15 +13,14 @@ namespace Capstone.Web.DALs
     {
         bool CreateMatch(Match match);
         //bool CreateLeague(League league);
-        bool SaveUser(User user);
+        bool SaveUser(Registration model);
         User GetUsername(string username);
         bool AddNewCourse(Course course);
         User VerifyLogin(Login model);
-        Leaderboard GetLeaderboard(Course course, User user);
         List<Course> GetAllCourses();
 
         //Leaderboard GetLeaderboard(Course course, User user);
-        List<Course> GetAllCourses();
+
 
     }
 }

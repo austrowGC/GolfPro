@@ -128,7 +128,7 @@ namespace Capstone.Web.Controllers
             else
             {
                 dal.SaveUser(model);
-                User user = dal.GetUser(model.UserName);
+                User user = dal.GetUsername(model.UserName);
                 Session[SessionKeys.Username] = user.Username;
                 Session[SessionKeys.IsAdmin] = user.IsAdministrator;
             }
