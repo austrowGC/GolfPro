@@ -20,5 +20,8 @@ namespace Capstone.Web.DALs
         Leaderboard GetLeaderboard(Course course, User user);
         List<Course> GetAllCourses();
 
+        //Leaderboard GetLeaderboard(Course course, User user);
+        List<Course> GetAllCourses();
+
     }
 }

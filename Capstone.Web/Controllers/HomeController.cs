@@ -54,6 +54,7 @@ namespace Capstone.Web.Controllers
             {
                 return null;
             }
+
         }
         [ChildActionOnly]
         public ActionResult Content()
@@ -92,7 +93,8 @@ namespace Capstone.Web.Controllers
                 ModelState.AddModelError("invalid-credentials", "Invalid login credentials");
                 return View("Login", model);
             }
-            Session[SessionKeys.Username] = model.Username;
+            Session[SessionKeys.Username] = user.Username;
+            Session[SessionKeys.IsAdmin] = user.IsAdministrator;
 
             return RedirectToAction("Index");
         }
