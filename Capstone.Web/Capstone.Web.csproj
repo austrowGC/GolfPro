@@ -110,6 +110,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\checkered-flag-golf-579311.jpg" />
+    <Content Include="Content\images\true.jpg" />
     <Content Include="Content\styles.golfpro.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
