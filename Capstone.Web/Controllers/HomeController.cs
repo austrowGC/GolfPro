@@ -65,7 +65,14 @@ namespace Capstone.Web.Controllers
             }
             else
             {
-                return PartialView("_Dashboard");
+                List<Course> courseList = dal.GetAllCourses();
+                User user = dal.GetUsername(Session[SessionKeys.Username].ToString());
+                Dashboard dashObject = new Dashboard
+                {
+                    user = user,
+                    courses = courseList
+                };
+                return PartialView("_Dashboard", dashObject);
             }
         }
         public ActionResult Logout()
@@ -121,7 +128,7 @@ namespace Capstone.Web.Controllers
             else
             {
                 dal.SaveUser(model);
-                User user = dal.GetUser(model.UserName);
+                User user = dal.GetUsername(model.UserName);
                 Session[SessionKeys.Username] = user.Username;
                 Session[SessionKeys.IsAdmin] = user.IsAdministrator;
             }
@@ -144,6 +151,11 @@ namespace Capstone.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult CreateLeague()
+        {
+            List < Course > courseList = dal.GetAllCourses();
+            return View("CreateLeague", courseList);
+        }
 
         public ActionResult AddNewCourse()
         {

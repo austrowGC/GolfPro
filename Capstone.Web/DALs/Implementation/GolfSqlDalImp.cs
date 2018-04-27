@@ -106,7 +106,7 @@ namespace Capstone.Web.DALs.Implementation
 
         public User VerifyLogin(Login model)
         {
-            User user = GetUser(model.Username);            
+            User user = GetUser(model.Username);
             Authenticator auth = new Authenticator(user.Salt, user.Password);
             if (auth.AssertValidPassword(model.Password) == false)
             {
@@ -119,7 +119,7 @@ namespace Capstone.Web.DALs.Implementation
         public User GetUsername(string username)
         {
             User user = null;
-            string getUsernameSql = @"select id, username, firstname, lastname, isadmin from users where username = @username;";
+            string getUsernameSql = @"select id, username, firstname, lastname, password, isadmin, salt from users where username = @username;";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -182,7 +182,7 @@ namespace Capstone.Web.DALs.Implementation
                 cmd.Parameters.AddWithValue("@salt", auth.Salt);
 
                 int affectedRows = cmd.ExecuteNonQuery();
-                if(affectedRows == 1)
+                if (affectedRows == 1)
                 {
                     registrationSuccess = true;
                 }
@@ -196,7 +196,7 @@ namespace Capstone.Web.DALs.Implementation
 
         {
             List<User> users = new List<User>();
-            string getUsernameSql = @"select users.firstName, users.lastName, users.userName, users.isadmin 
+            string getUsernameSql = @"select users.firstName, users.lastName, users.userName, users.password, users.isadmin 
                                       from users 
                                       join users_leagues on users_leagues.userId = users.id
                                       join leagues on leagues.id = users_leagues.leagueId
@@ -298,7 +298,7 @@ namespace Capstone.Web.DALs.Implementation
             public bool AssertValidPassword(string password)
             {
                 byte[] saltBytes = Convert.FromBase64String(this.Salt);
-                
+
                 Rfc2898DeriveBytes rfc = new Rfc2898DeriveBytes(password, saltBytes, iterations);
 
                 string hash = Convert.ToBase64String(rfc.GetBytes(length));

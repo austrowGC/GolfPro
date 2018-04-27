@@ -12,15 +12,15 @@ namespace Capstone.Web.DALs
     public interface GolfSqlDal
     {
         bool CreateMatch(Match match);
-        User GetUser(string username);
-        bool SaveUser(Registration model);
         //bool CreateLeague(League league);
+        bool SaveUser(Registration model);
         User GetUsername(string username);
         bool AddNewCourse(Course course);
         User VerifyLogin(Login model);
+        List<Course> GetAllCourses();
 
         //Leaderboard GetLeaderboard(Course course, User user);
-        List<Course> GetAllCourses();
+
 
     }
 }
