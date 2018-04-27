@@ -1,6 +1,9 @@
 ﻿@using Capstone.Web.Models
 
-@model User
+@model Dashboard
+    @{ 
+        int counter = 1;
+    }
 
 <head>
 
@@ -31,10 +34,25 @@
     <ul>
         <li> Create League </li>
         <li> View Your Leagues </li>
-        <li> Search Courses </li>
 
     </ul>
 
+
+</div>
+
+<div>
+    
+@foreach (Course c in Model.courses)
+{
+    
+    <p>Course @counter) @c.Name</p>
+    <p>There are @c.NumberOfHoles holes in @c.Name</p>
+    <p>@c.Par is the par for the course</p>
+    <p>The total length of the course is @c.LengthInYards yards</p>
+
+    counter += 1;
+
+}
 
 </div>
 

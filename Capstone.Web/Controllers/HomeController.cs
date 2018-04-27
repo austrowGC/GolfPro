@@ -42,6 +42,21 @@ namespace Capstone.Web.Controllers
             }
         }
         [ChildActionOnly]
+<<<<<<< HEAD
+=======
+        public ActionResult NavAdmin()
+        {
+            if ((bool)Session[SessionKeys.IsAdmin])
+            {
+                return PartialView("_NavAdmin");
+            }
+            else
+            {
+                return null;
+            }
+        }
+        [ChildActionOnly]
+>>>>>>> 6c9cfb4b7d5cf6ea7e269287d278d9c64f4f308f
         public ActionResult Content()
         {
             if (Session[SessionKeys.Username] == null)
@@ -50,7 +65,14 @@ namespace Capstone.Web.Controllers
             }
             else
             {
-                return PartialView("_Dashboard");
+                List<Course> courseList = dal.GetAllCourses();
+                User user = dal.GetUsername(Session[SessionKeys.Username].ToString());
+                Dashboard dashObject = new Dashboard
+                {
+                    user = user,
+                    courses = courseList
+                };
+                return PartialView("_Dashboard", dashObject);
             }
         }
         public ActionResult Logout()
@@ -181,10 +203,7 @@ namespace Capstone.Web.Controllers
             {
                 SetMessage("There was an error adding your course!", MessageType.Error);
             }
-
             return RedirectToAction("Index", "Home");
-
         }
-
     }
 }
