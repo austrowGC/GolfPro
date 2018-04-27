@@ -62,7 +62,14 @@ namespace Capstone.Web.Controllers
             }
             else
             {
-                return PartialView("_Dashboard");
+                List<Course> courseList = dal.GetAllCourses();
+                User user = dal.GetUsername(Session[SessionKeys.Username].ToString());
+                Dashboard dashObject = new Dashboard
+                {
+                    user = user,
+                    courses = courseList
+                };
+                return PartialView("_Dashboard", dashObject);
             }
         }
 
