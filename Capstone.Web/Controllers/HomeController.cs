@@ -1,13 +1,15 @@
 ﻿
 using Capstone.Web.Models;
 using Capstone.Web.Models.ViewModels;
+using Capstone.Web.DALs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using Capstone.Web.DALs;
+using System.Security.Cryptography;
+
 
 namespace Capstone.Web.Controllers
 {
@@ -97,25 +99,16 @@ namespace Capstone.Web.Controllers
                 return View("Registration", model);
             }
 
-            User user = dal.GetUsername(model.UserName);
-            if (user != null)
+            if (dal.GetUsername(model.UserName) != null)
             {
                 ModelState.AddModelError("username-exists", "Username unavailable");
                 return View("Registration", model);
             }
             else
             {
-                user = new User()
-                {
-                    Username = model.UserName,
-                    Password = model.Password,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName
-                };
-
-                dal.SaveUser(user);
+                dal.SaveUser(model);
+                User user = dal.GetUser(model.UserName);
                 Session[SessionKeys.Username] = user.Username;
-                Session[SessionKeys.UserId] = user.Id;
             }
 
             return RedirectToAction("Index");

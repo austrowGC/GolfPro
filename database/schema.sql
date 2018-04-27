@@ -16,7 +16,8 @@ CREATE TABLE [users](
 	[lastName] [varchar](64) NOT NULL,
 	[userName] [varchar](64) NOT NULL,
 	[password] [varchar](max) NOT NULL,
-	[isAdmin] [bit] NOT NULL,
+	[salt] [varchar](max) NOT NULL,
+	[isAdmin] [bit] NOT NULL
  CONSTRAINT [PK_users] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
@@ -64,7 +65,7 @@ REFERENCES [courses] ([id])
 ALTER TABLE [leagues] CHECK CONSTRAINT [FK_courses_id]
 
 
-ALTER TABLE [leagues]  WITH CHECK ADD  CONSTRAINT [FK_users_id] FOREIGN KEY([adminId])
+ALTER TABLE [leagues]  WITH CHECK ADD  CONSTRAINT [FK_users_id] FOREIGN KEY([organizerId])
 REFERENCES [users] ([id])
 
 
@@ -124,7 +125,7 @@ ALTER TABLE [leagues_matches] CHECK CONSTRAINT [FK_matches_leagues_id]
 
 CREATE TABLE [users_matches](
 	[userId] [int] NOT NULL,
-	[matcheId] [int] NOT NULL,
+	[matchId] [int] NOT NULL,
 	[score] [int] NOT NULL
 ) ON [PRIMARY]
 
@@ -136,7 +137,7 @@ REFERENCES [users] ([id])
 ALTER TABLE [users_matches] CHECK CONSTRAINT [FK_matches_users_id]
 
 
-ALTER TABLE [users_matches]  WITH CHECK ADD  CONSTRAINT [FK_users_matches_id] FOREIGN KEY([matcheId])
+ALTER TABLE [users_matches]  WITH CHECK ADD  CONSTRAINT [FK_users_matches_id] FOREIGN KEY([matchId])
 REFERENCES [matches] ([id])
 
 
