@@ -157,7 +157,9 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CreateLeague()
         {
-            return View("CreateLeague");
+            List<Course> courseList = dal.GetAllCourses();
+
+            return View("CreateLeague", courseList);
         }
 
         public ActionResult AddNewCourse()
