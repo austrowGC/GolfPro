@@ -123,6 +123,7 @@ namespace Capstone.Web.Controllers
                 dal.SaveUser(model);
                 User user = dal.GetUser(model.UserName);
                 Session[SessionKeys.Username] = user.Username;
+                Session[SessionKeys.IsAdmin] = user.IsAdministrator;
             }
 
             return RedirectToAction("Index");

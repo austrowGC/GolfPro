@@ -13,7 +13,7 @@ namespace Capstone.Web.DALs.Implementation
 {
     public class GolfSqlDalImp : GolfSqlDal
     {
-        private readonly string getUserModelSql = @"select id, username, firstname, lastname, password, salt from users where (username = @username);";
+        private readonly string getUserModelSql = @"select id, username, firstname, lastname, password, isadmin, salt from users where (username = @username);";
 
         private readonly string connectionString;
 
@@ -53,7 +53,7 @@ namespace Capstone.Web.DALs.Implementation
             return isSuccessful;
         }
 
-<<<<<<< HEAD
+
         public List<Course> GetAllCourses()
         {
             var list = new List<Course>();
@@ -85,16 +85,10 @@ namespace Capstone.Web.DALs.Implementation
             return list;
         }
 
-        public User VerifyLogin(Login model)
-        {
-            User user = null;
-
-            string VerifyLoginSql = @"select id, username, firstname, lastname, isadmin from users where (username = @username) AND (password = @password);";
-=======
         public User GetUser(string username)
         {
             User user = new User();
->>>>>>> 94b0b94a3a159a0721791065b7c6016f3b647cb2
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -202,7 +196,7 @@ namespace Capstone.Web.DALs.Implementation
 
         {
             List<User> users = new List<User>();
-            string getUsernameSql = @"select users.firstName, users.lastName, users.userName 
+            string getUsernameSql = @"select users.firstName, users.lastName, users.userName, users.isadmin 
                                       from users 
                                       join users_leagues on users_leagues.userId = users.id
                                       join leagues on leagues.id = users_leagues.leagueId
