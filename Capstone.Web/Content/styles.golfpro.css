@@ -1,4 +1,14 @@
-﻿.form-group span.error {
+﻿header nav {
+    background: rgba(42, 255, 0, 0.38);
+}
+    nav a{
+        font-size:120%;
+    }
+    nav a:hover{
+        text-decoration: none;
+    }
+
+.form-group span.error {
     color: orangered;
 }
 
