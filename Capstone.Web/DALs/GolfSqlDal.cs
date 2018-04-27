@@ -16,6 +16,7 @@ namespace Capstone.Web.DALs
         User GetUsername(string username);
         bool AddNewCourse(Course course);
         User VerifyLogin(Login model);
+        Leaderboard GetLeaderboard(Course course, User user);
 
     }
 }

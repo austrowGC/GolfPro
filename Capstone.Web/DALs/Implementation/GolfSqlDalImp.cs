@@ -53,7 +53,7 @@ namespace Capstone.Web.DALs.Implementation
         {
             User user = null;
 
-            string VerifyLoginSql = @"select id, username, firstname, lastname, isadmin from users where (username = @username) AND (password = @password);";
+            string VerifyLoginSql = @"select id, username, firstname, lastname from users where (username = @username) AND (password = @password);";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -74,7 +74,7 @@ namespace Capstone.Web.DALs.Implementation
 
         {
             User user = null;
-            string getUsernameSql = @"select id, username, firstname, lastname, isadmin from users where username = @username;";
+            string getUsernameSql = @"select id, username, firstname, lastname from users where username = @username;";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -148,15 +148,37 @@ namespace Capstone.Web.DALs.Implementation
                 Id = Convert.ToInt32(reader["id"]),
                 Username = Convert.ToString(reader["username"]),
                 FirstName = Convert.ToString(reader["firstname"]),
-                LastName = Convert.ToString(reader["lastname"]),
-                IsAdministrator = false
+                LastName = Convert.ToString(reader["lastname"])
             };
 
-            if (Convert.ToInt32(reader["isadmin"]) == 1)
-            {
-                user.IsAdministrator = true;
-            }
+            return user;
+        }
 
+        public Leaderboard GetLeaderboard(Course course, User user)
+        {
+            Leaderboard leaderboard = null;
+            string getLeaderboardSql = @"select users.firstName, users.lastName, users.userName, courses.holeCount,
+                                         count(matches.id) as totalMatches, sum(users_matches.score) as totalStrokes
+                                         from users
+                                         join users_leagues on users_leagues.userId = users.id
+                                         join leagues on leagues.id = users_leagues.leagueId
+                                         join courses on courses.id = leagues.courseId 
+                                         join users_matches on users_matches.userId = users.id
+                                         join matches on matches.id = users_matches.matcheId
+                                         where users.id = 1
+                                         group by users.firstName, users.lastName, users.userName, courses.holeCount";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(getLeaderboardSql, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    user = AssembleUser(reader);
+                }
+                conn.Close();
+            }
             return user;
         }
     }
