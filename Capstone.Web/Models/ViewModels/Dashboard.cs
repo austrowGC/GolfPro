@@ -5,9 +5,10 @@ using System.Web;
 
 namespace Capstone.Web.Models
 {
-    public class Leaderboard
+    public class Dashboard
     {
-        public List<User> Users { get; set; }
+    public List<Course> courses { get; set; }
+    public User user { get; set; }
 
     }
 }

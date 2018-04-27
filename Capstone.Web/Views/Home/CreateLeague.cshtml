@@ -1,5 +1,5 @@
 ﻿@using Capstone.Web.Models;
-@model League
+@model List<Course>
 
 <head>
     @*As a league organizer, I need the ability to set up a "league" 
@@ -8,7 +8,7 @@
 </head>
 
 <div class="main">
-    <form method="post" action="@Url.Action("CreateLeague","User")">
+    <form method="post" action="@Url.Action("CreateLeague","Home")">
         <table>
             <tr>
                 <td class="box">
@@ -25,8 +25,10 @@
                 <td>
                     <select name="Course" required>
                         <option value="">Select</option>
-                        <option value="Course1"> Course 1</option>
-                        <option value="Course2"> Course 2</option>
+                        @foreach (Course c in Model)
+                        {
+                        <option value="@c.ID"> @c.Name </option>
+                        }
                     </select>
                 </td>
             </tr>

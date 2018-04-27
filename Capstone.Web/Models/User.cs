@@ -14,7 +14,8 @@ namespace Capstone.Web.Models
         public string Password { get; set; }
         public string Salt { get; set; }
         public bool IsAdministrator { get; set; }
-        public int NumberOfHoles { get; set; }
+        public int NumberOfMatches { get; set; }
         public int TotalStrokes { get; set; }
+        
     }
 }
