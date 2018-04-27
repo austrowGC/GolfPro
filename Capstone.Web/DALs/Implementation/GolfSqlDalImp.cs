@@ -10,7 +10,11 @@ namespace Capstone.Web.DALs.Implementation
 {
     public class GolfSqlDalImp : GolfSqlDal
     {
+<<<<<<< HEAD
         private readonly string getUserModelSql = @"select id, firstname, lastname, username from users";
+=======
+        private readonly string getUserModelSql = @"select id, username, firstname, lastname, password, isadmin, salt from users where (username = @username);";
+>>>>>>> 371e80bcf124687d387f67978a81740f0620457c
 
         private readonly string connectionString;
 
@@ -50,6 +54,7 @@ namespace Capstone.Web.DALs.Implementation
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         public User VerifyLogin(Login model)
         {
             User user = null;
@@ -57,6 +62,9 @@ namespace Capstone.Web.DALs.Implementation
             string VerifyLoginSql = @"select id, username, firstname, lastname from users where (username = @username) AND (password = @password);";
 =======
 <<<<<<< HEAD
+=======
+
+>>>>>>> 371e80bcf124687d387f67978a81740f0620457c
         public List<Course> GetAllCourses()
         {
             var list = new List<Course>();
@@ -88,17 +96,15 @@ namespace Capstone.Web.DALs.Implementation
             return list;
         }
 
-        public User VerifyLogin(Login model)
-        {
-            User user = null;
-
-            string VerifyLoginSql = @"select id, username, firstname, lastname, isadmin from users where (username = @username) AND (password = @password);";
-=======
         public User GetUser(string username)
         {
             User user = new User();
+<<<<<<< HEAD
 >>>>>>> 94b0b94a3a159a0721791065b7c6016f3b647cb2
 >>>>>>> 8eaffe562d9e761b9e8a3daa1a484af6cb00c5f2
+=======
+
+>>>>>>> 371e80bcf124687d387f67978a81740f0620457c
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -189,7 +195,7 @@ namespace Capstone.Web.DALs.Implementation
 
         {
             List<User> users = new List<User>();
-            string getUsernameSql = @"select users.firstName, users.lastName, users.userName 
+            string getUsernameSql = @"select users.firstName, users.lastName, users.userName, users.isadmin 
                                       from users 
                                       join users_leagues on users_leagues.userId = users.id
                                       join leagues on leagues.id = users_leagues.leagueId
