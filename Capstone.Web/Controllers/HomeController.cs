@@ -42,8 +42,6 @@ namespace Capstone.Web.Controllers
             }
         }
         [ChildActionOnly]
-<<<<<<< HEAD
-=======
         public ActionResult NavAdmin()
         {
             if ((bool)Session[SessionKeys.IsAdmin])
@@ -54,9 +52,9 @@ namespace Capstone.Web.Controllers
             {
                 return null;
             }
+
         }
         [ChildActionOnly]
->>>>>>> 6c9cfb4b7d5cf6ea7e269287d278d9c64f4f308f
         public ActionResult Content()
         {
             if (Session[SessionKeys.Username] == null)
@@ -100,7 +98,8 @@ namespace Capstone.Web.Controllers
                 ModelState.AddModelError("invalid-credentials", "Invalid login credentials");
                 return View("Login", model);
             }
-            Session[SessionKeys.Username] = model.Username;
+            Session[SessionKeys.Username] = user.Username;
+            Session[SessionKeys.IsAdmin] = user.IsAdministrator;
 
             return RedirectToAction("Index");
         }
