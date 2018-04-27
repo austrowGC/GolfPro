@@ -44,8 +44,6 @@ namespace Capstone.Web.Controllers
             }
         }
         [ChildActionOnly]
-<<<<<<< HEAD
-=======
         public ActionResult NavAdmin()
         {
             if ((bool)Session[SessionKeys.IsAdmin])
@@ -58,7 +56,6 @@ namespace Capstone.Web.Controllers
             }
         }
         [ChildActionOnly]
->>>>>>> 6c9cfb4b7d5cf6ea7e269287d278d9c64f4f308f
         public ActionResult Content()
         {
             if (Session[SessionKeys.Username] == null)
@@ -67,14 +64,7 @@ namespace Capstone.Web.Controllers
             }
             else
             {
-                List<Course> courseList = dal.GetAllCourses();
-                User user = dal.GetUsername(Session[SessionKeys.Username].ToString());
-                Dashboard dashObject = new Dashboard
-                {
-                    user = user,
-                    courses = courseList
-                };
-                return PartialView("_Dashboard", dashObject);
+                return PartialView("_Dashboard");
             }
         }
         public ActionResult Logout()
@@ -151,12 +141,6 @@ namespace Capstone.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult CreateLeague()
-        {
-            List<Course> courseList = dal.GetAllCourses();
-
-            return View("CreateLeague", courseList);
-        }
 
         public ActionResult AddNewCourse()
         {

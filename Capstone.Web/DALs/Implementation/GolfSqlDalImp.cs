@@ -184,34 +184,6 @@ namespace Capstone.Web.DALs.Implementation
             return users;
         }
 
-        public Leaderboard GetLeaderboard(string leagueName, string userName)
-        {
-            Leaderboard leaderboard = new Leaderboard();
-            string getLeaderboardSql = @"select users.firstName, users.lastName, users.userName, courses.holeCount,
-                                         count(matches.id) as totalMatches, sum(users_matches.score) as totalStrokes
-                                         from users
-                                         join users_leagues on users_leagues.userId = users.id
-                                         join leagues on leagues.id = users_leagues.leagueId
-                                         join courses on courses.id = leagues.courseId 
-                                         join users_matches on users_matches.userId = users.id
-                                         join matches on matches.id = users_matches.matcheId
-                                         where users.id = 1
-                                         group by users.firstName, users.lastName, users.userName, courses.holeCount";
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(getLeaderboardSql, conn);
-                //cmd.Parameters.AddWithValue("@username", username);
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    leaderboard = AssembleLeaderboard(reader);
-                }
-                conn.Close();
-            }
-
-            return leaderboard;
-        }
 
         private User AssembleUser(SqlDataReader reader)
         {
@@ -241,8 +213,8 @@ namespace Capstone.Web.DALs.Implementation
             public Authenticator(string password)
             {
                 Rfc2898DeriveBytes rfc = new Rfc2898DeriveBytes(password, saltSize, iterations);
-                this.Hash = Convert.ToString(rfc.GetBytes(length));
-                this.Salt = Convert.ToString(rfc.Salt);
+                this.Hash = Convert.ToBase64String(rfc.GetBytes(length));
+                this.Salt = Convert.ToBase64String(rfc.Salt);
             }
 
             public Authenticator(string dbSalt, string dbHash)
@@ -253,11 +225,11 @@ namespace Capstone.Web.DALs.Implementation
 
             public bool AssertValidPassword(string password)
             {
-                byte[] saltBytes = Encoding.UTF8.GetBytes(this.Salt);
+                byte[] saltBytes = Convert.FromBase64String(this.Salt);
                 
                 Rfc2898DeriveBytes rfc = new Rfc2898DeriveBytes(password, saltBytes, iterations);
 
-                string hash = Convert.ToString(rfc.GetBytes(length));
+                string hash = Convert.ToBase64String(rfc.GetBytes(length));
                 return string.Equals(this.Hash, hash);
             }
 
