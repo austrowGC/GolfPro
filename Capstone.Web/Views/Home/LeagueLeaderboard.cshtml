@@ -8,13 +8,13 @@
             <th>Username</th>
             <th>Average Score</th>
         </tr>
-        @*@foreach(User user in Model.Users)
+        @foreach(User user in Model.Users)
         {
             <tr>
                 <td>@user.FirstName @user.LastName</td>
                 <td>@user.Username</td>
                 <td>@((user.TotalStrokes / ((user.NumberOfMatches * Model.Course.NumberOfHoles) * 18)))</td>
             </tr>
-        }*@
+        }
     </table>
 </div>

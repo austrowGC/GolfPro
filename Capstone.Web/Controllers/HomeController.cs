@@ -42,6 +42,8 @@ namespace Capstone.Web.Controllers
             }
         }
         [ChildActionOnly]
+<<<<<<< HEAD
+=======
         public ActionResult NavAdmin()
         {
             if ((bool)Session[SessionKeys.IsAdmin])
@@ -54,6 +56,7 @@ namespace Capstone.Web.Controllers
             }
         }
         [ChildActionOnly]
+>>>>>>> 6c9cfb4b7d5cf6ea7e269287d278d9c64f4f308f
         public ActionResult Content()
         {
             if (Session[SessionKeys.Username] == null)
@@ -72,7 +75,6 @@ namespace Capstone.Web.Controllers
                 return PartialView("_Dashboard", dashObject);
             }
         }
-
         public ActionResult Logout()
         {
             Session.Abandon();
@@ -99,7 +101,6 @@ namespace Capstone.Web.Controllers
                 return View("Login", model);
             }
             Session[SessionKeys.Username] = model.Username;
-            Session[SessionKeys.IsAdmin] = user.IsAdministrator;
 
             return RedirectToAction("Index");
         }
@@ -144,6 +145,8 @@ namespace Capstone.Web.Controllers
 
         public ActionResult LeagueLeaderBoard()
         {
+            User user = dal.GetUsername("trogdor");
+
             return View("LeagueLeaderBoard");
         }
 

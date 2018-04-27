@@ -49,42 +49,11 @@ namespace Capstone.Web.DALs.Implementation
             return isSuccessful;
         }
 
-        public List<Course> GetAllCourses()
-        {
-            var list = new List<Course>();
-
-            string sql = "SELECT * FROM courses ORDER BY name ASC;";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(sql, conn);
-
-                SqlDataReader r = cmd.ExecuteReader();
-
-                while (r.Read())
-                {
-                    Course c = new Course()
-                    {
-
-                        Name = Convert.ToString(r["name"]),
-                        Par = Convert.ToInt32(r["par"]),
-                        NumberOfHoles = Convert.ToInt32(r["holeCount"]),
-                        LengthInYards = Convert.ToInt32(r["totalLengthYards"]),
-
-                    };
-
-                    list.Add(c);
-                }
-            }
-            return list;
-        }
-
         public User VerifyLogin(Login model)
         {
             User user = null;
 
-            string VerifyLoginSql = @"select id, username, firstname, lastname, isadmin from users where (username = @username) AND (password = @password);";
+            string VerifyLoginSql = @"select id, username, firstname, lastname from users where (username = @username) AND (password = @password);";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -102,10 +71,9 @@ namespace Capstone.Web.DALs.Implementation
         }
 
         public User GetUsername(string username)
-
         {
             User user = null;
-            string getUsernameSql = @"select id, username, firstname, lastname, isadmin from users where username = @username;";
+            string getUsernameSql = @"select id, username, firstname, lastname from users where username = @username;";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -172,6 +140,60 @@ namespace Capstone.Web.DALs.Implementation
             return registrationSuccess;
         }
 
+        public List<User> GetLeaderboardUsernames(string leagueName)
+
+        {
+            List<User> users = new List<User>();
+            string getUsernameSql = @"select users.firstName, users.lastName, users.userName 
+                                      from users 
+                                      join users_leagues on users_leagues.userId = users.id
+                                      join leagues on leagues.id = users_leagues.leagueId
+                                      where leagues.id = @leagueID";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(getUsernameSql, conn);
+                cmd.Parameters.AddWithValue("@leagueID", leagueName);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    User user = AssembleUser(reader);
+                    users.Add(user);
+                }
+                conn.Close();
+            }
+            return users;
+        }
+
+        public Leaderboard GetLeaderboard(string leagueName, string userName)
+        {
+            Leaderboard leaderboard = new Leaderboard();
+            string getLeaderboardSql = @"select users.firstName, users.lastName, users.userName, courses.holeCount,
+                                         count(matches.id) as totalMatches, sum(users_matches.score) as totalStrokes
+                                         from users
+                                         join users_leagues on users_leagues.userId = users.id
+                                         join leagues on leagues.id = users_leagues.leagueId
+                                         join courses on courses.id = leagues.courseId 
+                                         join users_matches on users_matches.userId = users.id
+                                         join matches on matches.id = users_matches.matcheId
+                                         where users.id = 1
+                                         group by users.firstName, users.lastName, users.userName, courses.holeCount";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(getLeaderboardSql, conn);
+                //cmd.Parameters.AddWithValue("@username", username);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    leaderboard = AssembleLeaderboard(reader);
+                }
+                conn.Close();
+            }
+
+            return leaderboard;
+        }
+
         private User AssembleUser(SqlDataReader reader)
         {
             User user = new User()
@@ -179,14 +201,8 @@ namespace Capstone.Web.DALs.Implementation
                 Id = Convert.ToInt32(reader["id"]),
                 Username = Convert.ToString(reader["username"]),
                 FirstName = Convert.ToString(reader["firstname"]),
-                LastName = Convert.ToString(reader["lastname"]),
-                IsAdministrator = false
+                LastName = Convert.ToString(reader["lastname"])
             };
-
-            if (Convert.ToInt32(reader["isadmin"]) == 1)
-            {
-                user.IsAdministrator = true;
-            }
 
             return user;
         }
