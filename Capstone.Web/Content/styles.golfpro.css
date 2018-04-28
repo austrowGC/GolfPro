@@ -21,7 +21,6 @@ header, main {
 }
 
 div.container-fluid {
-    padding-bottom: 15px;
-    border: 4px groove #337ab7;
+    border: 4px ridge #337ab7;
 }
  

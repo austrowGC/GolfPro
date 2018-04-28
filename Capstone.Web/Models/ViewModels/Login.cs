@@ -8,10 +8,10 @@ namespace Capstone.Web.Models.ViewModels
 {
     public class Login
     {
-        [Required(ErrorMessage = "Required field")]
+        [Required(ErrorMessage = "This field is required")]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "Required field")]
+        [Required(ErrorMessage = "This field is required")]
         public string Password { get; set; }
 
     }
