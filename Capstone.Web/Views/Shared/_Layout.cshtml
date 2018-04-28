@@ -31,11 +31,11 @@
                     <button class="btn btn-lg btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="glyphicon glyphicon-align-justify"></span> Menu
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button">@Html.ActionLink("Leaderboards", "LeagueLeaderBoard", "Home")</button>
-                        <button class="dropdown-item" type="button">@Html.ActionLink("Home", "Index", "Home")</button>
-                        @Html.Action("Navigation")
-                    </div>
+
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            @Html.Action("Navigation")
+                        </ul>
                 </div>
             </div>
         </nav>
