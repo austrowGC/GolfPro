@@ -22,7 +22,7 @@ header nav {
         text-decoration: none;
     }*/
 
-.form-group span.error {
+.form-group .error {
     color: orangered;
 }
 
