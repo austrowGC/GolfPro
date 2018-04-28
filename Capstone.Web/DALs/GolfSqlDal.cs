@@ -16,9 +16,9 @@ namespace Capstone.Web.DALs
         bool SaveUser(Registration model);
         User GetUsername(string username);
         bool AddNewCourse(Course course);
-        User VerifyLogin(Login model);
+        bool ValidLogin(Login model);
         List<Course> GetAllCourses();
-
+        UserRole GetUserRole(string username);
         //Leaderboard GetLeaderboard(Course course, User user);
 
 

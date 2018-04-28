@@ -94,16 +94,21 @@ namespace Capstone.Web.Controllers
                 return View("Login", model);
             }
 
-            User user = dal.VerifyLogin(model);
-            if(user == null)
+            bool validCredentials = dal.ValidLogin(model);
+            if (validCredentials)
+            {
+                UserRole userRole = dal.GetUserRole(model.Username);
+                Session[SessionKeys.Username] = userRole.Username;
+                Session[SessionKeys.IsAdmin] = userRole.IsAdministrator;
+
+                return RedirectToAction("Index");
+            }
+            else
             {
                 ModelState.AddModelError("invalid-credentials", "Invalid login credentials");
                 return View("Login", model);
             }
-            Session[SessionKeys.Username] = user.Username;
-            Session[SessionKeys.IsAdmin] = user.IsAdministrator;
 
-            return RedirectToAction("Index");
         }
 
 
