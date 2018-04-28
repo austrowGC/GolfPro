@@ -1,59 +1,89 @@
-﻿@using Capstone.Web.Models
-@model Course
+﻿@model Capstone.Web.Models.ViewModels.Course
+
 
 <head>
 
 </head>
 
-<div class="main">
+<div id="createCourse">
 
-    <form method="post" action="@Url.Action("AddNewCourse","Home")">
-        <table>
-            <tr>
-                <td class="box">
-                    Enter Course Name:
-                </td>
-                <td>
-                    <input type="text" name="Name" required />
-                </td>
-            </tr>
-            <tr>
-                <td class="box">
-                    Number of Holes:
-                </td>
-                <td>
-                    <select name="NumberOfHoles" required>
-                        <option value="">Select</option>
-                        <option value="9"> 9 </option>
-                        <option value="18"> 18 </option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="box">
-                    Length in Yards:
-                </td>
-                <td>
-                    <input type="text" name="LengthInYards" required />
-                </td>
-            </tr>
-            <tr>
-                <td class="box">
-                    Par:
-                </td>
-                <td>
-                    <input type="text" name="Par" required />
-                </td>
-            </tr>
-            <tr>
-                <td class="box">
-                    Thank you!
-                </td>
-                <td>
-                    <input type="submit" name="Submit" />
-                </td>
-            </tr>
+    <h2>Add a New Course</h2>
+
+    @using (Html.BeginForm("AddNewCourse", "Home", FormMethod.Post))
+    {
+        <div>
+            <span>Enter Course Name: @Html.TextBoxFor(m => m.Name, new { placeholder = "SunnyVale Acres" })</span>
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div>
+            <span>
+                Number of Holes: <select name="NumberOfHoles" required>
+                    <option value="">Select</option>
+                    <option value="9"> 9 </option>
+                    <option value="18"> 18 </option>
+                </select>
+            </span>
+        </div>
+        <div>
+            <span>Length in Yards: @Html.TextBoxFor(m => m.LengthInYards, new { placeholder = "7000" })</span>
+            @Html.ValidationMessageFor(m => m.LengthInYards)
+        </div>
+        <div>
+            <span>Par: @Html.TextBoxFor(m => m.Par, new { placeholder = "70" })</span>
+            @Html.ValidationMessageFor(m => m.Par)
+        </div>
+        <button> Submit</button>
+
+
+    }
+</div>
+@*<form method="post" action="@Url.Action("AddNewCourse", "Home")">
+    <table>
+        <tr>
+            <td class="box">
+                Enter Course Name:
+            </td>
+            <td>
+                <input type="text" name="Name" required />
+            </td>
+        </tr>
+        <tr>*@
+@*<td class="box">
+        Number of Holes:
+    </td>
+    <td>
+        <select name="NumberOfHoles" required>
+            <option value="">Select</option>
+            <option value="9"> 9 </option>
+            <option value="18"> 18 </option>
+        </select>*@
+@*</td>
+    </tr>
+    <tr>
+        <td class="box">
+            Length in Yards:
+        </td>
+        <td>
+            <input type="text" name="LengthInYards" required />
+        </td>
+    </tr>
+    <tr>*@
+@*<td class="box">
+            Par:
+        </td>
+        <td>
+            <input type="text" name="Par" required />
+        </td>
+        </tr>
+        <tr>
+            <td class="box">
+                Thank you!
+            </td>
+            <td>
+                <input type="submit" name="Submit" />
+            </td>
+        </tr>
 
         </table>
-    </form>
-</div>
+        </form>
+    </div>*@

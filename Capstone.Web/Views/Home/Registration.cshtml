@@ -9,28 +9,28 @@
     @using (Html.BeginForm("PostUserRegistration", "Home", FormMethod.Post))
     {
         <div>
-            @Html.TextBoxFor(m => m.FirstName, new { placeholder = "First Name" })
+            <span>First Name: @Html.TextBoxFor(m => m.FirstName, new { placeholder = "Don" })</span>
             @Html.ValidationMessageFor(m => m.FirstName)
             
         </div>
 
         <div>
-            @Html.TextBoxFor(m => m.LastName, new { placeholder = "Last Name" })
+            <span>Last Name: @Html.TextBoxFor(m => m.LastName, new { placeholder = "Joe" })</span>
             @Html.ValidationMessageFor(m => m.LastName)
         </div>
 
         <div>
-            @Html.TextBoxFor(m => m.UserName, new { placeholder = "Username" })
+            <span>User Name: @Html.TextBoxFor(m => m.UserName, new { placeholder = "DonJoe55" })</span>
             @Html.ValidationMessageFor(m => m.UserName)
             @Html.ValidationMessage("username-exists")
         </div>
         <div>
-            @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
+            <span>Password: @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })</span>
             @Html.ValidationMessageFor(m => m.Password)
             
         </div>
         <div>
-            @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Confirm Password" })
+            <span>Confirm Password: @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Confirm Password" })</span>
             @Html.ValidationMessageFor(m => m.ConfirmPassword)
         </div>
 

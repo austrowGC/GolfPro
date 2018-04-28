@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     Layout = null;
 }
 
@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>_Layout</title>
+    <title>GolfPro Deluxe</title>
 
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/styles.golfpro.css" rel="stylesheet" />
@@ -20,20 +20,27 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
 
     <script src="~/Scripts/jquery.golfpro.js"></script>
+    <script src="~/Scripts/jquery.GolfProValidation.js"></script>
 
 </head>
 <body>
     <header>
-        <nav>
-            <ul>
-                <li>@Html.ActionLink("Leaderboards", "LeagueLeaderBoard", "Home")</li>
-                <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                @Html.Action("Navigation")
-
-            </ul>
+        <nav style="min-height: 90px;" class="navbar navbar-default navbar-fixed-top">
+            <div style="float: right; padding-top: 1.5%; padding-right: 8%">
+                <div class="dropdown">
+                    <button class="btn btn-lg btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-align-justify"></span> Menu
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <button class="dropdown-item" type="button">@Html.ActionLink("Leaderboards", "LeagueLeaderBoard", "Home")</button>
+                        <button class="dropdown-item" type="button">@Html.ActionLink("Home", "Index", "Home")</button>
+                        @Html.Action("Navigation")
+                    </div>
+                </div>
+            </div>
         </nav>
     </header>
-    
+
     <main>
         @RenderBody()
     </main>

@@ -30,6 +30,30 @@
         }
     });
 
+    $("#createCourse form").validate({
+        debug: false,
+        rules: {
+            Name: {
+                required: true,
+                minLength: 2
+
+            },
+            LengthInYards: {
+                required: true,
+                minLength: 4,
+                maxLength: 5,
+                digits: true
+
+            },
+            Par: {
+                required: true,
+                minLength: 2,
+                maxLength: 2,
+                digits: true
+            }
+        }
+    });
+
     $("#login form").validate({
         debug: true,
         rules: {
