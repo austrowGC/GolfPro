@@ -31,7 +31,9 @@
                     <button class="btn btn-lg btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="glyphicon glyphicon-align-justify"></span> Menu
                     </button>
+
                         <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             @Html.Action("Navigation")
                         </ul>
                 </div>

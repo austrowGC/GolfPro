@@ -43,7 +43,7 @@
                 minLength: 4,
                 maxLength: 5,
                 digits: true
-                
+
             },
             Par: {
                 required: true,
@@ -53,4 +53,13 @@
             }
         }
     });
+
+    $("#login form").validate({
+        debug: true,
+        rules: {
+            Username: required,
+            Password: required
+        }
+    });
+
 });
