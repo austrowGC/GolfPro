@@ -1,12 +1,12 @@
 ﻿$(Document).ready(function () {
 
-    $("#register #form0").validate({
+    $("#register form").validate({
         debug: false,
         rules: {
             FirstName: {
                 required: true,
                 minLength: 2
-                
+
 
             },
             LastName: {
@@ -23,11 +23,34 @@
                 minLength: 8,
                 maxLength: 128
             },
-             ConfirmPassword: {
+            ConfirmPassword: {
                 required: true,
                 equalTo: "#Password"
             }
         }
-    })
+    });
 
+    $("#createCourse form").validate({
+        debug: false,
+        rules: {
+            Name: {
+                required: true,
+                minLength: 2
+
+            },
+            LengthInYards: {
+                required: true,
+                minLength: 4,
+                maxLength: 5,
+                digits: true
+                
+            },
+            Par: {
+                required: true,
+                minLength: 2,
+                maxLength: 2,
+                digits: true
+            }
+        }
+    });
 });
