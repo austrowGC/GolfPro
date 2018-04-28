@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>_Layout</title>
+    <title>GolfPro Deluxe</title>
 
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/styles.golfpro.css" rel="stylesheet" />
@@ -24,14 +24,23 @@
 </head>
 <body>
     <header>
-        <h1>The Outer Dimension</h1>
-        <nav>
-            <ul>
-                <li>@Html.ActionLink("Leaderboards", "LeagueLeaderBoard", "Home")</li>
-
-                @Html.Action("Navigation")
-
-            </ul>
+        <nav style="min-height: 75px;" class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div style="display: inline-block" class="navbar-header">
+                    <img alt="Brand" src="https://contattafiles.s3.us-west-1.amazonaws.com/tecommunity/ZVYYT4Rjb_eOVvk/splash%20art%20for%20title.jpg"/>
+                </div>
+                @*<div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Dropdown
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                    </ul>
+                </div>*@
+            </div>
         </nav>
     </header>
     

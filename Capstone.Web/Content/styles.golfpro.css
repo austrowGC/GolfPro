@@ -1,8 +1,13 @@
 ﻿body {
     background: url(./images/true.jpg) no-repeat;
+    padding-top: 100px;
 }
 
-header, main {
+header {
+    background: https://contattafiles.s3.us-west-1.amazonaws.com/tecommunity/ZVYYT4Rjb_eOVvk/splash%20art%20for%20title.jpg no-repeat;
+}
+
+/*header, main {
     background: rgba(255, 255, 255, 0.72);
 }
 
@@ -14,14 +19,14 @@ header, main {
     }
     header nav a:hover{
         text-decoration: none;
-    }
+    }*/
 
 .form-group span.error {
     color: orangered;
 }
 
-div.container-fluid {
+/*div.container-fluid {
     padding-bottom: 15px;
     border: 4px groove #337ab7;
-}
+}*/
  
