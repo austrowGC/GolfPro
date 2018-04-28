@@ -9,4 +9,5 @@
 	$("form button:last-child").addClass("btn btn-primary")
     $("span.field-validation-error").addClass("error")
     $("main div").addClass("well")
+    $('.dropdown-toggle').dropdown();
 });

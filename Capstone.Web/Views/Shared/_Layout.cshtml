@@ -20,6 +20,7 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
 
     <script src="~/Scripts/jquery.golfpro.js"></script>
+    <script src="~/Scripts/jquery.GolfProValidation.js"></script>
 
 </head>
 <body>
@@ -30,11 +31,9 @@
                     <button class="btn btn-lg btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="glyphicon glyphicon-align-justify"></span> Menu
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button">Action</button>
-                        <button class="dropdown-item" type="button">Another action</button>
-                        <button class="dropdown-item" type="button">Something else here</button>
-                    </div>
+                        <ul class="dropdown-menu">
+                            @Html.Action("Navigation")
+                        </ul>
                 </div>
             </div>
         </nav>
