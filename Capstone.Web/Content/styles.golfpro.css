@@ -5,9 +5,7 @@
 
 header nav {
     background: url(https://contattafiles.s3.us-west-1.amazonaws.com/tecommunity/ZVYYT4Rjb_eOVvk/splash%20art%20for%20title.jpg) no-repeat;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
+    background-size: cover;
 }
 
 /*header, main {
@@ -28,8 +26,7 @@ header nav {
     color: orangered;
 }
 
-/*
-div.container-fluid {
-    border: 4px ridge #337ab7;
-}
- */
+/*div.container-fluid {
+    padding-bottom: 15px;
+    border: 4px groove #337ab7;
+}*/
