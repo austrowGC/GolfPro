@@ -10,4 +10,6 @@
     $("span.field-validation-error").addClass("error")
     $("main div").addClass("well")
     $('.dropdown-toggle').dropdown();
+
+    $("input").addClass("form-control");
 });

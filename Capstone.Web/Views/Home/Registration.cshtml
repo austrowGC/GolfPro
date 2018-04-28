@@ -8,32 +8,37 @@
 
     @using (Html.BeginForm("PostUserRegistration", "Home", FormMethod.Post))
     {
-        <div>
-            <span>First Name: @Html.TextBoxFor(m => m.FirstName, new { placeholder = "Don" })</span>
-            @Html.ValidationMessageFor(m => m.FirstName)
-            
-        </div>
+        <div class="form-group">
 
-        <div>
-            <span>Last Name: @Html.TextBoxFor(m => m.LastName, new { placeholder = "Joe" })</span>
+            <label for="FirstName">First Name</label>
+            @Html.TextBoxFor(m => m.FirstName, new { placeholder = "Enter first name" })
+            @Html.ValidationMessageFor(m => m.FirstName)
+        </div>
+        <div class="form-group">
+
+            <label for="LastName">Last Name</label>
+            @Html.TextBoxFor(m => m.LastName, new { placeholder = "Enter last name" })
             @Html.ValidationMessageFor(m => m.LastName)
         </div>
+        <div class="form-group">
 
-        <div>
-            <span>User Name: @Html.TextBoxFor(m => m.UserName, new { placeholder = "DonJoe55" })</span>
+            <label for="UserName">Username</label>
+            @Html.TextBoxFor(m => m.UserName, new { placeholder = "Enter username" })
             @Html.ValidationMessageFor(m => m.UserName)
             @Html.ValidationMessage("username-exists")
         </div>
-        <div>
-            <span>Password: @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })</span>
+        <div class="form-group">
+
+            <label for="Password">Password</label>
+            @Html.PasswordFor(m => m.Password, new { placeholder = "Enter password" })
             @Html.ValidationMessageFor(m => m.Password)
-            
         </div>
-        <div>
-            <span>Confirm Password: @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Confirm Password" })</span>
+        <div class="form-group">
+
+            <label for="ConfirmPassword">Confirm Password</label>
+            @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Retype password" })
             @Html.ValidationMessageFor(m => m.ConfirmPassword)
         </div>
-
         <button>Register</button>
     }
 </div>

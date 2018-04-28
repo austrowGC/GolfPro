@@ -9,19 +9,17 @@
 
     @using (Html.BeginForm("PostUserLogin", "Home", FormMethod.Post))
     {
-        <div>
-            
         @Html.ValidationMessage("invalid-credentials")
-        </div>
-        <div>
-            @Html.TextBoxFor(m => m.Username, new { placeholder = "username" })
+        <div class="form-group">
+            <label for="Username"><span class="glyphicon glyphicon-user"></span>Username</label>
+            @Html.TextBoxFor(m => m.Username, new { placeholder = "Enter username" })
             @Html.ValidationMessageFor(m => m.Username)
         </div>
-        <div>
-            @Html.PasswordFor(m => m.Password, new { placeholder = "password" })
+        <div class="form-group">
+            <label for="Password"><span class="glyphicon glyphicon-certificate"></span>Password</label>
+            @Html.PasswordFor(m => m.Password, new { placeholder = "Enter password" })
             @Html.ValidationMessageFor(m => m.Password)
         </div>
-
         <button>Login</button>
         @Html.ActionLink("Don't have an account? Click here to register.", "Registration")
     }
