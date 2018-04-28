@@ -123,6 +123,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\jquery.GolfProValidation.js" />
     <Content Include="Scripts\jquery.golfpro.js" />
     <Content Include="fonts\Blenda Script.otf" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
