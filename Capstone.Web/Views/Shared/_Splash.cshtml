@@ -1,12 +1,85 @@
-﻿<h1>Welcome to Golf Pro</h1>
+﻿
 
-<h2>@Html.ActionLink("Get Started!", "Login")</h2>
+<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/solid.js" integrity="sha384-P4tSluxIpPk9wNy8WSD8wJDvA8YZIkC6AQ+BfAFLXcUZIPQGu4Ifv4Kqq+i2XzrM" crossorigin="anonymous"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/fontawesome.js" integrity="sha384-2IUdwouOFWauLdwTuAyHeMMRFfeyy4vqYNjodih+28v2ReC+8j+sLF9cK339k5hY" crossorigin="anonymous"></script>
 
-<h3>Create Leagues and Compete With Friends</h3>
+<style>
 
-<h3>Check Leaderboard Standings</h3>
+    @@font-face {
+        font-family: 'Blenda Script';
+        src: url('../../fonts/Blenda Script.otf') format('opentype');
+    }
 
-<h3>Make Reservations and Book Tee-Times</h3>
+    h1 {
+        font-family: 'Blenda Script';
+        text-align: center;
+        font-size: 50px;
+    }
 
-<h3>Search for Golf Courses in Your Area</h3>
+    h2 {
+        width: 200px;
+        text-align: center;
+        border-radius: 5px 5px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        margin: 0 auto;
+    }
+
+    h3 {
+        text-align: center;
+        font-family: 'Goudy Old Style';
+        font-weight: bolder;
+    }
+
+        h3:hover {
+            background-color: lightcyan;
+            font-style: italic;
+            border-radius: 5px 5px;
+        }
+
+    a {
+        color: white;
+    }
+
+        a:hover {
+            color: black;
+            text-decoration: none;
+        }
+
+    #features {
+        background-color: lightblue;
+        padding-top: 40px;
+    }
+
+    #wells {
+        width: 100%;
+        height: 100%;
+        background-color: lightyellow;
+        -webkit-transition: width 1s, height 1s;
+        transition: width 1s, height 1s;
+    }
+
+        #wells:hover {
+            height: 150%;
+        }
+</style>
+
+<h1><i class="fas fa-flag fa-1x"></i>   Welcome to Golf Pro   <i class="fas fa-flag fa-1x"></i></h1>
+
+<hr />
+
+<div id="features">
+    <div style="width:49%" id="wells">
+        <h3><i class="fas fa-golf-ball"></i> Create Leagues & Compete With Friends</h3>
+
+        <h3><i class="fas fa-trophy"></i> Check Leaderboard Standings</h3>
+    </div>
+    <div style="width:49%;float:right;margin-top:-163px" id="wells">
+        <h3><i class="fas fa-search"></i> Search for Golf Courses in Your Area</h3>
+
+        <h3><i class="fas fa-calendar-alt"></i> Book Tee-Times to Make Reservations</h3>
+    </div>
+</div>
+
+<h2 class="btn-success">@Html.ActionLink("Get Started!", "Login")</h2>
 
