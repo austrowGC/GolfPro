@@ -123,7 +123,9 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\jquery.GolfProValidation.js" />
     <Content Include="Scripts\jquery.golfpro.js" />
+    <Content Include="fonts\Blenda Script.otf" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -149,6 +151,8 @@
     </Compile>
     <Compile Include="Models\OpenTimes.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserCredentials.cs" />
+    <Compile Include="Models\UserRole.cs" />
     <Compile Include="Models\ViewModels\Dashboard.cs" />
     <Compile Include="Models\ViewModels\Leaderboard.cs" />
     <Compile Include="Models\Course.cs" />

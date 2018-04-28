@@ -53,7 +53,6 @@ namespace Capstone.Web.DALs.Implementation
             return isSuccessful;
         }
 
-
         public List<Course> GetAllCourses()
         {
             var list = new List<Course>();
@@ -104,16 +103,16 @@ namespace Capstone.Web.DALs.Implementation
             return user;
         }
 
-        public User VerifyLogin(Login model)
+        public bool ValidLogin(Login model)
         {
-            User user = GetUser(model.Username);
-            Authenticator auth = new Authenticator(user.Salt, user.Password);
-            if (auth.AssertValidPassword(model.Password) == false)
+            bool validPass = false;
+            if (usernameExists(model.Username))
             {
-                user = null;
+                UserCredentials cred = GetUserCredentials(model.Username);
+                validPass = new Authenticator(cred.Salt, cred.Hash).AssertValidPassword(model.Password);
             }
-
-            return user;
+            return validPass;
+            
         }
 
         public User GetUsername(string username)
@@ -273,6 +272,89 @@ namespace Capstone.Web.DALs.Implementation
             return user;
         }
 
+        private UserCredentials AssembleCredentials(SqlDataReader reader)
+        {
+            return new UserCredentials()
+            {
+                Username = Convert.ToString(reader["username"]),
+                Hash = Convert.ToString(reader["password"]),
+                Salt = Convert.ToString(reader["salt"])
+            };
+        }
+
+        private bool usernameExists(string username)
+        {
+            bool hasRows = false;
+            string userExistsSql = @"select id from users where username = @username;";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(userExistsSql, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                hasRows = cmd.ExecuteReader().HasRows;
+
+                conn.Close();
+            }
+            return hasRows;
+
+        }
+
+        private UserCredentials GetUserCredentials(string username)
+        {
+            string userCredSql = @"select username, password, salt from users where username = @username;";
+
+            UserCredentials cred = null;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(userCredSql, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                SqlDataReader sdr = cmd.ExecuteReader();
+                if (sdr.Read())
+                {
+                    cred = AssembleCredentials(sdr);
+                }
+
+                conn.Close();
+            }
+
+            return cred;
+        }
+
+        private UserRole AssembleUserRole(SqlDataReader reader)
+        {
+            return new UserRole()
+            {
+                Username = Convert.ToString(reader["username"]),
+                IsAdministrator = (Convert.ToInt32(reader["isadmin"]) == 1)
+            };
+        }
+
+        public UserRole GetUserRole(string username)
+        {
+            string getUserRoleSql = @"select username, isadmin from users where username = @username;";
+
+            UserRole userRole = null;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(getUserRoleSql, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                SqlDataReader sdr = cmd.ExecuteReader();
+                if (sdr.Read())
+                {
+                    userRole = AssembleUserRole(sdr);
+                }
+
+                conn.Close();
+            }
+
+            return userRole;
+        }
+
         private class Authenticator
         {
             private static int length = 24;
@@ -322,5 +404,6 @@ namespace Capstone.Web.DALs.Implementation
                 return verdict;
             }
         }
+
     }
 }
