@@ -3,8 +3,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    .modal-header, h4, .close {
+        background-color: #5cb85c;
+        color: white !important;
+        text-align: center;
+        font-size: 30px;
+    }
+</style>
+
 <div id="register">
-    <h2>Registration</h2>
+    <div class="modal-header" style="padding:35px 50px;">
+        <h4><span class="glyphicon glyphicon-pencil"></span> Registration</h4>
+    </div>
 
     @using (Html.BeginForm("PostUserRegistration", "Home", FormMethod.Post))
     {
@@ -39,6 +50,8 @@
             @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Retype password" })
             @Html.ValidationMessageFor(m => m.ConfirmPassword)
         </div>
-        <button>Register</button>
+        <div style="text-align: center">
+            <button style="width: 20%; display: block; margin: 0 auto;" type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span> Register</button>
+        </div>
     }
 </div>

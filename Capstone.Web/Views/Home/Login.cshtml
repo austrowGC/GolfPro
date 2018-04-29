@@ -3,9 +3,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    .modal-header, h4, .close {
+        background-color: #5cb85c;
+        color: white !important;
+        text-align: center;
+        font-size: 30px;
+    }
+
+
+</style>
+
 <div id="login">
 
-    <h2>Login</h2>
+    <div class="modal-header" style="padding:35px 50px;">
+        <h4><span class="glyphicon glyphicon-lock"></span> Sign In</h4>
+    </div>
 
     @using (Html.BeginForm("PostUserLogin", "Home", FormMethod.Post))
     {
@@ -20,7 +33,9 @@
             @Html.PasswordFor(m => m.Password, new { placeholder = "Enter password" })
             @Html.ValidationMessageFor(m => m.Password)
         </div>
-        <button>Login</button>
-        @Html.ActionLink("Don't have an account? Click here to register.", "Registration")
+        <div style="text-align: center">
+            <button style="width: 20%; display: block; margin: 0 auto;" type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+            @Html.ActionLink("Don't have an account? Click here to register.", "Registration")
+        </div>
     }
 </div>
