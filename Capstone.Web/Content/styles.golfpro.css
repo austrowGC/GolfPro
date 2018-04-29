@@ -1,14 +1,15 @@
 ﻿body {
     background: url(./images/true.jpg) no-repeat;
     padding-top: 125px;
-}
-
-header nav {
-    background: url(https://contattafiles.s3.us-west-1.amazonaws.com/tecommunity/ZVYYT4Rjb_eOVvk/splash%20art%20for%20title.jpg) no-repeat;
     background-size: cover;
 }
 
-/*header, main {
+    header nav {
+        background: url(https://contattafiles.s3.us-west-1.amazonaws.com/tecommunity/ZVYYT4Rjb_eOVvk/splash%20art%20for%20title.jpg) no-repeat;
+        background-size: cover;
+    }
+
+    /*header, main {
     background: rgba(255, 255, 255, 0.72);
 }
 
@@ -19,15 +20,14 @@ header nav {
         font-size:120%;
     }
     header nav a:hover{
-        text-decoration: none;
+        text-decoration: none;f
     }*/
 
-.form-group .error {
-    color: orangered;
-}
+    .form-group .error {
+        color: orangered;
+    }
 
-/*
-div.container-fluid {
-    border: 4px ridge #337ab7;
-}
- */
+    /*div.container-fluid {
+    padding-bottom: 15px;
+    border: 4px groove #337ab7;
+}*/
