@@ -33,9 +33,7 @@
             @Html.PasswordFor(m => m.Password, new { placeholder = "Enter password" })
             @Html.ValidationMessageFor(m => m.Password)
         </div>
-        <div style="text-align: center">
-            <button style="width: 20%; display: block; margin: 0 auto;" type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
-            @Html.ActionLink("Don't have an account? Click here to register.", "Registration")
-        </div>
+            <button style="width: 20%; display: block; margin: 0 auto;" type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button><br />
+            <p style="text-align: center">@Html.ActionLink("Don't have an account? Click here to register.", "Registration")</p>
     }
 </div>

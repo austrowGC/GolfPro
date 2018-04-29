@@ -17,29 +17,33 @@
 
     @using (Html.BeginForm("AddNewCourse", "Home", FormMethod.Post))
     {
-        <div>
-            <span>Enter Course Name: @Html.TextBoxFor(m => m.Name, new { placeholder = "SunnyVale Acres" })</span>
+        <div class="form-group">
+            <label for="Name">Enter Course Name</label>
+            @Html.TextBoxFor(m => m.Name, new { placeholder = "SunnyVale Acres" })
             @Html.ValidationMessageFor(m => m.Name)
         </div>
-        <div>
-            <span>
-                Number of Holes: <select name="NumberOfHoles" required>
-                    <option value="">Select</option>
-                    <option value="9"> 9 </option>
-                    <option value="18"> 18 </option>
-                </select>
-            </span>
+
+        <div class="form-group">
+            <label for="NumberOfHoles">Number of Holes</label>
+            <br />
+            <select class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                <option value="9">9</option>
+                <option value="19">18</option>
+            </select>
         </div>
-        <div>
-            <span>Length in Yards: @Html.TextBoxFor(m => m.LengthInYards, new { placeholder = "7000" })</span>
+
+        <div class="form-group">
+            <label for="LengthInYards">Enter Length in Yards</label>
+            @Html.TextBoxFor(m => m.LengthInYards, new { placeholder = "7000" })
             @Html.ValidationMessageFor(m => m.LengthInYards)
         </div>
-        <div>
-            <span>Par: @Html.TextBoxFor(m => m.Par, new { placeholder = "70" })</span>
+
+        <div class="form-group">
+            <label for="Par">Enter Par of Course</label>
+            @Html.TextBoxFor(m => m.Par, new { placeholder = "70" })
             @Html.ValidationMessageFor(m => m.Par)
         </div>
-        <div style="text-align: center">
-            <button style="width: 20%; display: block; margin: 0 auto;" type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-cloud-upload"></span> Add Course</button>
-        </div>
     }
+        <button style="width: 20%; display: block; margin: 0 auto;" type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-cloud-upload"></span> Add Course</button>
 </div>
+
