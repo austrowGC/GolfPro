@@ -10,7 +10,7 @@ namespace Capstone.Web.Models.ViewModels
     {
         public int ID { get; set; }
 
-        [Required(ErrorMessage = "This field is required")]
+        [Required(ErrorMessage = "Dude, fill out the field!")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "This field is required")]

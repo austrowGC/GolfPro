@@ -158,7 +158,7 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CreateLeague()
         {
-            List < Course > courseList = dal.GetAllCourses();
+            List<Course> courseList = dal.GetAllCourses();
             return View("CreateLeague", courseList);
         }
 
@@ -201,6 +201,27 @@ namespace Capstone.Web.Controllers
             else
             {
                 SetMessage("There was an error adding your course!", MessageType.Error);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult CreateLeague(League league, User user)
+        {
+            dal.CreateLeague(league, user);
+
+            //Check that it was successfully added
+            bool isSuccessful = true;
+
+            //If successful:
+
+            if (isSuccessful)
+            {
+                SetMessage("League has been successfully created!", MessageType.Success);
+            }
+            else
+            {
+                SetMessage("There was an error creating your league!", MessageType.Error);
             }
             return RedirectToAction("Index", "Home");
         }
