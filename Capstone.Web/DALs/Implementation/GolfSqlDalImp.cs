@@ -134,6 +134,34 @@ namespace Capstone.Web.DALs.Implementation
             return user;
         }
 
+        public bool CreateLeague(League model, User user)
+        {
+            bool isSuccessful = true;
+
+            string SQL_CreateLeague = @"Insert into leagues (name, organizerId, courseId) values (@name, @organizerId, courseId)";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(SQL_CreateLeague, conn);
+
+                    cmd.Parameters.Add(new SqlParameter("@name", model.Name));
+                    cmd.Parameters.Add(new SqlParameter("@organizerId", user.Id));
+                    cmd.Parameters.Add(new SqlParameter("@courseId", model.CourseId));
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+                isSuccessful = false;
+            }
+
+            return isSuccessful;
+        }
+
         public bool CreateMatch(Match match)
         {
             bool isSuccessful = true;

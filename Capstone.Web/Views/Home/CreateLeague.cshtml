@@ -2,44 +2,45 @@
 @model List<Course>
 
 <head>
-    @*As a league organizer, I need the ability to set up a "league" 
-    for my friends so that we can view each other's leaderboard and form friendly competitions.
-    A league requires a course to be associated with it.*@
+    @*As a league organizer, I need the ability to set up a "league"
+        for my friends so that we can view each other's leaderboard and form friendly competitions.
+        A league requires a course to be associated with it.*@
 </head>
 
-<div class="main">
-    <form method="post" action="@Url.Action("CreateLeague","Home")">
-        <table>
-            <tr>
-                <td class="box">
-                    League Name:
-                </td>
-                <td>
-                    <input type="text" name="League Name" required />
-                </td>
-            </tr>
-            <tr>
-                <td class="box">
-                    Choose Course:
-                </td>
-                <td>
-                    <select name="Course" required>
-                        <option value="">Select</option>
-                        @foreach (Course c in Model)
-                        {
-                        <option value="@c.ID"> @c.Name </option>
-                        }
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="box">
-                    Thank you!
-                </td>
-                <td>
-                    <input type="submit" value="Submit" />
-                </td>
-            </tr>
-        </table>
-    </form>
+<style>
+    .modal-header, h4, .close {
+        background-color: #5cb85c;
+        color: white !important;
+        text-align: center;
+        font-size: 30px;
+    }
+</style>
+
+<div id="createLeague">
+
+    <div class="modal-header" style="padding:35px 50px;">
+        <h4><span class="glyphicon glyphicon-plus-sign"></span> Create a New League</h4>
+    </div>
+
+    @using (Html.BeginForm("CreateLeague", "Home", FormMethod.Post))
+    {
+        <div class="form-group">
+            <label for="Name">Enter League Name:</label>
+            @Html.TextBoxFor(m => m.Name, new { placeholder = "Cincinnati Coders" })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+
+        <div class="form-group">
+            <label for="CourseId">Choose Course:</label>
+            <br />
+            <select class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                <option value="">Select</option>
+                @foreach (Course c in Model)
+                {
+                    <option value="@c.ID"> @c.Name  ||  Hole Count: @c.NumberOfHoles  ||  Par: @c.Par </option>
+                }
+            </select>
+        </div>
+    }
+        <button style="width: 20%; display: block; margin: 0 auto;" type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-cloud-upload"></span> Create League</button>
 </div>
