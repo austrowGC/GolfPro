@@ -5,27 +5,47 @@
         rules: {
             FirstName: {
                 required: true,
-                minLength: 2
-
-
+                minlength: 2
             },
             LastName: {
                 required: true,
-                minLength: 2
-
+                minlength: 2
             },
             UserName: {
                 required: true,
-                minLength: 2
+                minlength: 2
             },
             Password: {
                 required: true,
-                minLength: 8,
-                maxLength: 128
+                minlength: 8,
+                maxlength: 128
             },
             ConfirmPassword: {
                 required: true,
                 equalTo: "#Password"
+            }
+        },
+        messages: {
+            FirstName: {
+                required: "First Name is required",
+                minlength: "First Name must have at least two characters"
+            },
+            LastName: {
+                required: "Last Name is required",
+                minlength: "Last Name must have at least two characters"
+            },
+            UserName: {
+                required: "User Name is required",
+                minlength: "User Name must have at least two characters"
+            },
+            Password: {
+                required: "Password is required",
+                minlength: "Password must be at least eight characters",
+                maxlength: "Password must be less than 128 characters"
+            },
+            ConfirmPassword: {
+                required: "Confirm Password is required",
+                equalTo: "Passwords must match"
             }
         }
     });
@@ -35,27 +55,41 @@
         rules: {
             Name: {
                 required: true,
-                minLength: 2
-
+                minlength: 2
             },
             LengthInYards: {
                 required: true,
-                minLength: 4,
-                maxLength: 5,
-                digits: true
-
+                min: 900,
+                max: 9999
             },
             Par: {
                 required: true,
-                minLength: 2,
-                maxLength: 2,
-                digits: true
+                min: 13,
+                max: 99
             }
+        },
+        messages: {
+            Name: {
+                required: "Course Name is required",
+                minlength: "Course Name must have at least two characters"
+            },
+            LengthInYards: {
+                required: "Length in Yards is required",
+                min: "Value must be greater than 900 and less than 9999",
+                max: "Value must be greater than 900 and less than 9999"
+            },
+            Par: {
+                required: "Par is required",
+                min: "Value must be greater than 13 and less than 99",
+                max: "Value must be greater than 13 and less than 99"
+            }
+
         }
+
     });
 
     $("#login form").validate({
-        debug: true,
+        debug: false,
         rules: {
             Username: required,
             Password: required
