@@ -5,25 +5,28 @@ using System.Web;
 
 namespace Capstone.Web.Models
 {
-    public class DashboardFactory
+    public class DashboardRobot
     {
         private const int thresholdScore = -1;
         private const float thresholdAvg = 0;
 
-        public DashboardFactory(UserProfile profile)
+        public DashboardRobot(UserProfile profile)
         {
             _profile = profile;
         }
 
         private UserProfile _profile;
-        
+
+        public List<ScoredMatch> PlayerScores { get { return _profile.Scores; } }
+        public List<League> PlayerLeagues { get { return _profile.Leagues; } }
+
         private float GetAverageScore()
         {
             float holes = 0;
             float score = 0;
             float avg = 0;
 
-            foreach(ScoredMatch sm in _profile.Scores)
+            foreach (ScoredMatch sm in _profile.Scores)
             {
                 if (sm.Holes == 9)
                 {
@@ -52,9 +55,9 @@ namespace Capstone.Web.Models
 
             foreach (ScoredMatch sm in _profile.Scores)
             {
-                if (sm.Holes==18)
+                if (sm.Holes == 18)
                 {
-                    if ((best==-1) || (sm.Score < best))
+                    if ((best == -1) || (sm.Score < best))
                     {
                         best = sm.Score;
                     }
@@ -101,7 +104,7 @@ namespace Capstone.Web.Models
             return (i > thresholdScore);
         }
 
-        private string MessageBest18()
+        public string MessageBest18()
         {
             string text = "No 18 hole rounds played!";
             int score = GetBestStrokes18();
@@ -113,7 +116,7 @@ namespace Capstone.Web.Models
             return text;
         }
 
-        private string MessageBest9()
+        public string MessageBest9()
         {
             string text = "No 9 hole rounds played!";
             int score = GetBestStrokes9();
@@ -125,7 +128,7 @@ namespace Capstone.Web.Models
             return text;
         }
 
-        private string MessageAverage()
+        public string MessageAverage()
         {
             string text = "No games yet!";
             float avg = GetAverageScore();
@@ -137,7 +140,18 @@ namespace Capstone.Web.Models
             return text;
         }
 
-        public DashboardStats AssembleDashboard()
+        public string MessageGreeting()
+        {
+            return $"Hello, {_profile.FirstName}";
+        }
+
+        public string MessageMatchScore(ScoredMatch sm)
+        {
+            return $"Score: {sm.Score}\tHoles: {sm.Holes}\tPar: {sm.Par}";
+        }
+
+        //20180431 below is unused
+        private DashboardStats AssembleDashboard()
         {
             return new DashboardStats()
             {

@@ -86,13 +86,13 @@ namespace Capstone.Web.Controllers
             }
             else
             {
-                UserProfile profile = null;
+                DashboardRobot dashBot = null;
                 if (Session[SessionKeys.Username] != null)
                 {
                     string username = Session[SessionKeys.Username] as string;
-                    profile = dal.GetUserProfile(username);
+                    dashBot = new DashboardRobot(dal.GetUserProfile(username));
                 }
-                return PartialView("_UserDashboard", profile);
+                return PartialView("_UserDashboard", dashBot);
             }
 
         }

@@ -1,3 +1,59 @@
-﻿@model Capstone.Web.Models.UserProfile
+﻿@model Capstone.Web.Models.DashboardRobot
 
-<h1>User Dashboard!</h1>
+<div>
+    <h1>@{Write(Model.MessageGreeting());}</h1>
+</div>
+<div>
+    @if (Model.PlayerScores != null)
+    {
+        if (Model.PlayerScores.Count > 0)
+        {
+            <p>
+                @{ Write(Model.MessageAverage());}
+            </p>
+            <p>
+                @{ Write(Model.MessageBest18());}
+            </p>
+            <p>
+                @{ Write(Model.MessageBest9());}
+            </p>
+
+            <br />
+            <h2>Match History</h2>
+            foreach (var sm in Model.PlayerScores)
+            {
+                <div>
+                    <p>@{Write(sm.Date);}</p>
+                    <p>@{Write(Model.MessageMatchScore(sm));}</p>
+                </div>
+            }
+
+        }
+    }
+    else
+    {
+        <h2>No matches on record</h2>
+    }
+</div>
+<div>
+    @if (Model.PlayerLeagues != null)
+    {
+        if (Model.PlayerLeagues.Count > 0)
+        {
+            <h2>Leagues</h2>
+            foreach (var l in Model.PlayerLeagues)
+            {
+                <div>
+                    <p>@{Write($"{l.Name} - {l.OrganizerUsername}");}</p>
+                    <p>@{Write(l.CourseName);}</p>
+                </div>
+            }
+
+        }
+    }
+    else
+    {
+        <p>You are not a member of any leagues</p>
+        @Html.ActionLink("Click here to start your own League!", "CreateLeague", "Home")
+    }
+</div>
