@@ -159,7 +159,26 @@ namespace Capstone.Web.Controllers
         public ActionResult CreateLeague()
         {
             List<Course> courseList = dal.GetAllCourses();
-            return View("CreateLeague", courseList);
+            string user = Session[SessionKeys.Username].ToString();
+            League league = new League
+            {
+                UserName = user,
+                courses = courseList
+            };
+            return View("CreateLeague", league);
+        }
+
+        public ActionResult LogMatchScore(string leagueName, Match match)
+        {
+            List<User> userList = dal.GetLeaderboardUsernames(leagueName);
+
+            LogMatch logMatch = new LogMatch
+            {
+                leagueUsers = userList,
+                match = match
+            };
+
+            return View("LogMatchScore", logMatch);
         }
 
         public ActionResult AddNewCourse()
@@ -206,9 +225,10 @@ namespace Capstone.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateLeague(League league, User user)
+        public ActionResult CreateLeague(League league)
         {
-            dal.CreateLeague(league, user);
+            league.UserName = Session[SessionKeys.Username].ToString();
+            dal.CreateLeague(league);
 
             //Check that it was successfully added
             bool isSuccessful = true;
@@ -222,6 +242,27 @@ namespace Capstone.Web.Controllers
             else
             {
                 SetMessage("There was an error creating your league!", MessageType.Error);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult LogMatchScore(LogMatch logMatch)
+        {
+            dal.LogMatchScore(logMatch);
+
+            //Check that it was successfully added
+            bool isSuccessful = true;
+
+            //If successful:
+
+            if (isSuccessful)
+            {
+                SetMessage("Score has been successfully logged!", MessageType.Success);
+            }
+            else
+            {
+                SetMessage("There was an error logging your score!", MessageType.Error);
             }
             return RedirectToAction("Index", "Home");
         }

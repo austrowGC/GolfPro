@@ -71,6 +71,7 @@ namespace Capstone.Web.DALs.Implementation
                     Course c = new Course()
                     {
 
+                        ID = Convert.ToInt32(r["id"]),
                         Name = Convert.ToString(r["name"]),
                         Par = Convert.ToInt32(r["par"]),
                         NumberOfHoles = Convert.ToInt32(r["holeCount"]),
@@ -134,11 +135,11 @@ namespace Capstone.Web.DALs.Implementation
             return user;
         }
 
-        public bool CreateLeague(League model, User user)
+        public bool CreateLeague(League league)
         {
             bool isSuccessful = true;
 
-            string SQL_CreateLeague = @"Insert into leagues (name, organizerId, courseId) values (@name, @organizerId, courseId)";
+            string SQL_CreateLeague = @"Insert into leagues(name, organizerId, courseId) values(@name,(select id from users where username = @username),@courseId)";
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -147,9 +148,9 @@ namespace Capstone.Web.DALs.Implementation
 
                     SqlCommand cmd = new SqlCommand(SQL_CreateLeague, conn);
 
-                    cmd.Parameters.Add(new SqlParameter("@name", model.Name));
-                    cmd.Parameters.Add(new SqlParameter("@organizerId", user.Id));
-                    cmd.Parameters.Add(new SqlParameter("@courseId", model.CourseId));
+                    cmd.Parameters.Add(new SqlParameter("@name", league.Name));
+                    cmd.Parameters.Add(new SqlParameter("@username", league.UserName));
+                    cmd.Parameters.Add(new SqlParameter("@courseId", league.CourseId));
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -158,7 +159,6 @@ namespace Capstone.Web.DALs.Implementation
                 Console.WriteLine(e.Message);
                 isSuccessful = false;
             }
-
             return isSuccessful;
         }
 
@@ -188,6 +188,32 @@ namespace Capstone.Web.DALs.Implementation
                 isSuccessful = false;
             }
 
+            return isSuccessful;
+        }
+
+        public bool LogMatchScore(LogMatch logMatch)
+        {
+            bool isSuccessful = true;
+
+            string SQL_LogMatchScore = @"Insert into users_matches(matchId, score) values(@matchId,@score)";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(SQL_LogMatchScore, conn);
+
+                    cmd.Parameters.Add(new SqlParameter("@matchId", logMatch.match.ID));
+                    cmd.Parameters.Add(new SqlParameter("@score", logMatch.score));
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+                isSuccessful = false;
+            }
             return isSuccessful;
         }
 
