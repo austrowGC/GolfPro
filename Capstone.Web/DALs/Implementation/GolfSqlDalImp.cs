@@ -149,15 +149,14 @@ namespace Capstone.Web.DALs.Implementation
 
                     SqlCommand cmd = new SqlCommand(SQL_CreateLeague, conn);
 
-                    cmd.Parameters.Add(new SqlParameter("@name", league.Name));
-                    cmd.Parameters.Add(new SqlParameter("@username", league.UserName));
-                    cmd.Parameters.Add(new SqlParameter("@courseId", league.CourseId));
+                    cmd.Parameters.AddWithValue("@name", league.Name);
+                    cmd.Parameters.AddWithValue("@username", league.UserName);
+                    cmd.Parameters.AddWithValue("@courseId", league.CourseId);
                     rowsaffected = cmd.ExecuteNonQuery();
                 }
             }
             catch (SqlException e)
             {
-                Console.WriteLine(e.Message);
                 isSuccessful = false;
             }
             isSuccessful = (rowsaffected>0);
