@@ -7,8 +7,10 @@ namespace Capstone.Web.Models.ViewModels
 {
     public class Dashboard
     {
-    public List<Course> courses { get; set; }
-    public User user { get; set; }
+        public List<Course> courses { get; set; }
+
+        public UserProfile Profile { get; set; }
+        public List<League> leagues { get; set; }
 
     }
 }

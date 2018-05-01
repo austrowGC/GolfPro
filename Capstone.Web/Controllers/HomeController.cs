@@ -56,8 +56,29 @@ namespace Capstone.Web.Controllers
             }
 
         }
-        [ChildActionOnly]
-        public ActionResult Content()
+
+        //[ChildActionOnly]
+        //public ActionResult Content()
+        //{
+        //    if (Session[SessionKeys.Username] == null)
+        //    {
+        //        return PartialView("_Splash");
+        //    }
+        //    else
+        //    {
+        //        List<Course> courseList = dal.GetAllCourses();
+        //        User user = dal.GetUsername(Session[SessionKeys.Username].ToString());
+        //        Dashboard dashObject = new Dashboard
+        //        {
+
+        //            Profile = user,
+        //            courses = courseList
+        //        };
+        //        return PartialView("_Dashboard");
+        //    }
+        //}
+
+        public ActionResult DashboardContent()
         {
             if (Session[SessionKeys.Username] == null)
             {
@@ -65,16 +86,23 @@ namespace Capstone.Web.Controllers
             }
             else
             {
-                List<Course> courseList = dal.GetAllCourses();
-                User user = dal.GetUsername(Session[SessionKeys.Username].ToString());
-                Dashboard dashObject = new Dashboard
+                UserProfile profile = null;
+                if (Session[SessionKeys.Username] != null)
                 {
-                    user = user,
-                    courses = courseList
-                };
-                return PartialView("_Dashboard", dashObject);
+                    string username = Session[SessionKeys.Username] as string;
+                    profile = dal.GetUserProfile(username);
+                }
+                return PartialView("_UserDashboard", profile);
             }
+
         }
+        //private ActionResult AssembleDashboard()
+        //{
+        //    UserProfile user = dal.GetUserProfile();
+            
+        //    return PartialView("_Dashboard");
+        //}
+
         public ActionResult Logout()
         {
             Session.Abandon();
@@ -141,11 +169,17 @@ namespace Capstone.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult LeagueLeaderBoard()
+        public ActionResult LeagueLeaderBoard(int leagueId)
         {
-            User user = dal.GetUsername("trogdor");
+                List<LeaderboardUser> users = dal.GetLeagueUsers(leagueId);
+                Course course = dal.GetCourseAssociatedWithLeague(leagueId);
+                Leaderboard leaderboard = new Leaderboard
+                {
+                    Users = users,
+                    course = course
+                };
 
-            return View("LeagueLeaderBoard");
+                return View("LeagueLeaderboard", leaderboard);
         }
 
         [HttpPost]
@@ -159,7 +193,26 @@ namespace Capstone.Web.Controllers
         public ActionResult CreateLeague()
         {
             List<Course> courseList = dal.GetAllCourses();
-            return View("CreateLeague", courseList);
+            string user = Session[SessionKeys.Username].ToString();
+            League league = new League
+            {
+                UserName = user,
+                courses = courseList
+            };
+            return View("CreateLeague", league);
+        }
+
+        public ActionResult LogMatchScore(string leagueName, Match match)
+        {
+            List<User> userList = dal.GetLeaderboardUsernames(leagueName);
+
+            LogMatch logMatch = new LogMatch
+            {
+                leagueUsers = userList,
+                match = match
+            };
+
+            return View("LogMatchScore", logMatch);
         }
 
         public ActionResult AddNewCourse()
@@ -206,9 +259,10 @@ namespace Capstone.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateLeague(League league, User user)
+        public ActionResult CreateLeague(League league)
         {
-            dal.CreateLeague(league, user);
+            league.UserName = Session[SessionKeys.Username].ToString();
+            dal.CreateLeague(league);
 
             //Check that it was successfully added
             bool isSuccessful = true;
@@ -222,6 +276,27 @@ namespace Capstone.Web.Controllers
             else
             {
                 SetMessage("There was an error creating your league!", MessageType.Error);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult LogMatchScore(LogMatch logMatch)
+        {
+            dal.LogMatchScore(logMatch);
+
+            //Check that it was successfully added
+            bool isSuccessful = true;
+
+            //If successful:
+
+            if (isSuccessful)
+            {
+                SetMessage("Score has been successfully logged!", MessageType.Success);
+            }
+            else
+            {
+                SetMessage("There was an error logging your score!", MessageType.Error);
             }
             return RedirectToAction("Index", "Home");
         }
