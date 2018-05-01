@@ -4,44 +4,41 @@
 }
 
 
+
 <div id="register">
     <div class="modal-header" style="padding:35px 50px;">
-        <h4><span class="glyphicon glyphicon-pencil"></span> Registration</h4>
+        <h1><span class="glyphicon glyphicon-pencil"></span> Registration</h1>
     </div>
 
     @using (Html.BeginForm("PostUserRegistration", "Home", FormMethod.Post))
     {
-        <div class="form-group">
+    <div class="form-group">
 
-            <label for="FirstName">First Name</label>
-            @Html.TextBoxFor(m => m.FirstName, new { placeholder = "Enter first name" })
-            @Html.ValidationMessageFor(m => m.FirstName)
-        </div>
-        <div class="form-group">
+        <label for="FirstName">First Name</label>
+        @Html.TextBoxFor(m => m.FirstName, new { placeholder = "Enter first name" })
+        @Html.ValidationMessageFor(m => m.FirstName)
+        <br />
 
-            <label for="LastName">Last Name</label>
-            @Html.TextBoxFor(m => m.LastName, new { placeholder = "Enter last name" })
-            @Html.ValidationMessageFor(m => m.LastName)
-        </div>
-        <div class="form-group">
+        <label for="LastName">Last Name</label>
+        @Html.TextBoxFor(m => m.LastName, new { placeholder = "Enter last name" })
+        @Html.ValidationMessageFor(m => m.LastName)
+        <br />
 
-            <label for="UserName">Username</label>
-            @Html.TextBoxFor(m => m.UserName, new { placeholder = "Enter username" })
-            @Html.ValidationMessageFor(m => m.UserName)
-            @Html.ValidationMessage("username-exists")
-        </div>
-        <div class="form-group">
+        <label for="UserName">Username</label>
+        @Html.TextBoxFor(m => m.UserName, new { placeholder = "Enter username" })
+        @Html.ValidationMessageFor(m => m.UserName)
+        @Html.ValidationMessage("username-exists")
+        <br />
 
-            <label for="Password">Password</label>
-            @Html.PasswordFor(m => m.Password, new { placeholder = "Enter password" })
-            @Html.ValidationMessageFor(m => m.Password)
-        </div>
-        <div class="form-group">
+        <label for="Password">Password</label>
+        @Html.PasswordFor(m => m.Password, new { placeholder = "Enter password" })
+        @Html.ValidationMessageFor(m => m.Password)
+        <br />
 
-            <label for="ConfirmPassword">Confirm Password</label>
-            @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Retype password" })
-            @Html.ValidationMessageFor(m => m.ConfirmPassword)
-        </div>
+        <label for="ConfirmPassword">Confirm Password</label>
+        @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Retype password" })
+        @Html.ValidationMessageFor(m => m.ConfirmPassword)
+    </div>
             <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span> Register</button>
     }
 </div>

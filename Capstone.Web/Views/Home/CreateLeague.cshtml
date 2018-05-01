@@ -6,7 +6,7 @@
 <div id="createLeague">
 
     <div class="modal-header" style="padding:35px 50px;">
-        <h4><span class="glyphicon glyphicon-plus-sign"></span> Create a New League</h4>
+        <h1><span class="glyphicon glyphicon-plus-sign"></span> Create a New League</h1>
     </div>
 
     @using (Html.BeginForm("CreateLeague", "Home", FormMethod.Post))
@@ -15,12 +15,11 @@
             <label for="Name">Enter League Name:</label>
             @Html.TextBoxFor(m => m.Name, new { placeholder = "Enter a name for you new league" })
             @Html.ValidationMessageFor(m => m.Name)
-        </div>
 
-        <div class="form-group">
+        <br />
             <label for="CourseId">Choose Course:</label>
             <br />
-            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="CourseId">
+            <select class="form-control" name="CourseId">
                 <option value="">Select</option>
                 @foreach (var c in Model.courses)
                 {

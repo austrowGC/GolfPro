@@ -4,7 +4,7 @@
 <div id="createCourse">
 
     <div class="modal-header" style="padding:35px 50px;">
-        <h4><span class="glyphicon glyphicon-plus-sign"></span> Add a New Course</h4>
+        <h1><span class="glyphicon glyphicon-plus-sign"></span> Add a New Course</h1>
     </div>
 
     @using (Html.BeginForm("AddNewCourse", "Home", FormMethod.Post))
@@ -13,9 +13,9 @@
             <label for="Name">Enter Course Name</label>
             @Html.TextBoxFor(m => m.Name, new { placeholder = "SunnyVale Acres" })
             @Html.ValidationMessageFor(m => m.Name)
-        </div>
 
-        <div class="form-group">
+       <br />
+
             <label for="NumberOfHoles">Number of Holes</label>
             <br />
 
@@ -26,18 +26,17 @@
 
             </select>
 
-        </div>
+        <br />
 
-        <div class="form-group">
             <label for="LengthInYards">Enter Length in Yards</label>
             @Html.TextBoxFor(m => m.LengthInYards, new { placeholder = "7000" })
             @Html.ValidationMessageFor(m => m.LengthInYards)
-        </div>
 
-        <div class="form-group">
+        <br />
             <label for="Par">Enter Par of Course</label>
             @Html.TextBoxFor(m => m.Par, new { placeholder = "70" })
             @Html.ValidationMessageFor(m => m.Par)
+
         </div>
 
         <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-cloud-upload"></span> Add Course</button>
