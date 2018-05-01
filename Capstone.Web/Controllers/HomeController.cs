@@ -263,10 +263,26 @@ namespace Capstone.Web.Controllers
         public ActionResult CreateLeague(League league)
         {
             league.UserName = Session[SessionKeys.Username].ToString();
-            
-            bool isSuccessful = dal.CreateLeague(league);
 
-            if (isSuccessful)
+            UserAndLeague model = new UserAndLeague()
+            {
+                UserId = (int)Session[SessionKeys.UserId],
+                LeagueId = -1
+            };
+
+            bool createSuccessful = dal.CreateLeague(league);
+
+            bool addSuccessful = false;
+            if (createSuccessful)
+            {
+                model.LeagueId = dal.GetLeagueId(league.Name);
+                if (model.LeagueId > 0) //valid league id will be greater than 0
+                {
+                    addSuccessful = dal.JoinLeague(model);
+                }
+            }
+
+            if (createSuccessful && addSuccessful)
             {
                 SetMessage("League has been successfully created!", MessageType.Success);
             }
@@ -274,6 +290,7 @@ namespace Capstone.Web.Controllers
             {
                 SetMessage("There was an error creating your league!", MessageType.Error);
             }
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -296,7 +313,17 @@ namespace Capstone.Web.Controllers
         [ChildActionOnly]
         public ActionResult NavLeagueOrg()
         {
-            if ((bool)Session[SessionKeys.IsOrg])
+            bool isOrg = false;
+            try
+            {
+                isOrg = (bool)Session[SessionKeys.IsOrg];
+            }
+            catch
+            {
+                isOrg = false;
+            }
+
+            if (isOrg)
             {
                 return PartialView("_NavLeagueOrg");
             }

@@ -13,5 +13,11 @@ namespace Capstone.Web.Models
         public string LastName { get; set; }
         public List<ScoredMatch> Scores { get; set; }
         public List<League> Leagues { get; set; }
+
+        public UserProfile()
+        {
+            Scores = new List<ScoredMatch>();
+            Leagues = new List<League>();
+        }
     }
 }
