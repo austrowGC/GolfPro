@@ -219,24 +219,28 @@ namespace Capstone.Web.DALs.Implementation
             return registrationSuccess;
         }
 
-        public List<User> GetLeaderboardUsernames(string leagueName)
-
+        public List<LeaderboardUser> GetLeagueUsers(int leagueId)
         {
-            List<User> users = new List<User>();
-            string getUsernameSql = @"select users.firstName, users.lastName, users.userName, users.password, users.isadmin 
-                                      from users 
-                                      join users_leagues on users_leagues.userId = users.id
-                                      join leagues on leagues.id = users_leagues.leagueId
-                                      where leagues.id = @leagueID";
+            List<LeaderboardUser> users = new List<LeaderboardUser>();
+            string getLeaderboardUserSql = @"select courses.holeCount, count(matches.id) as totalMatches, 
+                                             sum(users_matches.score) as totalStrokes, users.firstName, users.lastName
+                                             from users join users_matches on users_matches.userId = users.id
+                                             join matches on matches.id = users_matches.matcheId
+                                             join users_leagues on users_leagues.userId = users.id
+                                             join leagues on leagues.id = users_leagues.leagueId
+                                             join courses on leagues.courseId = courses.id where leagues.id = @leagueId
+                                             group by courses.holeCount, users.firstName, users.lastName;";
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(getUsernameSql, conn);
-                cmd.Parameters.AddWithValue("@leagueID", leagueName);
+                SqlCommand cmd = new SqlCommand(getLeaderboardUserSql, conn);
+                cmd.Parameters.AddWithValue("@leagueId", leagueId);
+
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    User user = AssembleUser(reader);
+                    LeaderboardUser user = AssembleLeaderboardUser(reader);
                     users.Add(user);
                 }
                 conn.Close();
@@ -244,36 +248,50 @@ namespace Capstone.Web.DALs.Implementation
             return users;
         }
 
+        private LeaderboardUser AssembleLeaderboardUser(SqlDataReader reader)
+        {
+            LeaderboardUser user = new LeaderboardUser()
+            {
+                FirstName = Convert.ToString(reader["firstName"]),
+                LastName = Convert.ToString(reader["lastName"]),
+                TotalMatches = Convert.ToInt32(reader["totalMatches"]),
+                NumberOfHoles = Convert.ToInt32(reader["holeCount"]),
+                TotalStrokes = Convert.ToInt32(reader["totalStrokes"])
+            };
 
-        //public Leaderboard GetLeaderboard(string leagueName, string userName)
-        //{
-        //    Leaderboard leaderboard = new Leaderboard();
-        //    string getLeaderboardSql = @"select users.firstName, users.lastName, users.userName, courses.holeCount,
-        //                                 count(matches.id) as totalMatches, sum(users_matches.score) as totalStrokes
-        //                                 from users
-        //                                 join users_leagues on users_leagues.userId = users.id
-        //                                 join leagues on leagues.id = users_leagues.leagueId
-        //                                 join courses on courses.id = leagues.courseId 
-        //                                 join users_matches on users_matches.userId = users.id
-        //                                 join matches on matches.id = users_matches.matcheId
-        //                                 where users.id = 1
-        //                                 group by users.firstName, users.lastName, users.userName, courses.holeCount";
-        //    using (SqlConnection conn = new SqlConnection(connectionString))
-        //    {
-        //        conn.Open();
-        //        SqlCommand cmd = new SqlCommand(getLeaderboardSql, conn);
-        //        //cmd.Parameters.AddWithValue("@username", username);
-        //        SqlDataReader reader = cmd.ExecuteReader();
-        //        while (reader.Read())
-        //        {
-        //            leaderboard = AssembleLeaderboard(reader);
-        //        }
-        //        conn.Close();
-        //    }
+            return user;
+        }
 
-        //    return leaderboard;
-        //}
+        public Course GetCourseAssociatedWithLeague(int leagueId)
+        {
+            Course course = new Course();
+            string getCourseSql = @"select * from courses join leagues on leagues.courseId = courses.id where leagues.Id = @leagueId";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(getCourseSql, conn);
+                cmd.Parameters.AddWithValue("@leagueId", leagueId);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    course = AssembleCourse(reader);
+                }
+                conn.Close();
+            }
+            return course;
+        }
 
+        private Course AssembleCourse(SqlDataReader reader)
+        {
+            Course course = new Course()
+            {
+                Name = Convert.ToString(reader["name"]),
+                NumberOfHoles = Convert.ToInt32(reader["holeCount"]),
+                Par = Convert.ToInt32(reader["par"]),
+                LengthInYards = Convert.ToInt32(reader["totalLengthYards"]),
+            };
+            return course;
+        }
 
         private User AssembleUser(SqlDataReader reader)
         {
