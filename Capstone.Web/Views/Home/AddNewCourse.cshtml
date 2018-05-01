@@ -1,13 +1,5 @@
 ﻿@model Capstone.Web.Models.ViewModels.Course
 
-<style>
-    .modal-header, h4, .close {
-        background-color: #5cb85c;
-        color: white !important;
-        text-align: center;
-        font-size: 30px;
-    }
-</style>
 
 <div id="createCourse">
 
@@ -48,7 +40,7 @@
             @Html.ValidationMessageFor(m => m.Par)
         </div>
 
-        <button style="width: 20%; display: block; margin: 0 auto;" type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-cloud-upload"></span> Add Course</button>
+        <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-cloud-upload"></span> Add Course</button>
     }
 
 </div>
