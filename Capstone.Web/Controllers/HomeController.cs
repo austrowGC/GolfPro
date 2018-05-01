@@ -69,12 +69,32 @@ namespace Capstone.Web.Controllers
                 User user = dal.GetUsername(Session[SessionKeys.Username].ToString());
                 Dashboard dashObject = new Dashboard
                 {
-                    user = user,
+                    Profile = user,
                     courses = courseList
                 };
                 return PartialView("_Dashboard", dashObject);
             }
         }
+
+        public ActionResult DashboardContent()
+        {
+            if (Session[SessionKeys.Username] == null)
+            {
+                return PartialView("_Splash");
+            }
+            else
+            {
+                return RedirectToAction("_Dashboard");
+            }
+
+        }
+        private ActionResult AssembleDashboard()
+        {
+            UserProfile user = dal.GetUserProfile();
+            
+            return PartialView("_Dashboard");
+        }
+
         public ActionResult Logout()
         {
             Session.Abandon();
@@ -141,11 +161,17 @@ namespace Capstone.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult LeagueLeaderBoard()
+        public ActionResult LeagueLeaderBoard(int leagueId)
         {
-            User user = dal.GetUsername("trogdor");
+                List<LeaderboardUser> users = dal.GetLeagueUsers(leagueId);
+                Course course = dal.GetCourseAssociatedWithLeague(leagueId);
+                Leaderboard leaderboard = new Leaderboard
+                {
+                    Users = users,
+                    course = course
+                };
 
-            return View("LeagueLeaderBoard");
+                return View("LeagueLeaderboard", leaderboard);
         }
 
         [HttpPost]

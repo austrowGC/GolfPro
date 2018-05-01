@@ -8,8 +8,7 @@ namespace Capstone.Web.Models
 {
     public class Leaderboard
     {
-        public List<User> Users { get; set; }
+        public List<LeaderboardUser> Users { get; set; }
         public Course course { get; set; }
-
     }
 }

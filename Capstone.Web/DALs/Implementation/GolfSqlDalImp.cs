@@ -246,21 +246,19 @@ namespace Capstone.Web.DALs.Implementation
         }
 
         public List<User> GetLeaderboardUsernames(string leagueName)
-
         {
             List<User> users = new List<User>();
-            string getUsernameSql = @"select users.firstName, users.lastName, users.userName, users.password, users.isadmin 
-                                      from users 
-                                      join users_leagues on users_leagues.userId = users.id
-                                      join leagues on leagues.id = users_leagues.leagueId
-                                      where leagues.id = @leagueID";
+            string getUsernameSql = @"select users.firstName, users.lastName, users.userName, users.password, users.isadmin from users join users_leagues on users_leagues.userId = users.id join leagues on leagues.id = users_leagues.leagueId where leagues.id = @leagueID";
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(getUsernameSql, conn);
+                conn.Open(); SqlCommand cmd = new SqlCommand(getUsernameSql, conn);
+
                 cmd.Parameters.AddWithValue("@leagueID", leagueName);
+
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
+
                 {
                     User user = AssembleUser(reader);
                     users.Add(user);
@@ -270,36 +268,79 @@ namespace Capstone.Web.DALs.Implementation
             return users;
         }
 
+        public List<LeaderboardUser> GetLeagueUsers(int leagueId)
+        {
+            List<LeaderboardUser> users = new List<LeaderboardUser>();
+            string getLeaderboardUserSql = @"select courses.holeCount, count(matches.id) as totalMatches, 
+                                             sum(users_matches.score) as totalStrokes, users.firstName, users.lastName
+                                             from users join users_matches on users_matches.userId = users.id
+                                             join matches on matches.id = users_matches.matcheId
+                                             join users_leagues on users_leagues.userId = users.id
+                                             join leagues on leagues.id = users_leagues.leagueId
+                                             join courses on leagues.courseId = courses.id where leagues.id = @leagueId
+                                             group by courses.holeCount, users.firstName, users.lastName;";
 
-        //public Leaderboard GetLeaderboard(string leagueName, string userName)
-        //{
-        //    Leaderboard leaderboard = new Leaderboard();
-        //    string getLeaderboardSql = @"select users.firstName, users.lastName, users.userName, courses.holeCount,
-        //                                 count(matches.id) as totalMatches, sum(users_matches.score) as totalStrokes
-        //                                 from users
-        //                                 join users_leagues on users_leagues.userId = users.id
-        //                                 join leagues on leagues.id = users_leagues.leagueId
-        //                                 join courses on courses.id = leagues.courseId 
-        //                                 join users_matches on users_matches.userId = users.id
-        //                                 join matches on matches.id = users_matches.matcheId
-        //                                 where users.id = 1
-        //                                 group by users.firstName, users.lastName, users.userName, courses.holeCount";
-        //    using (SqlConnection conn = new SqlConnection(connectionString))
-        //    {
-        //        conn.Open();
-        //        SqlCommand cmd = new SqlCommand(getLeaderboardSql, conn);
-        //        //cmd.Parameters.AddWithValue("@username", username);
-        //        SqlDataReader reader = cmd.ExecuteReader();
-        //        while (reader.Read())
-        //        {
-        //            leaderboard = AssembleLeaderboard(reader);
-        //        }
-        //        conn.Close();
-        //    }
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(getLeaderboardUserSql, conn);
+                cmd.Parameters.AddWithValue("@leagueId", leagueId);
 
-        //    return leaderboard;
-        //}
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    LeaderboardUser user = AssembleLeaderboardUser(reader);
+                    users.Add(user);
+                }
+                conn.Close();
+            }
+            return users;
+        }
 
+        private LeaderboardUser AssembleLeaderboardUser(SqlDataReader reader)
+        {
+            LeaderboardUser user = new LeaderboardUser()
+            {
+                FirstName = Convert.ToString(reader["firstName"]),
+                LastName = Convert.ToString(reader["lastName"]),
+                TotalMatches = Convert.ToInt32(reader["totalMatches"]),
+                NumberOfHoles = Convert.ToInt32(reader["holeCount"]),
+                TotalStrokes = Convert.ToInt32(reader["totalStrokes"])
+            };
+
+            return user;
+        }
+
+        public Course GetCourseAssociatedWithLeague(int leagueId)
+        {
+            Course course = new Course();
+            string getCourseSql = @"select * from courses join leagues on leagues.courseId = courses.id where leagues.Id = @leagueId";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(getCourseSql, conn);
+                cmd.Parameters.AddWithValue("@leagueId", leagueId);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    course = AssembleCourse(reader);
+                }
+                conn.Close();
+            }
+            return course;
+        }
+
+        private Course AssembleCourse(SqlDataReader reader)
+        {
+            Course course = new Course()
+            {
+                Name = Convert.ToString(reader["name"]),
+                NumberOfHoles = Convert.ToInt32(reader["holeCount"]),
+                Par = Convert.ToInt32(reader["par"]),
+                LengthInYards = Convert.ToInt32(reader["totalLengthYards"]),
+            };
+            return course;
+        }
 
         private User AssembleUser(SqlDataReader reader)
         {
@@ -407,6 +448,72 @@ namespace Capstone.Web.DALs.Implementation
             }
 
             return userRole;
+        }
+
+        public UserProfile GetUserProfile(string username)
+        {
+            string userDetailSql = @"select id, username, firstname, lastname from users where (username = @username);";
+            string userLeaguesSql = @"select l.id, l.name'leagueName', u.username'orgUsername', u.firstname'orgFirstName', u.lastname'orgLastName', c.name'courseName' from users_leagues ul inner join leagues l on (l.id = ul.leagueId) inner join users u on (u.id = ul.userId) inner join courses c on (l.courseId = c.id) where ul.userId = @userId;";
+            string userMatchesSql = @"select m.id, m.date, um.score, l.name'leagueName', c.name'courseName', c.par, c.holeCount from users_matches as um inner join matches m on (m.id = um.matchId) inner join leagues_matches lm on (lm.matchId = um.matchId) inner join leagues l on (l.id = lm.leagueId) inner join courses c on (c.id = l.courseId) where userId = @userId;";
+
+            UserProfile profile = new UserProfile();
+
+            using(SqlConnection sqlC = new SqlConnection(connectionString))
+            {
+                sqlC.Open();
+                SqlCommand cmd = new SqlCommand(userDetailSql, sqlC);
+                SqlDataReader sdr = cmd.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    profile.Id = Convert.ToInt32(sdr["id"]);
+                    profile.Username = Convert.ToString(sdr["username"]);
+                    profile.FirstName = Convert.ToString(sdr["firstname"]);
+                    profile.LastName = Convert.ToString(sdr["lastname"]);
+                }
+
+                sdr.Close();
+                sdr.Dispose();
+                cmd.Dispose();
+
+                cmd = new SqlCommand(userLeaguesSql, sqlC);
+                sdr = cmd.ExecuteReader();
+                while (sdr.Read())
+                {
+                    profile.Leagues.Add(ReadLeague(sdr));
+                }
+
+                sdr.Close();
+                sdr.Dispose();
+                cmd.Dispose();
+
+                cmd = new SqlCommand(userMatchesSql, sqlC);
+                sdr = cmd.ExecuteReader();
+                while (sdr.Read())
+                {
+                    profile.Scores.Add(ReadScoredMatch(sdr));
+                }
+
+                sqlC.Close();
+            }
+
+            return profile;
+        }
+
+        private ScoredMatch ReadScoredMatch(SqlDataReader reader)
+        {
+            return new ScoredMatch()
+            {
+                ID = Convert.ToInt32(reader["id"])
+            };
+        }
+        private League ReadLeague(SqlDataReader reader)
+        {
+            return new League()
+            {
+                ID = Convert.ToInt32(reader["id"]),
+                
+            };
         }
 
         private class Authenticator

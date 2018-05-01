@@ -21,5 +21,8 @@ namespace Capstone.Web.DALs
         UserRole GetUserRole(string username);
         List<User> GetLeaderboardUsernames(string leagueName);
         bool LogMatchScore(LogMatch logmatch);
+        UserProfile GetUserProfile(string username);
+        Course GetCourseAssociatedWithLeague(int leagueId);
+        List<LeaderboardUser> GetLeagueUsers(int leagueId);
     }
 }
