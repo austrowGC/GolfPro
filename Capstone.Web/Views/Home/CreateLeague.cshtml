@@ -1,11 +1,5 @@
-﻿@using Capstone.Web.Models.ViewModels;
-@model List<Course>
-
-<head>
-    @*As a league organizer, I need the ability to set up a "league"
-        for my friends so that we can view each other's leaderboard and form friendly competitions.
-        A league requires a course to be associated with it.*@
-</head>
+﻿
+@model Capstone.Web.Models.League
 
 <style>
     .modal-header, h4, .close {
@@ -26,21 +20,23 @@
     {
         <div class="form-group">
             <label for="Name">Enter League Name:</label>
-            @Html.TextBoxFor(m => m.Name, new { placeholder = "Cincinnati Coders" })
+            @Html.TextBoxFor(m => m.Name, new { placeholder = "Enter a Name for Your New League" })
             @Html.ValidationMessageFor(m => m.Name)
         </div>
 
         <div class="form-group">
             <label for="CourseId">Choose Course:</label>
             <br />
-            <select class="custom-select mb-2 mr-sm-2 mb-sm-0">
+            <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="CourseId">
                 <option value="">Select</option>
-                @foreach (Course c in Model)
+                @foreach (var c in Model.courses)
                 {
                     <option value="@c.ID"> @c.Name  ||  Hole Count: @c.NumberOfHoles  ||  Par: @c.Par </option>
                 }
             </select>
         </div>
-    }
+
         <button style="width: 20%; display: block; margin: 0 auto;" type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-cloud-upload"></span> Create League</button>
+    }
+
 </div>
