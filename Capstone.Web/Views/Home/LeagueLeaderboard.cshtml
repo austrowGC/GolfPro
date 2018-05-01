@@ -1,19 +1,18 @@
 ﻿@using Capstone.Web.Models;
+@using Capstone.Web.Models.ViewModels;
 @model Leaderboard
 
 <div class="main">
     <table>
         <tr>
             <th>Name</th>
-            <th>Username</th>
             <th>Average Score</th>
         </tr>
-        @foreach(User user in Model.Users)
+        @foreach(LeaderboardUser user in Model.Users)
         {
             <tr>
                 <td>@user.FirstName @user.LastName</td>
-                <td>@user.Username</td>
-                <td>@((user.TotalStrokes / ((user.NumberOfMatches * Model.course.NumberOfHoles) * 18)))</td>
+                <td>@user.AverageScore</td>
             </tr>
         }
     </table>

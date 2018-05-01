@@ -19,8 +19,8 @@ namespace Capstone.Web.DALs
         bool ValidLogin(Login model);
         List<Course> GetAllCourses();
         UserRole GetUserRole(string username);
-        //Leaderboard GetLeaderboard(Course course, User user);
-
+        Course GetCourseAssociatedWithLeague(int leagueId);
+        List<LeaderboardUser> GetLeagueUsers(int leagueId);
 
     }
 }

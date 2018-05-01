@@ -143,9 +143,15 @@ namespace Capstone.Web.Controllers
 
         public ActionResult LeagueLeaderBoard()
         {
-            User user = dal.GetUsername("trogdor");
+                List<LeaderboardUser> users = dal.GetLeagueUsers(1);
+                Course course = dal.GetCourseAssociatedWithLeague(1);
+                Leaderboard leaderboard = new Leaderboard
+                {
+                    Users = users,
+                    course = course
+                };
 
-            return View("LeagueLeaderBoard");
+                return View("LeagueLeaderboard", leaderboard);
         }
 
         [HttpPost]
