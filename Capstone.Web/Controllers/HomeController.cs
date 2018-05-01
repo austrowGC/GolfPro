@@ -56,6 +56,7 @@ namespace Capstone.Web.Controllers
             }
 
         }
+
         [ChildActionOnly]
         public ActionResult Content()
         {
@@ -69,10 +70,11 @@ namespace Capstone.Web.Controllers
                 User user = dal.GetUsername(Session[SessionKeys.Username].ToString());
                 Dashboard dashObject = new Dashboard
                 {
-                    user = user,
+                    //user = user,
                     courses = courseList
                 };
-                return PartialView("_Dashboard", dashObject);
+                //return PartialView("_Dashboard", dashObject);
+                return PartialView("_Dashboard");
             }
         }
 
@@ -84,15 +86,14 @@ namespace Capstone.Web.Controllers
             }
             else
             {
-                return RedirectToAction("_Dashboard");
+                UserProfile profile = null;
+                if (Session[SessionKeys.Username] != null)
+                {
+                    string username = Session[SessionKeys.Username] as string;
+                    profile = dal.GetUserProfile(username);
+                }
+                return PartialView("_UserDashboard", profile);
             }
-
-        }
-        private ActionResult AssembleDashboard()
-        {
-            UserProfile user = dal.AssembleUserProfile();
-            
-            return PartialView("_Dashboard");
         }
 
         public ActionResult Logout()
@@ -161,10 +162,10 @@ namespace Capstone.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult LeagueLeaderBoard()
+        public ActionResult LeagueLeaderBoard(int leagueId)
         {
-                List<LeaderboardUser> users = dal.GetLeagueUsers(1);
-                Course course = dal.GetCourseAssociatedWithLeague(1);
+                List<LeaderboardUser> users = dal.GetLeagueUsers(leagueId);
+                Course course = dal.GetCourseAssociatedWithLeague(leagueId);
                 Leaderboard leaderboard = new Leaderboard
                 {
                     Users = users,
