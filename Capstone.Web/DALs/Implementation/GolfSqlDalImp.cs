@@ -432,7 +432,7 @@ namespace Capstone.Web.DALs.Implementation
 
         public UserRole GetUserRole(string username)
         {
-            string getUserRoleSql = @"select u.id, u.username, u.isadmin, count(l.id)'ownedL' from users u inner join leagues l on (u.id = l.organizerId) where username = @username group by u.id, u.username, u.isadmin;";
+            string getUserRoleSql = @"select u.id, u.username, u.isadmin, count(l.id)'ownedL' from users u left join leagues l on (u.id = l.organizerId) where u.username = @username group by u.id, u.username, u.isadmin;";
 
             UserRole userRole = null;
             using (SqlConnection conn = new SqlConnection(connectionString))
