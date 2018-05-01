@@ -140,7 +140,7 @@ namespace Capstone.Web.DALs.Implementation
             bool isSuccessful = false;
             int rowsaffected = 0;
 
-            string SQL_CreateLeague = @"Insert into leagues(name, organizerId, courseId) values(@name,(select id from users where username = @username),@courseId)";
+            string SQL_CreateLeague = @"Insert into leagues(name, organizerId, courseId) values(@name,(select id from users where username = @username),@courseId);";
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
