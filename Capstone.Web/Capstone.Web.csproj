@@ -188,6 +188,7 @@
     <Content Include="Views\Shared\_Message.cshtml" />
     <Content Include="Views\Shared\_NavAdmin.cshtml" />
     <Content Include="Views\Shared\_CourseList.cshtml" />
+    <Content Include="Views\Shared\_UserDashboard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
