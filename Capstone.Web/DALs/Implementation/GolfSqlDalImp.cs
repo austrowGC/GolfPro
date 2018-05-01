@@ -383,6 +383,72 @@ namespace Capstone.Web.DALs.Implementation
             return userRole;
         }
 
+        public UserProfile GetUserProfile(string username)
+        {
+            string userDetailSql = @"select id, username, firstname, lastname from users where (username = @username);";
+            string userLeaguesSql = @"select l.id, l.name'leagueName', u.username'orgUsername', u.firstname'orgFirstName', u.lastname'orgLastName', c.name'courseName' from users_leagues ul inner join leagues l on (l.id = ul.leagueId) inner join users u on (u.id = ul.userId) inner join courses c on (l.courseId = c.id) where ul.userId = @userId;";
+            string userMatchesSql = @"select m.id, m.date, um.score, l.name'leagueName', c.name'courseName', c.par, c.holeCount from users_matches as um inner join matches m on (m.id = um.matchId) inner join leagues_matches lm on (lm.matchId = um.matchId) inner join leagues l on (l.id = lm.leagueId) inner join courses c on (c.id = l.courseId) where userId = @userId;";
+
+            UserProfile profile = new UserProfile();
+
+            using(SqlConnection sqlC = new SqlConnection(connectionString))
+            {
+                sqlC.Open();
+                SqlCommand cmd = new SqlCommand(userDetailSql, sqlC);
+                SqlDataReader sdr = cmd.ExecuteReader();
+
+                if (sdr.Read())
+                {
+                    profile.Id = Convert.ToInt32(sdr["id"]);
+                    profile.Username = Convert.ToString(sdr["username"]);
+                    profile.FirstName = Convert.ToString(sdr["firstname"]);
+                    profile.LastName = Convert.ToString(sdr["lastname"]);
+                }
+
+                sdr.Close();
+                sdr.Dispose();
+                cmd.Dispose();
+
+                cmd = new SqlCommand(userLeaguesSql, sqlC);
+                sdr = cmd.ExecuteReader();
+                while (sdr.Read())
+                {
+                    profile.Leagues.Add(ReadLeague(sdr));
+                }
+
+                sdr.Close();
+                sdr.Dispose();
+                cmd.Dispose();
+
+                cmd = new SqlCommand(userMatchesSql, sqlC);
+                sdr = cmd.ExecuteReader();
+                while (sdr.Read())
+                {
+                    profile.Scores.Add(ReadScoredMatch(sdr));
+                }
+
+                sqlC.Close();
+            }
+
+            return profile;
+        }
+
+        private ScoredMatch ReadScoredMatch(SqlDataReader reader)
+        {
+            return new ScoredMatch()
+            {
+                ID = Convert.ToInt32(reader["id"])
+            };
+        }
+        private League ReadLeague(SqlDataReader reader)
+        {
+            return new League()
+            {
+                ID = Convert.ToInt32(reader["id"]),
+                
+            };
+        }
+
         private class Authenticator
         {
             private static int length = 24;

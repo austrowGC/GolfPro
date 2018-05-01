@@ -75,6 +75,26 @@ namespace Capstone.Web.Controllers
                 return PartialView("_Dashboard", dashObject);
             }
         }
+
+        public ActionResult DashboardContent()
+        {
+            if (Session[SessionKeys.Username] == null)
+            {
+                return PartialView("_Splash");
+            }
+            else
+            {
+                return RedirectToAction("_Dashboard");
+            }
+
+        }
+        private ActionResult AssembleDashboard()
+        {
+            UserProfile user = dal.AssembleUserProfile();
+            
+            return PartialView("_Dashboard");
+        }
+
         public ActionResult Logout()
         {
             Session.Abandon();
