@@ -4,6 +4,7 @@
     background-size: cover;
 }
 
+
 button {
     width: 20%;
     display: block;
@@ -11,10 +12,25 @@ button {
 }
 
 header nav {
-    background: url('images/splash art for title.jpg') no-repeat;
+    background: url('images/navbar art.jpg') no-repeat;
     background-size: cover;
 }
 
+.footer {
+    background: url('images/navbar art 2.jpg') no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 30px;
+    line-height: 60px;
+    border-top-style:solid;
+    border-top-color:white;
+    position: fixed;
+    bottom:0;
+    
+}
+body{
+    padding-bottom:100px;
+}
 .modal-header, h4, .close {
     color: black !important;
     text-align: center;

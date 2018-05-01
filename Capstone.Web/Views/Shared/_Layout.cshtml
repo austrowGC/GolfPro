@@ -24,28 +24,37 @@
 
 </head>
 <body>
-    <header>
-        <div class="container-fluid">
-            <nav style="min-height: 15%;" class="navbar navbar-default navbar-fixed-top">
-                <div style="float: right; padding-top: 1.5%; padding-right: 8%">
-                    <div class="dropdown">
-                        <button style="position: relative" class="btn navbar-btn btn-lg btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="glyphicon glyphicon-align-justify"></span> Menu
-                        </button>
+    <section>
+        <header>
+            <div class="container-fluid">
+                <nav style="min-height: 15%;" class="navbar navbar-default navbar-fixed-top">
+                    <div style="float: right; padding-top: 1.5%; padding-right: 8%">
+                        <div class="dropdown">
+                            <button style="position: relative" class="btn navbar-btn btn-lg btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-align-justify"></span> Menu
+                            </button>
 
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            @Html.Action("Navigation")
-                        </ul>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                                @Html.Action("Navigation")
+                            </ul>
+                        </div>
                     </div>
-                </div>
 
-            </nav>
-        </div>
-    </header>
-
+                </nav>
+            </div>
+        </header>
+    </section>
+    <section>
     <main>
         @RenderBody()
     </main>
+    </section>
+    <section>
+        <footer class="footer">
+
+        </footer>
+    </section>
 </body>
+
 </html>
