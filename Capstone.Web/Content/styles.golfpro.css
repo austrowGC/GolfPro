@@ -5,10 +5,10 @@
 }
 
 
-    header nav {
-        background: url(https://contattafiles.s3.us-west-1.amazonaws.com/tecommunity/ZVYYT4Rjb_eOVvk/splash%20art%20for%20title.jpg) no-repeat;
-        background-size: cover;
-    }
+header nav {
+    background: url('images/splash art for title.jpg') no-repeat;
+    background-size: cover;
+}
 
     /*header, main {
     background: rgba(255, 255, 255, 0.72);
