@@ -126,8 +126,10 @@ namespace Capstone.Web.Controllers
             if (validCredentials)
             {
                 UserRole userRole = dal.GetUserRole(model.Username);
+                Session[SessionKeys.UserId] = userRole.Id;
                 Session[SessionKeys.Username] = userRole.Username;
                 Session[SessionKeys.IsAdmin] = userRole.IsAdministrator;
+                Session[SessionKeys.IsOrg] = userRole.IsOrganizer;
 
                 return RedirectToAction("Index");
             }
@@ -279,12 +281,7 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult LogMatchScore(LogMatch logMatch)
         {
-            dal.LogMatchScore(logMatch);
-
-            //Check that it was successfully added
-            bool isSuccessful = true;
-
-            //If successful:
+            bool isSuccessful = dal.LogMatchScore(logMatch);
 
             if (isSuccessful)
             {
@@ -296,5 +293,14 @@ namespace Capstone.Web.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+        [ChildActionOnly]
+        public ActionResult NavLeagueOrg()
+        {
+
+            return PartialView("_NavLeagueOrg");
+        }
+
+        
     }
 }
