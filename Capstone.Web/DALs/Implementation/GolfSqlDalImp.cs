@@ -452,9 +452,11 @@ namespace Capstone.Web.DALs.Implementation
 
         public UserProfile GetUserProfile(string username)
         {
+            #region statements
             string userDetailSql = @"select id, username, firstname, lastname from users where (username = @username);";
-            string userLeaguesSql = @"select l.id, l.name'leagueName', u.username'orgUsername', u.firstname'orgFirstName', u.lastname'orgLastName', c.name'courseName' from users_leagues ul inner join leagues l on (l.id = ul.leagueId) inner join users u on (u.id = ul.userId) inner join courses c on (l.courseId = c.id) where ul.userId = @userId;";
+            string userLeaguesSql = @"select l.id, l.name'leagueName', u.id'orgId', u.username'orgUsername', u.firstname'orgFirstName', u.lastname'orgLastName', c.id'courseId', c.name'courseName' from users_leagues ul inner join leagues l on (l.id = ul.leagueId) inner join users u on (u.id = ul.userId) inner join courses c on (l.courseId = c.id) where ul.userId = @userId;";
             string userMatchesSql = @"select m.id, m.date, um.score, l.name'leagueName', c.name'courseName', c.par, c.holeCount from users_matches as um inner join matches m on (m.id = um.matchId) inner join leagues_matches lm on (lm.matchId = um.matchId) inner join leagues l on (l.id = lm.leagueId) inner join courses c on (c.id = l.courseId) where userId = @userId;";
+            #endregion
 
             UserProfile profile = new UserProfile();
 
@@ -462,6 +464,7 @@ namespace Capstone.Web.DALs.Implementation
             {
                 sqlC.Open();
                 SqlCommand cmd = new SqlCommand(userDetailSql, sqlC);
+                cmd.Parameters.AddWithValue("@username", username);
                 SqlDataReader sdr = cmd.ExecuteReader();
 
                 if (sdr.Read())
@@ -477,6 +480,7 @@ namespace Capstone.Web.DALs.Implementation
                 cmd.Dispose();
 
                 cmd = new SqlCommand(userLeaguesSql, sqlC);
+                cmd.Parameters.AddWithValue("@userId", profile.Id);
                 sdr = cmd.ExecuteReader();
                 while (sdr.Read())
                 {
@@ -488,6 +492,7 @@ namespace Capstone.Web.DALs.Implementation
                 cmd.Dispose();
 
                 cmd = new SqlCommand(userMatchesSql, sqlC);
+                cmd.Parameters.AddWithValue("@userId", profile.Id);
                 sdr = cmd.ExecuteReader();
                 while (sdr.Read())
                 {
@@ -504,7 +509,14 @@ namespace Capstone.Web.DALs.Implementation
         {
             return new ScoredMatch()
             {
-                ID = Convert.ToInt32(reader["id"])
+                Id = Convert.ToInt32(reader["id"]),
+                Holes = Convert.ToInt32(reader["holeCount"]),
+                Par = Convert.ToInt32(reader["par"]),
+                Score = Convert.ToInt32(reader["score"]),
+                CourseName = Convert.ToString(reader["courseName"]),
+                LeagueName = Convert.ToString(reader["leagueName"]),
+                Date = Convert.ToDateTime(reader["date"]),
+
             };
         }
         private League ReadLeague(SqlDataReader reader)
@@ -512,7 +524,13 @@ namespace Capstone.Web.DALs.Implementation
             return new League()
             {
                 ID = Convert.ToInt32(reader["id"]),
-                
+                Name = Convert.ToString(reader["leagueName"]),
+                OrganizerId = Convert.ToInt32(reader["orgId"]),
+                OrganizerUsername = Convert.ToString(reader["orgUsername"]),
+                OrganizerFirstName = Convert.ToString(reader["orgFirstname"]),
+                OrganizerLastName = Convert.ToString(reader["orgLastname"]),
+                CourseId = Convert.ToInt32(reader["courseId"]),
+                CourseName = Convert.ToString(reader["courseName"])
             };
         }
 

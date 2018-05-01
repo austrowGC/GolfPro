@@ -56,25 +56,27 @@ namespace Capstone.Web.Controllers
             }
 
         }
-        [ChildActionOnly]
-        public ActionResult Content()
-        {
-            if (Session[SessionKeys.Username] == null)
-            {
-                return PartialView("_Splash");
-            }
-            else
-            {
-                List<Course> courseList = dal.GetAllCourses();
-                User user = dal.GetUsername(Session[SessionKeys.Username].ToString());
-                Dashboard dashObject = new Dashboard
-                {
-                    Profile = user,
-                    courses = courseList
-                };
-                return PartialView("_Dashboard", dashObject);
-            }
-        }
+
+        //[ChildActionOnly]
+        //public ActionResult Content()
+        //{
+        //    if (Session[SessionKeys.Username] == null)
+        //    {
+        //        return PartialView("_Splash");
+        //    }
+        //    else
+        //    {
+        //        List<Course> courseList = dal.GetAllCourses();
+        //        User user = dal.GetUsername(Session[SessionKeys.Username].ToString());
+        //        Dashboard dashObject = new Dashboard
+        //        {
+
+        //            Profile = user,
+        //            courses = courseList
+        //        };
+        //        return PartialView("_Dashboard");
+        //    }
+        //}
 
         public ActionResult DashboardContent()
         {
@@ -84,16 +86,22 @@ namespace Capstone.Web.Controllers
             }
             else
             {
-                return RedirectToAction("_Dashboard");
+                UserProfile profile = null;
+                if (Session[SessionKeys.Username] != null)
+                {
+                    string username = Session[SessionKeys.Username] as string;
+                    profile = dal.GetUserProfile(username);
+                }
+                return PartialView("_UserDashboard", profile);
             }
 
         }
-        private ActionResult AssembleDashboard()
-        {
-            UserProfile user = dal.GetUserProfile();
+        //private ActionResult AssembleDashboard()
+        //{
+        //    UserProfile user = dal.GetUserProfile();
             
-            return PartialView("_Dashboard");
-        }
+        //    return PartialView("_Dashboard");
+        //}
 
         public ActionResult Logout()
         {
