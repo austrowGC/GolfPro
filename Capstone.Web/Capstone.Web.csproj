@@ -194,6 +194,7 @@
     <Content Include="Views\Shared\_CourseList.cshtml" />
     <Content Include="Views\Shared\_UserDashboard.cshtml" />
     <Content Include="Views\Shared\_NavLeagueOrg.cshtml" />
+    <Content Include="Views\Home\LogMatch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

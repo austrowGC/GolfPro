@@ -141,7 +141,6 @@ namespace Capstone.Web.Controllers
 
         }
 
-
         public ActionResult Registration()
         {
             return View();
@@ -297,10 +296,19 @@ namespace Capstone.Web.Controllers
         [ChildActionOnly]
         public ActionResult NavLeagueOrg()
         {
-
-            return PartialView("_NavLeagueOrg");
+            if ((bool)Session[SessionKeys.IsOrg])
+            {
+                return PartialView("_NavLeagueOrg");
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        
+        public ActionResult LogMatch()
+        {
+            return View();
+        }
     }
 }
