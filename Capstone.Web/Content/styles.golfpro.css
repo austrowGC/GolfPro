@@ -4,11 +4,34 @@
     background-size: cover;
 }
 
+button {
+    width: 20%;
+    display: block;
+    margin: 0 auto;
+}
 
 header nav {
     background: url('images/splash art for title.jpg') no-repeat;
     background-size: cover;
 }
+
+.modal-header, h4, .close {
+    color: black !important;
+    text-align: center;
+    font-size: 30px;
+}
+    .form-group .error{
+
+    color: orangered;
+}
+    .poop-deck{
+        /*justify-content: center;*/
+        
+        margin-right:auto;
+        margin-left:auto;
+        width:450px;
+           
+    }
 
     /*header, main {
     background: rgba(255, 255, 255, 0.72);
@@ -23,11 +46,7 @@ header nav {
     header nav a:hover{
         text-decoration: none;f
     }*/
-
-    .form-group .error {
-        color: orangered;
-    }
-
+  
     /*div.container-fluid {
     padding-bottom: 15px;
     border: 4px groove #337ab7;

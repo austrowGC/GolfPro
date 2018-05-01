@@ -1,18 +1,11 @@
 ﻿@model Capstone.Web.Models.ViewModels.LogMatch
 
-<style>
-    .modal-header, h4, .close {
-        background-color: #5cb85c;
-        color: white !important;
-        text-align: center;
-        font-size: 30px;
-    }
-</style>
+
 
 <div id="logMatchScore">
 
     <div class="modal-header" style="padding:35px 50px;">
-        <h4><span class="glyphicon glyphicon-plus-sign"></span> Log Scores for this Match</h4>
+        <h1><span class="glyphicon glyphicon-plus-sign"></span> Log Scores for this Match</h1>
     </div>
 
     @using (Html.BeginForm("LogMatchScore", "Home", FormMethod.Post))
@@ -42,6 +35,6 @@
              }
         }
 
-            <button style="width: 20%; display: block; margin: 0 auto;" type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-cloud-upload"></span> Create League</button>
+            <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-cloud-upload"></span> Create League</button>
      }
 </div>
