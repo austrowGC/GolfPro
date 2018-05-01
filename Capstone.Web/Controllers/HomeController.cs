@@ -263,7 +263,7 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult CreateLeague(League league)
         {
-            //league.UserName = Session[SessionKeys.Username].ToString();
+            league.UserName = Session[SessionKeys.Username].ToString();
             
             bool isSuccessful = dal.CreateLeague(league);
 
