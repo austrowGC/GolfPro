@@ -261,13 +261,9 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult CreateLeague(League league)
         {
-            league.UserName = Session[SessionKeys.Username].ToString();
-            dal.CreateLeague(league);
-
-            //Check that it was successfully added
-            bool isSuccessful = true;
-
-            //If successful:
+            //league.UserName = Session[SessionKeys.Username].ToString();
+            
+            bool isSuccessful = dal.CreateLeague(league);
 
             if (isSuccessful)
             {

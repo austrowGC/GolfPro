@@ -137,7 +137,8 @@ namespace Capstone.Web.DALs.Implementation
 
         public bool CreateLeague(League league)
         {
-            bool isSuccessful = true;
+            bool isSuccessful = false;
+            int rowsaffected = 0;
 
             string SQL_CreateLeague = @"Insert into leagues(name, organizerId, courseId) values(@name,(select id from users where username = @username),@courseId)";
             try
@@ -151,7 +152,7 @@ namespace Capstone.Web.DALs.Implementation
                     cmd.Parameters.Add(new SqlParameter("@name", league.Name));
                     cmd.Parameters.Add(new SqlParameter("@username", league.UserName));
                     cmd.Parameters.Add(new SqlParameter("@courseId", league.CourseId));
-                    cmd.ExecuteNonQuery();
+                    rowsaffected = cmd.ExecuteNonQuery();
                 }
             }
             catch (SqlException e)
@@ -159,6 +160,7 @@ namespace Capstone.Web.DALs.Implementation
                 Console.WriteLine(e.Message);
                 isSuccessful = false;
             }
+            isSuccessful = (rowsaffected>0);
             return isSuccessful;
         }
 
