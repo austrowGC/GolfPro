@@ -162,12 +162,10 @@ namespace Capstone.Web.Controllers
             else
             {
                 dal.SaveUser(model);
-                User user = dal.GetUsername(model.UserName);
-                Session[SessionKeys.Username] = user.Username;
-                Session[SessionKeys.IsAdmin] = user.IsAdministrator;
+                SetMessage("Registration successfull!", MessageType.Success);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Login");
         }
 
         public ActionResult LeagueLeaderBoard(int leagueId)

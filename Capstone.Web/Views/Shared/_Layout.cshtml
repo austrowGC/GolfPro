@@ -40,15 +40,15 @@
                             </ul>
                         </div>
                     </div>
-
                 </nav>
             </div>
         </header>
     </section>
     <section>
-    <main>
-        @RenderBody()
-    </main>
+        <main>
+            @Html.Partial("_Message")
+            @RenderBody()
+        </main>
     </section>
     <section>
         <footer class="footer">

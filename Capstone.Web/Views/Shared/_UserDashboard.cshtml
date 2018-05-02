@@ -1,55 +1,66 @@
 ﻿@model Capstone.Web.Models.DashboardRobot
 
-<div>
+<div id="greeting">
     <h1>@{Write(Model.MessageGreeting());}</h1>
 </div>
-<div>
-    @if (Model.PlayerScores != null)
-    {
-        if (Model.PlayerScores.Count > 0)
+<div class="clear"></div>
+<div class="container">
+    <div id="col01">
+        @if (Model.PlayerScores != null)
         {
-            <p>
-                @{ Write(Model.MessageAverage());}
-            </p>
-            <p>
-                @{ Write(Model.MessageBest18());}
-            </p>
-            <p>
-                @{ Write(Model.MessageBest9());}
-            </p>
-            <br />
-            <h2>Match History</h2>
-            foreach (var sm in Model.PlayerScores)
+            if (Model.PlayerScores.Count > 0)
             {
-                <div>
-                    <p>@{Write(sm.Date);}</p>
-                    <p>@{Write(Model.MessageMatchScore(sm));}</p>
-                </div>
+                <p>
+                    @{ Write(Model.MessageAverage());}
+                </p>
+                <p>
+                    @{ Write(Model.MessageBest18());}
+                </p>
+                <p>
+                    @{ Write(Model.MessageBest9());}
+                </p>
+                <br />
+                <h2>Match History</h2>
+                foreach (var sm in Model.PlayerScores)
+                {
+                    <div>
+                        <p>@{Write(sm.Date);}</p>
+                        <p>@{Write(Model.MessageMatchScore(sm));}</p>
+                    </div>
+                }
+            }
+            else
+            {
+                <h2>No matches on record</h2>
             }
         }
         else
         {
             <h2>No matches on record</h2>
-
         }
-    }
-    else
-    {
-        <h2>No matches on record</h2>
-    }
-</div>
-<div>
-    @if (Model.PlayerLeagues != null)
-    {
-        if (Model.PlayerLeagues.Count > 0)
+    </div>
+    <div id="col02" class="col">
+        @if (Model.PlayerLeagues != null)
         {
-            <h2>Leagues</h2>
-            foreach (var l in Model.PlayerLeagues)
+            if (Model.PlayerLeagues.Count > 0)
             {
-                <div>
-                    <p>@{Write($"{l.Name} - {l.OrganizerUsername}");}</p>
-                    <p>@{Write(l.CourseName);}</p>
-                </div>
+                <h2>Leagues</h2>
+                foreach (var league in Model.PlayerLeagues)
+                {
+                    <div>
+                        <a href="@Url.Action("LeagueLeaderBoard", "Home", league.ID)">
+
+                            <p>@{Write($"{league.Name} - {league.OrganizerUsername}");}</p>
+                            <p>@{Write(league.CourseName);}</p>
+
+                        </a>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>You are not a member of any leagues</p>
+                @Html.ActionLink("Click here to start your own League!", "CreateLeague", "Home")
             }
         }
         else
@@ -57,10 +68,5 @@
             <p>You are not a member of any leagues</p>
             @Html.ActionLink("Click here to start your own League!", "CreateLeague", "Home")
         }
-    }
-    else
-    {
-        <p>You are not a member of any leagues</p>
-        @Html.ActionLink("Click here to start your own League!", "CreateLeague", "Home")
-    }
+    </div>
 </div>

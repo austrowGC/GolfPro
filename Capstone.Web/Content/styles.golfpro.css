@@ -49,6 +49,21 @@ body{
            
     }
 
+div.clear{
+    visibility:hidden;
+    display:block;
+    clear:both;
+}
+
+a:hover, a:visited, a:link, a:active {
+        text-decoration: none;
+}
+
+#greeting{
+    text-align: center;
+    width: auto;
+}
+
     /*header, main {
     background: rgba(255, 255, 255, 0.72);
 }
