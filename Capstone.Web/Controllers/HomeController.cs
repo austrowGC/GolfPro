@@ -162,12 +162,10 @@ namespace Capstone.Web.Controllers
             else
             {
                 dal.SaveUser(model);
-                User user = dal.GetUsername(model.UserName);
-                Session[SessionKeys.Username] = user.Username;
-                Session[SessionKeys.IsAdmin] = user.IsAdministrator;
+                SetMessage("Registration successfull!", MessageType.Success);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Login");
         }
 
         public ActionResult LeagueLeaderBoard(int leagueId)
@@ -336,6 +334,32 @@ namespace Capstone.Web.Controllers
         public ActionResult LogMatch()
         {
             return View();
+        }
+
+        public ActionResult AddUsersToLeague(int leagueId)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddUsersToLeague(User user)
+        {
+            dal.AddNewCourse(user);
+
+            Check that it was successfully added
+            bool isSuccessful = true;
+
+            If successful:
+
+            if (isSuccessful)
+            {
+                SetMessage("Course has been successfully added!", MessageType.Success);
+            }
+            else
+            {
+                SetMessage("There was an error adding your course!", MessageType.Error);
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }
