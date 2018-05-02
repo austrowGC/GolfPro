@@ -211,8 +211,8 @@ namespace Capstone.Web.DALs.Implementation
 
         public bool CreateMatch(Match match)
         {
-            bool isSuccessful = true;
-
+            bool isSuccessful = false;
+            int rowsAffected = 0;
             string SQL_CreateMatch = @"Insert into matches (date, numOfPlayers) 
             values (@date, @numOfPlayers)";
             try
@@ -223,12 +223,13 @@ namespace Capstone.Web.DALs.Implementation
 
                     SqlCommand cmd = new SqlCommand(SQL_CreateMatch, conn);
 
-                    cmd.Parameters.Add(new SqlParameter("@name", match.Reservation));
+                    cmd.Parameters.Add(new SqlParameter("@date", match.Reservation));
                     cmd.Parameters.Add(new SqlParameter("@numOfPlayers", match.NumberOfPlayers));
-                    cmd.ExecuteNonQuery();
+
+                    rowsAffected = cmd.ExecuteNonQuery();
+                    isSuccessful = (rowsAffected > 0);
                 }
             }
-
             catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
