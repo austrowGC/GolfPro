@@ -335,5 +335,10 @@ namespace Capstone.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult OrganizerOptions()
+        {
+            return PartialView();
+        }
     }
 }

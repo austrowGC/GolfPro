@@ -4,16 +4,19 @@
 
 <div class="main">
     <table>
-        <tr>
-            <th>Name</th>
-            <th>Average Score</th>
-        </tr>
-        @foreach(LeaderboardUser user in Model.Users)
-        {
+        <thead>Leaderboard</thead>
+        <tbody>
             <tr>
-                <td>@user.FirstName @user.LastName</td>
-                <td>@user.AverageScore</td>
+                <td>Name</td>
+                <td>Average Score</td>
             </tr>
-        }
+            @foreach (LeaderboardUser user in Model.Users)
+            {
+                <tr>
+                    <td>@user.FirstName @user.LastName</td>
+                    <td>@user.AverageScore</td>
+                </tr>
+            }
+        </tbody>
     </table>
 </div>
