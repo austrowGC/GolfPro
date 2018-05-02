@@ -1,5 +1,5 @@
 ﻿$(Document).ready(function(){
-    $("header, main").addClass("container");
+    $("main").addClass("container");
     $("nav").addClass("navbar navbar-expand-lg navbar-light");
     $("nav ul").addClass("navbar-nav mr-auto list-unstyled list-inline");
     $("nav ul li").addClass("nav-item");
@@ -17,4 +17,5 @@
     $("#col01").addClass("col-lg-6 col-md-6 col-sm-6");
     $("#col02").addClass("col-lg-6 col-md-6 col-sm-6");
     $("ul#organizer").addClass("list-inline list-unstyled");
+    $("footer ul").addClass("list-inline list-unstyled");
 });
