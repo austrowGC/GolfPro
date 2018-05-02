@@ -196,7 +196,14 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult CreateMatch(Match match)
         {
-            dal.CreateMatch(match);
+            bool matchCreated = false;
+            matchCreated = dal.CreateMatch(match);
+
+            bool playersAdded = false;
+            if (matchCreated)
+            {
+                //playersAdded = 
+            }
 
             return RedirectToAction("Index", "Home");
         }
