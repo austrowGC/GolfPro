@@ -292,22 +292,21 @@ namespace Capstone.Web.DALs.Implementation
             return registrationSuccess;
         }
 
-        public List<User> GetLeaderboardUsernames(string leagueName)
+        public List<UserFace> GetLeaderboardUsernames(int leagueId)
         {
-            List<User> users = new List<User>();
-            string getUsernameSql = @"select users.firstName, users.lastName, users.userName, users.password, users.isadmin from users join users_leagues on users_leagues.userId = users.id join leagues on leagues.id = users_leagues.leagueId where leagues.id = @leagueID";
+            List<UserFace> users = new List<UserFace>();
+            string getUsernameSql = @"select users.id, users.firstname, users.lastname, users.username from users join users_leagues on users_leagues.userId = users.id join leagues on leagues.id = users_leagues.leagueId where leagues.id = @leagueID";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open(); SqlCommand cmd = new SqlCommand(getUsernameSql, conn);
 
-                cmd.Parameters.AddWithValue("@leagueID", leagueName);
+                cmd.Parameters.AddWithValue("@leagueID", leagueId);
 
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
-
                 {
-                    User user = AssembleUser(reader);
+                    UserFace user = AssembleUserFace(reader);
                     users.Add(user);
                 }
                 conn.Close();
@@ -580,6 +579,17 @@ namespace Capstone.Web.DALs.Implementation
                 OrganizerLastName = Convert.ToString(reader["orgLastname"]),
                 CourseId = Convert.ToInt32(reader["courseId"]),
                 CourseName = Convert.ToString(reader["courseName"])
+            };
+        }
+
+        private UserFace AssembleUserFace(SqlDataReader reader)
+        {
+            return new UserFace()
+            {
+                Id = Convert.ToInt32(reader["id"]),
+                Username = Convert.ToString(reader["username"]),
+                FirstName = Convert.ToString(reader["firstname"]),
+                LastName = Convert.ToString(reader["lastname"])
             };
         }
 
