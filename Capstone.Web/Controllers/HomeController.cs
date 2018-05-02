@@ -181,17 +181,17 @@ namespace Capstone.Web.Controllers
                 return View("LeagueLeaderboard", leaderboard);
         }
 
-        public ActionResult CreateMatch(string leagueName)
-        {
-            List<User> userList = dal.GetLeaderboardUsernames(leagueName);
+        //public ActionResult CreateMatch(string leagueName)
+        //{
+        //    List<User> userList = dal.GetLeaderboardUsernames(leagueName);
 
-            Match match = new Match()
-            {
-                leagueUsers = userList
-            };
+        //    Match match = new Match()
+        //    {
+        //        leagueUsers = userList
+        //    };
 
-            return View("CreateMatch", match);
-        }
+        //    return View("CreateMatch", match);
+        //}
 
         [HttpPost]
         public ActionResult CreateMatch(Match match)
@@ -213,18 +213,18 @@ namespace Capstone.Web.Controllers
             return View("CreateLeague", league);
         }
 
-        public ActionResult LogMatchScore(string leagueName, Match match)
-        {
-            List<User> userList = dal.GetLeaderboardUsernames(leagueName);
+        //public ActionResult LogMatchScore(string leagueName, Match match)
+        //{
+        //    List<User> userList = dal.GetLeaderboardUsernames(leagueName);
 
-            LogMatch logMatch = new LogMatch
-            {
-                leagueUsers = userList,
-                match = match
-            };
+        //    LogMatch logMatch = new LogMatch
+        //    {
+        //        leagueUsers = userList,
+        //        match = match
+        //    };
 
-            return View("LogMatchScore", logMatch);
-        }
+        //    return View("LogMatchScore", logMatch);
+        //}
 
         public ActionResult AddNewCourse()
         {
@@ -356,10 +356,19 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult AddUsersToLeague(int leagueId, string userName)
         {
-            User user = dal.GetUe
+            UserProfile user = dal.GetUserProfile(userName);
+            bool success = dal.AddUsersToLeague(leagueId, user.Id);
+
+            if (success)
+            {
+                SetMessage("Score has been successfully logged!", MessageType.Success);
+            }
+            else
+            {
+                SetMessage("There was an error logging your score!", MessageType.Error);
+            }
 
             return RedirectToAction("Index", "Home");
-
         }
     }
 }

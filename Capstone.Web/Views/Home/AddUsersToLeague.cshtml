@@ -1,45 +1,21 @@
-﻿@model Capstone.Web.Models.ViewModels.Course
+﻿@model Capstone.Web.Models.UserFace
 
 
-<div id="createCourse">
+<div id="addUsersToLeague">
 
-    <div class="modal-header"">
-        <h1><span class="glyphicon glyphicon-plus-sign"></span> Add a New Course</h1>
+    <div class="modal-header">
+        <h1><span class="glyphicon glyphicon-plus-sign"></span> Add Golfers to Your League</h1>
     </div>
 
-    @using (Html.BeginForm("AddNewCourse", "Home", FormMethod.Post))
+    @using (Html.BeginForm("AddUsersToLeague", "Home", FormMethod.Post))
     {
         <div class="form-group">
-            <label for="Name">Enter Course Name</label>
-            @Html.TextBoxFor(m => m.Name, new { placeholder = "SunnyVale Acres" })
-            @Html.ValidationMessageFor(m => m.Name)
-
-            <br />
-
-            <label for="NumberOfHoles">Number of Holes</label>
-            <br />
-
-
-            <select name="NumberOfHoles" class="form-control">
-                <option>9</option>
-                <option>18</option>
-
-            </select>
-
-            <br />
-
-            <label for="LengthInYards">Enter Length in Yards</label>
-            @Html.TextBoxFor(m => m.LengthInYards, new { placeholder = "7000" })
-            @Html.ValidationMessageFor(m => m.LengthInYards)
-
-            <br />
-            <label for="Par">Enter Par of Course</label>
-            @Html.TextBoxFor(m => m.Par, new { placeholder = "70" })
-            @Html.ValidationMessageFor(m => m.Par)
-
+            <label for="Username">Please enter the username of the golfer to be added.</label>
+            @Html.TextBoxFor(m => m.Username, new { placeholder = "dlimmer" })
+            @Html.ValidationMessageFor(m => m.Username)
         </div>
 
-        <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-cloud-upload"></span> Add Course</button>
+        <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-cloud-upload"></span> Add Golfer</button>
     }
 
 </div>

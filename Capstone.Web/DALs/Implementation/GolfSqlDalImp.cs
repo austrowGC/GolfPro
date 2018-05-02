@@ -594,6 +594,30 @@ namespace Capstone.Web.DALs.Implementation
             };
         }
 
+        public bool AddUsersToLeague(int userId, int leagueId)
+        {
+            bool addedSuccess = false;
+            string saveUserSql = @"insert into users_leagues (userId, leagueId) values (@userId, @leagueId);";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(saveUserSql, conn);
+
+                cmd.Parameters.AddWithValue("@userId", userId);
+                cmd.Parameters.AddWithValue("@leagueId", leagueId);
+
+                int affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows == 1)
+                {
+                    addedSuccess = true;
+                }
+                conn.Close();
+            }
+
+            return addedSuccess;
+        }
+
         private class Authenticator
         {
             private static int length = 24;
