@@ -7,7 +7,7 @@
 <div id="login">
 
     <div class="modal-header">
-        <h1><span class="glyphicon glyphicon-lock"></span> Sign In</h1>
+        <h1> Sign In</h1>
     </div>
 
     @using (Html.BeginForm("PostUserLogin", "Home", FormMethod.Post))
@@ -18,11 +18,11 @@
             @Html.TextBoxFor(m => m.Username, new { placeholder = "Enter username" })
             @Html.ValidationMessageFor(m => m.Username)
         <br />
-            <label for="Password"><span class="glyphicon glyphicon-certificate"></span>Password</label>
+            <label for="Password"><span class="glyphicon glyphicon-lock"></span>Password</label>
             @Html.PasswordFor(m => m.Password, new { placeholder = "Enter password" })
             @Html.ValidationMessageFor(m => m.Password)
         </div>
-            <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button><br />
+            <button type="submit" class="btn btn-success btn-block">Login</button><br />
             <p style="text-align: center">@Html.ActionLink("Don't have an account? Click here to register.", "Registration")</p>
     }
 </div>

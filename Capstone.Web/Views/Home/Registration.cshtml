@@ -8,7 +8,7 @@
 <div id="register">
     <div class="modal-header">
 
-        <h2><span class="glyphicon glyphicon-pencil"></span> Registration</h2>
+        <h2> Registration</h2>
 
     </div>
 
@@ -16,31 +16,31 @@
     {
     <div class="form-group">
 
-        <label for="FirstName">First Name</label>
+        <label for="FirstName"><span class="glyphicon glyphicon-user"></span>First Name</label>
         @Html.TextBoxFor(m => m.FirstName, new { placeholder = "Enter first name" })
         @Html.ValidationMessageFor(m => m.FirstName)
         <br />
 
-        <label for="LastName">Last Name</label>
+        <label for="LastName"><span class="glyphicon glyphicon-user"></span>Last Name</label>
         @Html.TextBoxFor(m => m.LastName, new { placeholder = "Enter last name" })
         @Html.ValidationMessageFor(m => m.LastName)
         <br />
 
-        <label for="UserName">Username</label>
+        <label for="UserName"><span class="glyphicon glyphicon-user"></span>Username</label>
         @Html.TextBoxFor(m => m.UserName, new { placeholder = "Enter username" })
         @Html.ValidationMessageFor(m => m.UserName)
         @Html.ValidationMessage("username-exists")
         <br />
 
-        <label for="Password">Password</label>
+        <label for="Password"><span class="glyphicon glyphicon-lock"></span>Password</label>
         @Html.PasswordFor(m => m.Password, new { placeholder = "Enter password" })
         @Html.ValidationMessageFor(m => m.Password)
         <br />
 
-        <label for="ConfirmPassword">Confirm Password</label>
+        <label for="ConfirmPassword"><span class="glyphicon glyphicon-lock"></span>Confirm Password</label>
         @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Retype password" })
         @Html.ValidationMessageFor(m => m.ConfirmPassword)
     </div>
-            <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span> Register</button>
+            <button type="submit" class="btn btn-success btn-block"> Register</button>
     }
 </div>
