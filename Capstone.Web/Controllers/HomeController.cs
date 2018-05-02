@@ -181,6 +181,18 @@ namespace Capstone.Web.Controllers
                 return View("LeagueLeaderboard", leaderboard);
         }
 
+        public ActionResult CreateMatch(string leagueName)
+        {
+            List<User> userList = dal.GetLeaderboardUsernames(leagueName);
+
+            Match match = new Match()
+            {
+                leagueUsers = userList
+            };
+
+            return View("CreateMatch", match);
+        }
+
         [HttpPost]
         public ActionResult CreateMatch(Match match)
         {
