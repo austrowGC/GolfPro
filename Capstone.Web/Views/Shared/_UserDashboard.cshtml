@@ -47,12 +47,18 @@
                 <h2>Leagues</h2>
                 foreach (var league in Model.PlayerLeagues)
                 {
-                    <a href="@Url.Action("LeagueLeaderBoard", "Home", new { leagueId = league.ID })">
-                        <div>
+                    <div>
+                        <a href="@Url.Action("LeagueLeaderBoard", "Home", new { leagueId = league.ID })">
+
                             <p>@{Write($"{league.Name} - {league.OrganizerUsername}");}</p>
                             <p>@{Write(league.CourseName);}</p>
-                        </div>
-                    </a>
+                        </a>
+                        @if (Model.IsOrganizerOf(league))
+                        {
+                            @Html.Partial("_OrganizerOptions", league)
+                        }
+                    </div>
+
                 }
             }
             else

@@ -150,6 +150,11 @@ namespace Capstone.Web.Models
             return $"Score: {sm.Score}\tHoles: {sm.Holes}\tPar: {sm.Par}";
         }
 
+        public bool IsOrganizerOf(League league)
+        {
+            return (_profile.Id == league.OrganizerId);
+        }
+
         //20180431 below is unused
         private DashboardStats AssembleDashboard()
         {
