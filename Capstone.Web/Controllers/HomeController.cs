@@ -360,6 +360,7 @@ namespace Capstone.Web.Controllers
                 SetMessage("There was an error adding your course!", MessageType.Error);
             }
             return RedirectToAction("Index", "Home");
+
         }
     }
 }

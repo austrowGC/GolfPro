@@ -8,13 +8,10 @@ using Capstone.Web.Models;
 using Capstone.Web.Models.ViewModels;
 using System.Security.Cryptography;
 
-
 namespace Capstone.Web.DALs.Implementation
 {
     public class GolfSqlDalImp : GolfSqlDal
     {
-        private readonly string getUserModelSql = @"select id, username, firstname, lastname, password, isadmin, salt from users where (username = @username);";
-
         private readonly string connectionString;
 
         public GolfSqlDalImp(string connectionString)
@@ -87,6 +84,8 @@ namespace Capstone.Web.DALs.Implementation
 
         public User GetUser(string username)
         {
+            string getUserModelSql = @"select id, username, firstname, lastname, password, isadmin, salt from users where (username = @username);";
+
             User user = new User();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -616,6 +615,7 @@ namespace Capstone.Web.DALs.Implementation
                 return string.Equals(this.Hash, hash);
             }
 
+            //for testing, doesn't interact with anything
             public bool AreTheseEqual()
             {
                 bool verdict = false;

@@ -22,7 +22,6 @@ namespace Capstone.Web.Models.ViewModels
 
                 return average;
             }
-                
         }
     }
 }
