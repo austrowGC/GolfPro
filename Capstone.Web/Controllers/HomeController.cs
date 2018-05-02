@@ -344,12 +344,12 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult AddUsersToLeague(User user)
         {
-            dal.AddNewCourse(user);
+            //dal.AddNewCourse(user);
 
-            Check that it was successfully added
+            //Check that it was successfully added
             bool isSuccessful = true;
 
-            If successful:
+            //If successful:
 
             if (isSuccessful)
             {
