@@ -113,6 +113,7 @@
     <Content Include="Content\images\checkered-flag-golf-579311.jpg" />
     <Content Include="Content\images\navbar art 2.jpg" />
     <Content Include="Content\images\navbar art.jpg" />
+    <Content Include="Content\images\slidepic2.jpg" />
     <Content Include="Content\images\splash art for title 2.jpg" />
     <Content Include="Content\images\splash art for title.jpg" />
     <Content Include="Content\images\true.jpg" />
@@ -198,6 +199,8 @@
     <Content Include="Views\Shared\_UserDashboard.cshtml" />
     <Content Include="Views\Shared\_NavLeagueOrg.cshtml" />
     <Content Include="Views\Home\LogMatch.cshtml" />
+    <Content Include="Views\Shared\_OrganizerOptions.cshtml" />
+    <Content Include="Views\Home\AddUsersToLeague.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

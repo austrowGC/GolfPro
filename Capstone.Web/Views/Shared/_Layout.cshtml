@@ -26,11 +26,10 @@
 <body>
     <section>
         <header>
-            <div class="container-fluid">
-                <nav style="min-height: 15%;" class="navbar navbar-default navbar-fixed-top">
-                    <div style="float: right; padding-top: 1.5%; padding-right: 8%">
+                <nav class="navbar">
+                    <div style="float: right; padding-top: .6%; padding-right: 8%">
                         <div class="dropdown">
-                            <button style="position: relative" class="btn navbar-btn btn-lg btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style="position: relative" class="btn navbar-btn btn-md btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="glyphicon glyphicon-align-justify"></span> Menu
                             </button>
 
@@ -40,19 +39,20 @@
                             </ul>
                         </div>
                     </div>
-
                 </nav>
-            </div>
         </header>
+        <div class="clear"></div>
     </section>
     <section>
-    <main>
-        @RenderBody()
-    </main>
+        <main>
+            @Html.Partial("_Message")
+            @RenderBody()
+        </main>
+        <div class="clear"></div>
     </section>
     <section>
-        <footer class="footer">
-
+        <footer>
+            <ul><li>Andrew Keriazes</li><li>Dalton Limmer</li><li>David Riegel</li><li>Gregory Austrow</li></ul>
         </footer>
     </section>
 </body>

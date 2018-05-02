@@ -8,13 +8,10 @@ using Capstone.Web.Models;
 using Capstone.Web.Models.ViewModels;
 using System.Security.Cryptography;
 
-
 namespace Capstone.Web.DALs.Implementation
 {
     public class GolfSqlDalImp : GolfSqlDal
     {
-        private readonly string getUserModelSql = @"select id, username, firstname, lastname, password, isadmin, salt from users where (username = @username);";
-
         private readonly string connectionString;
 
         public GolfSqlDalImp(string connectionString)
@@ -87,6 +84,8 @@ namespace Capstone.Web.DALs.Implementation
 
         public User GetUser(string username)
         {
+            string getUserModelSql = @"select id, username, firstname, lastname, password, isadmin, salt from users where (username = @username);";
+
             User user = new User();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -322,7 +321,7 @@ namespace Capstone.Web.DALs.Implementation
             string getLeaderboardUserSql = @"select courses.holeCount, count(matches.id) as totalMatches, 
                                              sum(users_matches.score) as totalStrokes, users.firstName, users.lastName
                                              from users join users_matches on users_matches.userId = users.id
-                                             join matches on matches.id = users_matches.matcheId
+                                             join matches on matches.id = users_matches.matchId
                                              join users_leagues on users_leagues.userId = users.id
                                              join leagues on leagues.id = users_leagues.leagueId
                                              join courses on leagues.courseId = courses.id where leagues.id = @leagueId
@@ -616,6 +615,7 @@ namespace Capstone.Web.DALs.Implementation
                 return string.Equals(this.Hash, hash);
             }
 
+            //for testing, doesn't interact with anything
             public bool AreTheseEqual()
             {
                 bool verdict = false;
