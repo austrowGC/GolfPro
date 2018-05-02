@@ -335,5 +335,10 @@ namespace Capstone.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult AddUsersToLeague(int leagueId)
+        {
+            return View();
+        }
     }
 }
