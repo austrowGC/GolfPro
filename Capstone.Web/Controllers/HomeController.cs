@@ -340,5 +340,26 @@ namespace Capstone.Web.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult AddUsersToLeague(User user)
+        {
+            dal.AddNewCourse(user);
+
+            Check that it was successfully added
+            bool isSuccessful = true;
+
+            If successful:
+
+            if (isSuccessful)
+            {
+                SetMessage("Course has been successfully added!", MessageType.Success);
+            }
+            else
+            {
+                SetMessage("There was an error adding your course!", MessageType.Error);
+            }
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
