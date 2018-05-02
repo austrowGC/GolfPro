@@ -36,5 +36,9 @@ namespace Capstone.Web.DALs
         Course GetCourseAssociatedWithLeague(int leagueId);
 
         List<LeaderboardUser> GetLeagueUsers(int leagueId);
+
+        int GetLeagueId(string name);
+
+        bool JoinLeague(UserAndLeague model);
     }
 }

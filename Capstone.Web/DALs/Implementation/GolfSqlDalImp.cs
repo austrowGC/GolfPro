@@ -113,7 +113,7 @@ namespace Capstone.Web.DALs.Implementation
                 validPass = new Authenticator(cred.Salt, cred.Hash).AssertValidPassword(model.Password);
             }
             return validPass;
-            
+
         }
 
         public User GetUsername(string username)
@@ -159,8 +159,55 @@ namespace Capstone.Web.DALs.Implementation
             {
                 isSuccessful = false;
             }
-            isSuccessful = (rowsaffected>0);
+            isSuccessful = (rowsaffected > 0);
             return isSuccessful;
+        }
+
+        public int GetLeagueId(string name)
+        {
+            string statement = @"select id from leagues where name = @name;";
+            int leagueId = -1;
+
+            using(SqlConnection sqlC = new SqlConnection(connectionString))
+            {
+                sqlC.Open();
+
+                SqlCommand cmd = new SqlCommand(statement, sqlC);
+                cmd.Parameters.AddWithValue("@name", name);
+
+                leagueId = (int)cmd.ExecuteScalar();
+            }
+
+            return leagueId;
+        }
+
+        public bool JoinLeague(UserAndLeague model)
+        {
+            bool success = false;
+            int rowsaffected = 0;
+
+            string addUserLeagueSql = @"insert into users_leagues (userId, leagueId) values (@userId, @leagueId);";
+
+            using (SqlConnection sqlC = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    sqlC.Open();
+
+                    SqlCommand cmd = new SqlCommand(addUserLeagueSql, sqlC);
+                    cmd.Parameters.AddWithValue("@userId", model.UserId);
+                    cmd.Parameters.AddWithValue("@leagueId", model.LeagueId);
+                    rowsaffected = cmd.ExecuteNonQuery();
+
+                    success = (rowsaffected > 0);
+                }
+                catch (SqlException sqlEx)
+                {
+                    success = false;
+                }
+            }
+
+            return success;
         }
 
         public bool CreateMatch(Match match)
@@ -463,7 +510,7 @@ namespace Capstone.Web.DALs.Implementation
 
             UserProfile profile = new UserProfile();
 
-            using(SqlConnection sqlC = new SqlConnection(connectionString))
+            using (SqlConnection sqlC = new SqlConnection(connectionString))
             {
                 sqlC.Open();
                 SqlCommand cmd = new SqlCommand(userDetailSql, sqlC);

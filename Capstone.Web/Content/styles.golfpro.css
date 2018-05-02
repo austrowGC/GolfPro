@@ -1,6 +1,10 @@
 ﻿body {
     background: url(./images/true.jpg) no-repeat;
+<<<<<<< HEAD
     background-position: center;
+=======
+    background-position:center;
+>>>>>>> dbcc860760071b6d90049a66f415ff87bd795dff
     position: relative;
     margin: 0;
     padding-bottom: 6rem;
@@ -59,3 +63,4 @@ header nav {
     margin-left: auto;
     width: 450px;
 }
+
