@@ -7,6 +7,7 @@
     /*padding-bottom: 6rem;*/
     min-height: 100%;
     /*padding-top: 100px;*/
+    background-attachment: fixed;
 }
 
 html {
@@ -28,7 +29,7 @@ header{
     margin-top: -100px;*/
 }
 
-footer {
+/*footer {
     background: url('images/navbar art 2.jpg') no-repeat;
     background-size: cover;
     border-top: 3px groove #efefef;
@@ -36,7 +37,7 @@ footer {
     width: 100%;
     bottom: 0px;
     color: whitesmoke;
-}
+}*/
 
 .modal-header, h4, .close {
     color: black !important;
@@ -67,4 +68,14 @@ a:hover, a:visited, a:link, a:active {
     margin-right:auto;
     margin-left: auto;
     width: 450px;
+}
+
+.parallax {
+    
+    background-image: url('images/slidepic2.jpg');
+    min-height: 500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
