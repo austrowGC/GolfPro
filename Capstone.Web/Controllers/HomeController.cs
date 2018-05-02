@@ -374,6 +374,5 @@ namespace Capstone.Web.Controllers
             return RedirectToAction("Index", "Home");
 
         }
->>>>>>> 33637a1941bd98cc738108e73fc006c02da61788
     }
 }
