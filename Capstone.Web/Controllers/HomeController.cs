@@ -181,9 +181,9 @@ namespace Capstone.Web.Controllers
                 return View("LeagueLeaderboard", leaderboard);
         }
 
-        public ActionResult CreateMatch(string leagueName)
+        public ActionResult CreateMatch(int leagueId)
         {
-            List<User> userList = dal.GetLeaderboardUsernames(leagueName);
+            List<UserFace> userList = dal.GetLeaderboardUsernames(leagueId);
 
             Match match = new Match()
             {
@@ -196,7 +196,14 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult CreateMatch(Match match)
         {
-            dal.CreateMatch(match);
+            bool matchCreated = false;
+            matchCreated = dal.CreateMatch(match);
+
+            bool playersAdded = false;
+            if (matchCreated)
+            {
+                //playersAdded = 
+            }
 
             return RedirectToAction("Index", "Home");
         }
@@ -213,9 +220,9 @@ namespace Capstone.Web.Controllers
             return View("CreateLeague", league);
         }
 
-        public ActionResult LogMatchScore(string leagueName, Match match)
+        public ActionResult LogMatchScore(int leagueId, Match match)
         {
-            List<User> userList = dal.GetLeaderboardUsernames(leagueName);
+            List<UserFace> userList = dal.GetLeaderboardUsernames(leagueId);
 
             LogMatch logMatch = new LogMatch
             {

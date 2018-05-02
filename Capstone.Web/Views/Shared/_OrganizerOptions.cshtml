@@ -2,6 +2,6 @@
 
 <ul id="organizer">
     <li>@Html.ActionLink("Add User", "AddUsersToLeague", new { leagueId = Model.ID })</li>
-    <li><a href="#">Schedule Match</a></li>
-    <li><a href="#">Log Scores</a></li>
+    <li>@Html.ActionLink("Schedule Match", "CreateMatch", new { leagueId = Model.ID })</li>
+    <li>@Html.ActionLink("Log Scores", "LogMatchScores")</li>
 </ul>
