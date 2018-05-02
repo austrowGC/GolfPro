@@ -12,16 +12,16 @@ namespace Capstone.Web.Models
         public DateTime ReservationDate { get; set; }
         public DateTime ReservationTime { get; set; }
         public int NumberOfPlayers { get; set; }
-        public List<User> leagueUsers { get; set; }
+        public int LeagueId { get; set; }
+        public List<UserFace> leagueUsers { get; set; }
         public DateTime Reservation
         {
             get
             {
-                string one = ReservationDate.ToString();
-                string two = ReservationTime.ToString();
+                string date = ReservationDate.ToShortDateString();
+                string time = ReservationTime.ToShortTimeString();
 
-                DateTime dt = Convert.ToDateTime(one + " " + two);
-                DateTime Reservation = DateTime.ParseExact(one + " " + two, "dd/MM/yy h:mm:ss tt", CultureInfo.InvariantCulture);
+                DateTime Reservation = DateTime.ParseExact((date + " " + time), "g", new CultureInfo("en-US"));
 
                 return Reservation;
             }

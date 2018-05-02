@@ -1,7 +1,7 @@
 ﻿body {
     background: url('images/slidepic2.jpg') no-repeat;
     background-position: center;
-    position: relative;
+    position: static;
     background-size: cover;
     /*margin: 0;*/
     /*padding-bottom: 6rem;*/

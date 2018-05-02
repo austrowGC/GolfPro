@@ -8,7 +8,7 @@ namespace Capstone.Web.Models.ViewModels
 {
     public class LogMatch
     {
-        public List<User> leagueUsers { get; set; }
+        public List<UserFace> leagueUsers { get; set; }
         public Match match { get; set; }
 
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Score must be a natural number")]
