@@ -181,9 +181,9 @@ namespace Capstone.Web.Controllers
                 return View("LeagueLeaderboard", leaderboard);
         }
 
-        public ActionResult CreateMatch(int leagueId)
+        public ActionResult CreateMatch(string leagueName)
         {
-            List<UserFace> userList = dal.GetLeaderboardUsernames(leagueId);
+            List<User> userList = dal.GetLeaderboardUsernames(leagueName);
 
             Match match = new Match()
             {
@@ -196,14 +196,7 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult CreateMatch(Match match)
         {
-            bool matchCreated = false;
-            matchCreated = dal.CreateMatch(match);
-
-            bool playersAdded = false;
-            if (matchCreated)
-            {
-                //playersAdded = 
-            }
+            dal.CreateMatch(match);
 
             return RedirectToAction("Index", "Home");
         }
@@ -220,9 +213,9 @@ namespace Capstone.Web.Controllers
             return View("CreateLeague", league);
         }
 
-        public ActionResult LogMatchScore(int leagueId, Match match)
+        public ActionResult LogMatchScore(string leagueName, Match match)
         {
-            List<UserFace> userList = dal.GetLeaderboardUsernames(leagueId);
+            List<User> userList = dal.GetLeaderboardUsernames(leagueName);
 
             LogMatch logMatch = new LogMatch
             {
@@ -355,29 +348,16 @@ namespace Capstone.Web.Controllers
             return View();
         }
 
-        public ActionResult AddUsersToLeague()
+        public ActionResult AddUsersToLeague(int leagueId)
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult AddUsersToLeague(User user)
+        public ActionResult AddUsersToLeague(int leagueId, string userName)
         {
-            //dal.AddNewCourse(user);
+            User user = dal.GetUe
 
-            //Check that it was successfully added
-            //bool isSuccessful = true;
-
-            //If successful:
-
-            //if (isSuccessful)
-            //{
-            //    SetMessage("Course has been successfully added!", MessageType.Success);
-            //}
-            //else
-            //{
-            //    SetMessage("There was an error adding your course!", MessageType.Error);
-            //}
             return RedirectToAction("Index", "Home");
 
         }
