@@ -1,12 +1,19 @@
 ﻿body {
     background: url(./images/true.jpg) no-repeat;
-    padding-top: 125px;
-    background-size: cover;
+    background-position:center;
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
+    padding-top: 100px;
 }
 
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
 
 button {
-    width: 20%;
     display: block;
     margin: 0 auto;
 }
@@ -14,6 +21,9 @@ button {
 header nav {
     background: url('images/navbar art.jpg') no-repeat;
     background-size: cover;
+    margin-right: -76px;
+    margin-left: -79px;
+    margin-top: -100px;
 }
 
 .footer {
@@ -22,32 +32,26 @@ header nav {
     width: 100%;
     height: 30px;
     line-height: 60px;
-    border-top-style:solid;
-    border-top-color:white;
-    position: fixed;
-    bottom:0;
-    
+    border-top-style: solid;
+    border-top-color: white;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
 }
-body{
-    padding-bottom:100px;
-}
+
 .modal-header, h4, .close {
     color: black !important;
     text-align: center;
     font-size: 30px;
 }
-    .form-group .error{
 
+.form-group .error {
     color: orangered;
 }
-    .poop-deck{
-        /*justify-content: center;*/
-        
-        margin-right:auto;
-        margin-left:auto;
-        width:450px;
-           
-    }
 
 div.clear{
     visibility:hidden;
@@ -64,21 +68,8 @@ a:hover, a:visited, a:link, a:active {
     width: auto;
 }
 
-    /*header, main {
-    background: rgba(255, 255, 255, 0.72);
+.poop-deck {
+    margin-right:auto;
+    margin-left: auto;
+    width: 450px;
 }
-
-    header nav {
-        background: rgba(42, 255, 0, 0.38);
-    }
-    header nav a{
-        font-size:120%;
-    }
-    header nav a:hover{
-        text-decoration: none;f
-    }*/
-  
-    /*div.container-fluid {
-    padding-bottom: 15px;
-    border: 4px groove #337ab7;
-}*/

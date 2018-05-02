@@ -15,7 +15,6 @@ namespace Capstone.Web.Models.ViewModels
         public double AverageScore
         {
             get
-
             {
                 double average = 0;
 
