@@ -48,16 +48,8 @@
             </tr>
             <tr>
                 <td class="box">
-                    Number of Players:
-                </td>
-                <td>
-                    <select name="NumberOfPlayers" required>
-                        <option value="">Select</option>
-                        <option value="1"> 1 </option>
-                        <option value="2"> 2 </option>
-                        <option value="3"> 3 </option>
-                        <option value="4"> 4 </option>
-                    </select>
+                    Number of Players: @Model.leagueUsers.Count;
+                    <input type="hidden" value="@Model.leagueUsers.Count" name="NumberOfPlayers" />
                 </td>
             </tr>
             <tr>
