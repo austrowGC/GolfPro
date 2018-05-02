@@ -47,14 +47,12 @@
                 <h2>Leagues</h2>
                 foreach (var league in Model.PlayerLeagues)
                 {
-                    <div>
-                        <a href="@Url.Action("LeagueLeaderBoard", "Home", league.ID)">
-
+                    <a href="@Url.Action("LeagueLeaderBoard", "Home", new { leagueId = league.ID })">
+                        <div>
                             <p>@{Write($"{league.Name} - {league.OrganizerUsername}");}</p>
                             <p>@{Write(league.CourseName);}</p>
-
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 }
             }
             else
