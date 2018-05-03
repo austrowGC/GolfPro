@@ -13,13 +13,13 @@
     {
         <div class="form-group">
             <label for="Name">Enter League Name:</label>
-            @Html.TextBoxFor(m => m.Name, new { placeholder = "Enter a name for you new league" })
+            @Html.TextBoxFor(m => m.Name, new { placeholder = "Enter a name for you new league", required = "required" })
             @Html.ValidationMessageFor(m => m.Name)
 
-        <br />
+            <br />
             <label for="CourseId">Choose Course:</label>
             <br />
-            <select class="form-control" name="CourseId">
+            <select class="form-control" name="CourseId" required>
                 <option value="">Select</option>
                 @foreach (var c in Model.courses)
                 {
