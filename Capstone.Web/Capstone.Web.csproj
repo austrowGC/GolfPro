@@ -199,7 +199,6 @@
     <Content Include="Views\Home\LogMatchScore.cshtml" />
     <Content Include="Views\Shared\_CourseList.cshtml" />
     <Content Include="Views\Shared\_UserDashboard.cshtml" />
-    <Content Include="Views\Shared\_NavLeagueOrg.cshtml" />
     <Content Include="Views\Home\LogMatch.cshtml" />
     <Content Include="Views\Shared\_OrganizerOptions.cshtml" />
     <Content Include="Views\Home\AddUsersToLeague.cshtml" />
