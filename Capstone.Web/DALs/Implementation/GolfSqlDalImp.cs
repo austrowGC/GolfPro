@@ -363,7 +363,7 @@ namespace Capstone.Web.DALs.Implementation
 
                     int affectedRows = cmd.ExecuteNonQuery();
                 }
-                catch(SqlException)
+                catch (SqlException)
                 {
                     registrationSuccess = false;
                 }
@@ -718,7 +718,7 @@ namespace Capstone.Web.DALs.Implementation
                         addedSuccess = true;
                     }
                 }
-                catch(SqlException e)
+                catch (SqlException e)
                 {
                     Console.WriteLine(e);
                     addedSuccess = false;
@@ -754,6 +754,33 @@ namespace Capstone.Web.DALs.Implementation
                 }
             }
             return matches;
+        }
+
+        public bool UpdateUserMatchScore(UserMatch model)
+        {
+            bool written = false;
+            string updateNullScoreSql = @"update users_matches set (score = @score) where (userid = @userid) and (matchid = @matchid);";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(updateNullScoreSql, conn);
+                try
+                {
+                    cmd.Parameters.AddWithValue("@score", model.Score);
+                    cmd.Parameters.AddWithValue("@userid", model.User.Id);
+                    cmd.Parameters.AddWithValue("@matchid", model.MatchId);
+
+                    written = cmd.ExecuteNonQuery() > 0;
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.Write(sqlEx.Message);
+                }
+                conn.Close();
+            }
+
+            return written;
         }
 
         private UserMatch AssembleUserMatches(SqlDataReader reader)
