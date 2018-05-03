@@ -1,4 +1,4 @@
-﻿$(Document).ready(function () {
+﻿$(function () {
 
     $("#register form").validate({
         debug: false,
@@ -91,8 +91,12 @@
     $("#login form").validate({
         debug: false,
         rules: {
-            Username: required,
-            Password: required
+            Username: {
+                required: true
+            },
+            Password: {
+                required: true
+            }
         }
     });
 
@@ -100,10 +104,10 @@
         debug: false,
         rules: {
             Name: {
-                required: true,
+                required: true
             },
             CourseID: {
-                required: true,
+                required: true
             }
         },
         messages: {
@@ -115,5 +119,5 @@
                 required: "Select Course is required"
             }
         }
-    };
+    });
 });

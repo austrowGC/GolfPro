@@ -1,4 +1,4 @@
-﻿$(Document).ready(function(){
+﻿$(function(){
     $("main").addClass("container");
     $("nav").addClass("navbar navbar-expand-lg navbar-light");
     $("nav ul").addClass("navbar-nav mr-auto list-unstyled list-inline");
