@@ -1,8 +1,11 @@
 ﻿@using Capstone.Web.Models;
 @using Capstone.Web.Models.ViewModels;
 @model Leaderboard
+@{ 
+    Model.Users.Sort();
+}
 
-<div class="main">
+@*<div class="main">
     <table>
         <thead>Leaderboard</thead>
         <tbody>
@@ -19,28 +22,31 @@
             }
         </tbody>
     </table>
-</div>
-
-@*<div>
-    <section id="features">
-        <h1 style="padding: 30px;">League Leaderboard</h1>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div style="text-align: center">
-                        <i class="fas fa-anchor fa-7x"></i>
-                        <h2>Feature 2</h2>
-                    </div>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo. </p>
-                </div>
-                <div class="col-md-6">
-                    <div style="text-align: center">
-                        <i class="fas fa-chess-queen fa-7x"></i>
-                        <h2>Feature 3</h2>
-                    </div>
-                    <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 </div>*@
+
+<div>
+    <section style="min-height: 400px" class="container" id="features">
+        <h1 style="text-align: center">League Leaderboard</h1>
+        <br />
+        <section>
+            <section class="col-md-6">
+                <h2 style="text-align: center">Name</h2>
+                <br />
+                @foreach (LeaderboardUser user in Model.Users)
+                {
+                    <h5 style="text-align: center">@user.FirstName @user.LastName</h5>
+                    <br />
+                }
+            </section>
+            <section class="col-md-6">
+                <h2 style="text-align: center">Average Score</h2>
+                <br />
+                @foreach (LeaderboardUser user in Model.Users)
+                {
+                    <h5 style="text-align: center">@user.AverageScore</h5>
+                    <br />
+                }
+            </section>
+        </section>
+    </section>
+</div>
