@@ -6,6 +6,7 @@
 
 }
 <style>
+
     #boxer {
         text-align: center;
         font-size: 20px;
@@ -36,13 +37,13 @@
         margin-left: auto;
         margin-right: auto;
     }
-    .table{
-        outline-color:black;
-        outline:solid;
-        text-align:left;
+
+    .table {
+        outline-color: black;
+        outline: solid;
+        text-align: left;
     }
 </style>
-
 <div id="leaderboard">
     <div style="min-height: 400px" id="features">
         <h1 style="text-align: center">League Leaderboard</h1>
@@ -60,7 +61,6 @@
                 <tfoot></tfoot>
                 <tbody>
 
-
                     @for (int i = 1; i <= Model.Users.Count; i++)
                     {
                         <tr>
@@ -69,7 +69,6 @@
                                 {<i class="fas fa-trophy" style="color:goldenrod;"></i>}
                                 else
                                 { @i}
-
                             </th>
                             <td>@Model.Users[i - 1].FirstName @Model.Users[i - 1].LastName</td>
                             <td>@Model.Users[i - 1].AverageScore</td>
@@ -77,14 +76,10 @@
 
                     }
 
-
-
                 </tbody>
             </table>
             <br />
-
         </div>
         <div class="col-md-2 invisible"></div>
-
     </div>
 </div>
