@@ -396,5 +396,22 @@ namespace Capstone.Web.Controllers
             }
             return null;
         }
+
+        public ActionResult SelectMatch(int leagueId)
+        {
+            List<UserMatch> matches = dal.GetUnscoredMatches(leagueId);
+            return View(matches);
+        }
+
+        [HttpPost]
+        public ActionResult PostScore(UserMatch model)
+        {
+            if (model.Score > 0)
+            {
+
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

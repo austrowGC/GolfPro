@@ -1,0 +1,28 @@
+﻿@using Capstone.Web.Models
+@model List<UserMatch>
+
+@{
+    int numUnscored = Model.Count;
+}
+
+<div>
+    @if (numUnscored > 0)
+    {
+        <div id="matchselect">
+            @foreach (var match in Model)
+            {
+                <a href="@Url.Action("LeagueLeaderBoard", "Home", new { match = match })">
+                    <div id="match">
+                        <p>@{Write($"{match.MatchDate} || {match.User.Username} || {match.User.FirstName} {match.User.LastName}");}</p>
+                    </div>
+                </a>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            <h2>No matches to score!</h2>
+        </div>
+    }
+</div>

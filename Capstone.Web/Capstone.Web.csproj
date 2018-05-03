@@ -161,6 +161,7 @@
     <Compile Include="Models\UserAndLeague.cs" />
     <Compile Include="Models\UserCredentials.cs" />
     <Compile Include="Models\UserFace.cs" />
+    <Compile Include="Models\UserMatch.cs" />
     <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Models\ViewModels\AddUsersToLeague.cs" />
@@ -203,6 +204,7 @@
     <Content Include="Views\Shared\_OrganizerOptions.cshtml" />
     <Content Include="Views\Home\AddUsersToLeague.cshtml" />
     <Content Include="Views\Shared\_Greeting.cshtml" />
+    <Content Include="Views\Home\SelectMatch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
