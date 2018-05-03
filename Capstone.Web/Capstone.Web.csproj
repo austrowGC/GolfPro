@@ -203,6 +203,7 @@
     <Content Include="Views\Home\LogMatch.cshtml" />
     <Content Include="Views\Shared\_OrganizerOptions.cshtml" />
     <Content Include="Views\Home\AddUsersToLeague.cshtml" />
+    <Content Include="Views\Shared\_Greeting.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

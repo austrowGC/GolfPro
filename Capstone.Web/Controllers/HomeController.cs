@@ -387,5 +387,14 @@ namespace Capstone.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public PartialViewResult UserHail()
+        {
+            if (Session[SessionKeys.Username] != null)
+            {
+                return PartialView("_Greeting", Session[SessionKeys.Username].ToString());
+            }
+            return null;
+        }
     }
 }
