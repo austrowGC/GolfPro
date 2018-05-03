@@ -11,15 +11,16 @@
         border-color: darkgray;
         box-shadow: 3px 3px 7px 3px lightblue;
     }
-    #boxer2 {
-        text-align: center;
-        font-size: 20px;
-        font-weight: bolder;
-        background-color: darkgray;
-        border: solid;
-        border-color: lightgray;
-        box-shadow: 3px 3px 7px 3px lightblue;
+
+    #col01 {
+        border-color: black;
+        box-shadow: 3px 3px 7px 3px black;
     }
+    #col03 {
+        border-color: black;
+        box-shadow: 3px 3px 7px 3px black;
+    }
+
 
     #namer {
         color: black;
@@ -34,10 +35,6 @@
 </style>
 
 
-<div id="greeting">
-    <h1>@{Write(Model.MessageGreeting());}</h1>
-</div>
-<div class="clear"></div>
 <div class="container">
     <div id="col01">
         @if (Model.PlayerScores != null)
@@ -45,7 +42,7 @@
             if (Model.PlayerScores.Count > 0)
             {
                 <h2>Personal Records</h2>
-                <div id="boxer2">
+                <div id="boxer">
                     <p id="namer">
                         @{ Write(Model.MessageAverage());}
                     </p>
@@ -60,11 +57,11 @@
                 <h2>Match History</h2>
                 foreach (var sm in Model.PlayerScores)
                 {
-                    <div id="boxer2">
+                    <div id="boxer">
                         <p>@{Write(sm.Date);}</p>
-                        <p>@{Write(sm.CourseName);}</p>
-                        <p>@{Write(sm.LeagueName);}</p>
-                        <p>@{Write(Model.MessageMatchScore(sm));}</p>
+                        <p><span id="namer">Course: </span>@{Write(sm.CourseName);}</p>
+                        <p><span id="namer">League: </span>@{Write(sm.LeagueName);}</p>
+                        <p><span id="namer">Match Info: </span>@{Write(Model.MessageMatchScore(sm));}</p>
                     </div>
                 }
             }

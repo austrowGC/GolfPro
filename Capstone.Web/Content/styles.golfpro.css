@@ -65,9 +65,11 @@ a:hover, a:visited, a:link, a:active {
 }
 
 .poop-deck {
-    margin-right:auto;
+    margin-right: auto;
     margin-left: auto;
     width: 450px;
+    border-color: black;
+    box-shadow: 3px 3px 7px 3px black;
 }
 
 .darkblue {
