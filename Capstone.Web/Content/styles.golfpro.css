@@ -62,6 +62,7 @@ a:hover, a:visited, a:link, a:active {
 #greeting{
     text-align: center;
     width: auto;
+    color: whitesmoke;
 }
 
 .poop-deck {

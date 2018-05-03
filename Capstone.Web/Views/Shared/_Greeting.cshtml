@@ -1,3 +1,7 @@
+
+﻿@model String
+
 ﻿<div id="greeting">
-    <h1>@{Write(Model.MessageGreeting());}</h1>
+    <h1>@{Write($"Logged in as {Model}");}</h1>
 </div>
+
