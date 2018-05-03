@@ -193,7 +193,6 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult CreateMatch(Match match)
         {
-<<<<<<< HEAD
             match.ID = dal.CreateMatch(match);
             bool matchCreated = (match.ID > -1);
 
@@ -202,9 +201,6 @@ namespace Capstone.Web.Controllers
             {
                 playersAdded = dal.InitLeagueMatch(match);
             }
-=======
-            dal.CreateMatch(match);
->>>>>>> d1fa737f1ad7e2acb9d8cb3a09f510b708fcb2e1
 
             return RedirectToAction("Index", "Home");
         }
