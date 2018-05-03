@@ -202,6 +202,15 @@ namespace Capstone.Web.Controllers
                 playersAdded = dal.InitLeagueMatch(match);
             }
 
+            if (playersAdded)
+            {
+                SetMessage("Match scheduled!", MessageType.Success);
+            }
+            else
+            {
+                SetMessage("There was an error scheduling your match.", MessageType.Error);
+            }
+
             return RedirectToAction("Index", "Home");
         }
 
