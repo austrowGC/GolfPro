@@ -163,6 +163,7 @@
     <Compile Include="Models\UserFace.cs" />
     <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\UserRole.cs" />
+    <Compile Include="Models\ViewModels\AddUsersToLeague.cs" />
     <Compile Include="Models\ViewModels\Dashboard.cs" />
     <Compile Include="Models\ViewModels\Leaderboard.cs" />
     <Compile Include="Models\ViewModels\Course.cs" />
