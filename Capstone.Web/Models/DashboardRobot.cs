@@ -106,7 +106,7 @@ namespace Capstone.Web.Models
 
         public string MessageBest18()
         {
-            string text = "No 18 hole rounds played!";
+            string text = "Best strokes in 18 holes: N/A";
             int score = GetBestStrokes18();
             if (RealScore(score))
             {
@@ -118,7 +118,7 @@ namespace Capstone.Web.Models
 
         public string MessageBest9()
         {
-            string text = "No 9 hole rounds played!";
+            string text = "Best strokes in 9 holes: N/A";
             int score = GetBestStrokes9();
             if (RealScore(score))
             {

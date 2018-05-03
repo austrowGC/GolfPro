@@ -406,9 +406,19 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult PostScore(UserMatch model)
         {
+            bool scoreWritten = false;
             if (model.Score > 0)
             {
+                scoreWritten = dal.UpdateUserMatchScore(model);
+            }
 
+            if (scoreWritten)
+            {
+                SetMessage("Golfer has been successfully added to league!", MessageType.Success);
+            }
+            else
+            {
+                SetMessage("There was an error adding your golfer! Please make sure the user has an active account, then try the username again.", MessageType.Error);
             }
 
             return RedirectToAction("Index", "Home");

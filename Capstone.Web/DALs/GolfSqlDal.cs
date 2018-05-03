@@ -44,5 +44,7 @@ namespace Capstone.Web.DALs
         bool AddUsersToLeague(int userId, int leagueId);
 
         List<UserMatch> GetUnscoredMatches(int leagueId);
+
+        bool UpdateUserMatchScore(UserMatch model);
     }
 }
