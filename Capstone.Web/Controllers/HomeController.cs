@@ -187,13 +187,13 @@ namespace Capstone.Web.Controllers
             {
                 LeagueId = leagueId
             };
-
             return View("CreateMatch", match);
         }
 
         [HttpPost]
         public ActionResult CreateMatch(Match match)
         {
+<<<<<<< HEAD
             match.ID = dal.CreateMatch(match);
             bool matchCreated = (match.ID > -1);
 
@@ -202,6 +202,9 @@ namespace Capstone.Web.Controllers
             {
                 playersAdded = dal.InitLeagueMatch(match);
             }
+=======
+            dal.CreateMatch(match);
+>>>>>>> d1fa737f1ad7e2acb9d8cb3a09f510b708fcb2e1
 
             return RedirectToAction("Index", "Home");
         }
@@ -218,18 +221,18 @@ namespace Capstone.Web.Controllers
             return View("CreateLeague", league);
         }
 
-        public ActionResult LogMatchScore(int leagueId, Match match)
-        {
-            List<UserFace> userList = dal.GetLeaderboardUsernames(leagueId);
+        //public ActionResult LogMatchScore(string leagueName, Match match)
+        //{
+        //    List<User> userList = dal.GetLeaderboardUsernames(leagueName);
 
-            LogMatch logMatch = new LogMatch
-            {
-                leagueUsers = userList,
-                match = match
-            };
+        //    LogMatch logMatch = new LogMatch
+        //    {
+        //        leagueUsers = userList,
+        //        match = match
+        //    };
 
-            return View("LogMatchScore", logMatch);
-        }
+        //    return View("LogMatchScore", logMatch);
+        //}
 
         public ActionResult AddNewCourse()
         {
@@ -355,29 +358,29 @@ namespace Capstone.Web.Controllers
 
         public ActionResult AddUsersToLeague(int leagueId)
         {
-            return View();
+            TempData["LeagueId"] = leagueId;
+
+            return View("AddUsersToLeague");
         }
 
         [HttpPost]
-        public ActionResult AddUsersToLeague(User user)
+        public ActionResult AddUsersToLeague(AddUsersToLeague model)
         {
-            //dal.AddNewCourse(user);
+            int leagueId = (int)TempData["LeagueId"];
 
-            //Check that it was successfully added
-            //bool isSuccessful = true;
+            UserProfile user = dal.GetUserProfile(model.Username);
+            bool success = dal.AddUsersToLeague(user.Id, leagueId);
 
-            //If successful:
+            if (success)
+            {
+                SetMessage("Golfer has been successfully added to league!", MessageType.Success);
+            }
+            else
+            {
+                SetMessage("There was an error adding your golfer! Please make sure the user has an active account, then try the username again.", MessageType.Error);
+            }
 
-            //if (isSuccessful)
-            //{
-            //    SetMessage("Course has been successfully added!", MessageType.Success);
-            //}
-            //else
-            //{
-            //    SetMessage("There was an error adding your course!", MessageType.Error);
-            //}
             return RedirectToAction("Index", "Home");
-
         }
     }
 }

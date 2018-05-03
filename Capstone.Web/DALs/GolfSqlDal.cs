@@ -40,7 +40,7 @@ namespace Capstone.Web.DALs
         int GetLeagueId(string name);
 
         bool JoinLeague(UserAndLeague model);
-
         bool InitLeagueMatch(Match match);
+        bool AddUsersToLeague(int userId, int leagueId);
     }
 }

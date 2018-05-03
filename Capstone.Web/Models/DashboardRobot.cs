@@ -43,7 +43,7 @@ namespace Capstone.Web.Models
 
             if (holes > 0)
             {
-                avg = score / holes;
+                avg = (score / holes) * 18;
             }
 
             return avg;
