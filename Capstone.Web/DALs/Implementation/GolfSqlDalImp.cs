@@ -729,6 +729,43 @@ namespace Capstone.Web.DALs.Implementation
             return addedSuccess;
         }
 
+        public List<UserMatch> GetUnscoredMatches(int leagueId)
+        {
+            string getNullScoresAndUserSql = @"select um.matchid, m.date, u.id, u.username, u.firstname, u.lastname from users_matches um inner join matches m on (um.matchid = m.id) inner join users u on (um.userid = u.id) inner join leagues_matches lm on (um.matchid = lm.matchid) where (lm.leagueid = @leagueid) and (um.score is null) and (m.date < getdate()) order by m.date ASC;";
+            List<UserMatch> matches = new List<UserMatch>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(getNullScoresAndUserSql, conn);
+                try
+                {
+                    cmd.Parameters.AddWithValue("@leagueId", leagueId);
+                    SqlDataReader sdr = cmd.ExecuteReader();
+                    while (sdr.Read())
+                    {
+                        matches.Add(AssembleUserMatches(sdr));
+                    }
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.Write(sqlEx.Message);
+                }
+            }
+            return matches;
+        }
+
+        private UserMatch AssembleUserMatches(SqlDataReader reader)
+        {
+            return new UserMatch()
+            {
+                MatchId = Convert.ToInt32(reader["matchid"]),
+                MatchDate = Convert.ToDateTime(reader["date"]),
+                User = AssembleUserFace(reader)
+            };
+        }
+
         private class Authenticator
         {
             private static int length = 24;

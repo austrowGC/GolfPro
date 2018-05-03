@@ -18,7 +18,7 @@ namespace Capstone.Web.Models.ViewModels
             {
                 double average = 0;
 
-                average = (TotalStrokes * 18) / NumberOfHoles;
+                average = ((TotalStrokes/(NumberOfHoles*TotalMatches)) * 18);
 
                 return average;
             }

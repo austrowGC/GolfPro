@@ -42,5 +42,7 @@ namespace Capstone.Web.DALs
         bool JoinLeague(UserAndLeague model);
         bool InitLeagueMatch(Match match);
         bool AddUsersToLeague(int userId, int leagueId);
+
+        List<UserMatch> GetUnscoredMatches(int leagueId);
     }
 }
