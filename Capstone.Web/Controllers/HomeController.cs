@@ -181,22 +181,26 @@ namespace Capstone.Web.Controllers
                 return View("LeagueLeaderboard", leaderboard);
         }
 
-        //public ActionResult CreateMatch(string leagueName)
-        //{
-        //    List<User> userList = dal.GetLeaderboardUsernames(leagueName);
-
-        //    Match match = new Match()
-        //    {
-        //        leagueUsers = userList
-        //    };
-
-        //    return View("CreateMatch", match);
-        //}
+        public ActionResult CreateMatch(int leagueId)
+        {
+            Match match = new Match()
+            {
+                LeagueId = leagueId
+            };
+            return View("CreateMatch", match);
+        }
 
         [HttpPost]
         public ActionResult CreateMatch(Match match)
         {
-            dal.CreateMatch(match);
+            match.ID = dal.CreateMatch(match);
+            bool matchCreated = (match.ID > -1);
+
+            bool playersAdded = false;
+            if (matchCreated)
+            {
+                playersAdded = dal.InitLeagueMatch(match);
+            }
 
             return RedirectToAction("Index", "Home");
         }
