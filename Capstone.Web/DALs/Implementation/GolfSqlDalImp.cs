@@ -40,7 +40,6 @@ namespace Capstone.Web.DALs.Implementation
                     cmd.ExecuteNonQuery();
                 }
             }
-
             catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
@@ -156,6 +155,7 @@ namespace Capstone.Web.DALs.Implementation
             }
             catch (SqlException e)
             {
+                Console.WriteLine(e);
                 isSuccessful = false;
             }
             isSuccessful = (rowsaffected > 0);
@@ -202,6 +202,7 @@ namespace Capstone.Web.DALs.Implementation
                 }
                 catch (SqlException sqlEx)
                 {
+                    Console.WriteLine(sqlEx);
                     success = false;
                 }
             }
@@ -227,7 +228,6 @@ namespace Capstone.Web.DALs.Implementation
                     cmd.Parameters.Add(new SqlParameter("@numOfPlayers", match.NumberOfPlayers));
 
                     rowsAffected = cmd.ExecuteNonQuery();
-                    isSuccessful = (rowsAffected > 0);
                 }
             }
             catch (SqlException e)
@@ -267,25 +267,28 @@ namespace Capstone.Web.DALs.Implementation
 
         public bool SaveUser(Registration model)
         {
-            bool registrationSuccess = false;
+            bool registrationSuccess = true;
             string saveUserSql = @"insert into users (firstname, lastname, username, password, salt) values (@firstname, @lastname, @username, @password, @salt);";
 
             Authenticator auth = new Authenticator(model.Password);
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
+
                 SqlCommand cmd = new SqlCommand(saveUserSql, conn);
-
-                cmd.Parameters.AddWithValue("@firstname", model.FirstName);
-                cmd.Parameters.AddWithValue("@lastname", model.LastName);
-                cmd.Parameters.AddWithValue("@username", model.UserName);
-                cmd.Parameters.AddWithValue("@password", auth.Hash);
-                cmd.Parameters.AddWithValue("@salt", auth.Salt);
-
-                int affectedRows = cmd.ExecuteNonQuery();
-                if (affectedRows == 1)
+                try
                 {
-                    registrationSuccess = true;
+                    cmd.Parameters.AddWithValue("@firstname", model.FirstName);
+                    cmd.Parameters.AddWithValue("@lastname", model.LastName);
+                    cmd.Parameters.AddWithValue("@username", model.UserName);
+                    cmd.Parameters.AddWithValue("@password", auth.Hash);
+                    cmd.Parameters.AddWithValue("@salt", auth.Salt);
+
+                    int affectedRows = cmd.ExecuteNonQuery();
+                }
+                catch(SqlException)
+                {
+                    registrationSuccess = false;
                 }
                 conn.Close();
             }
@@ -499,6 +502,29 @@ namespace Capstone.Web.DALs.Implementation
             return userRole;
         }
 
+        public UserRole GetUserIdByUsername(string username)
+        {
+            string getUserRoleSql = @"select u.id, u.username, u.isadmin, count(l.id)'ownedL' from users u left join leagues l on (u.id = l.organizerId) where u.username = @username group by u.id, u.username, u.isadmin;";
+
+            UserRole userRole = null;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(getUserRoleSql, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                SqlDataReader sdr = cmd.ExecuteReader();
+                if (sdr.Read())
+                {
+                    userRole = AssembleUserRole(sdr);
+                }
+
+                conn.Close();
+            }
+
+            return userRole;
+        }
+
         public UserProfile GetUserProfile(string username)
         {
             #region statements
@@ -597,20 +623,28 @@ namespace Capstone.Web.DALs.Implementation
         public bool AddUsersToLeague(int userId, int leagueId)
         {
             bool addedSuccess = false;
-            string saveUserSql = @"insert into users_leagues (userId, leagueId) values (@userId, @leagueId);";
+            string insertUserIntoLeague = @"insert into users_leagues (userId, leagueId) values (@userId, @leagueId);";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
+
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(saveUserSql, conn);
-
-                cmd.Parameters.AddWithValue("@userId", userId);
-                cmd.Parameters.AddWithValue("@leagueId", leagueId);
-
-                int affectedRows = cmd.ExecuteNonQuery();
-                if (affectedRows == 1)
+                SqlCommand cmd = new SqlCommand(insertUserIntoLeague, conn);
+                try
                 {
-                    addedSuccess = true;
+                    cmd.Parameters.AddWithValue("@userId", userId);
+                    cmd.Parameters.AddWithValue("@leagueId", leagueId);
+
+                    int affectedRows = cmd.ExecuteNonQuery();
+                    if (affectedRows == 1)
+                    {
+                        addedSuccess = true;
+                    }
+                }
+                catch(SqlException e)
+                {
+                    Console.WriteLine(e);
+                    addedSuccess = false;
                 }
                 conn.Close();
             }

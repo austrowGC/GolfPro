@@ -350,22 +350,26 @@ namespace Capstone.Web.Controllers
 
         public ActionResult AddUsersToLeague(int leagueId)
         {
-            return View();
+            TempData["LeagueId"] = leagueId;
+
+            return View("AddUsersToLeague");
         }
 
         [HttpPost]
-        public ActionResult AddUsersToLeague(int leagueId, string userName)
+        public ActionResult AddUsersToLeague(AddUsersToLeague model)
         {
-            UserProfile user = dal.GetUserProfile(userName);
-            bool success = dal.AddUsersToLeague(leagueId, user.Id);
+            int leagueId = (int)TempData["LeagueId"];
+
+            UserProfile user = dal.GetUserProfile(model.Username);
+            bool success = dal.AddUsersToLeague(user.Id, leagueId);
 
             if (success)
             {
-                SetMessage("Score has been successfully logged!", MessageType.Success);
+                SetMessage("Golfer has been successfully added to league!", MessageType.Success);
             }
             else
             {
-                SetMessage("There was an error logging your score!", MessageType.Error);
+                SetMessage("There was an error adding your golfer! Please make sure the user has an active account, then try the username again.", MessageType.Error);
             }
 
             return RedirectToAction("Index", "Home");
