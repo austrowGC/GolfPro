@@ -11,7 +11,7 @@
     {
         <div class="form-group">
             <label for="Name">Enter Course Name</label>
-            @Html.TextBoxFor(m => m.Name, new { placeholder = "SunnyVale Acres" })
+            @Html.TextBoxFor(m => m.Name, new { placeholder = "SunnyVale Acres", required = "required" })
             @Html.ValidationMessageFor(m => m.Name)
 
        <br />
@@ -20,7 +20,7 @@
             <br />
 
             
-            <select name ="NumberOfHoles" class="form-control">
+            <select name ="NumberOfHoles" class="form-control" required>
                 <option>9</option>
                 <option>18</option>
 
@@ -29,12 +29,12 @@
         <br />
 
             <label for="LengthInYards">Enter Length in Yards</label>
-            @Html.TextBoxFor(m => m.LengthInYards, new { placeholder = "7000" })
+            @Html.TextBoxFor(m => m.LengthInYards, new { placeholder = "7000", required = "required" })
             @Html.ValidationMessageFor(m => m.LengthInYards)
 
         <br />
             <label for="Par">Enter Par of Course</label>
-            @Html.TextBoxFor(m => m.Par, new { placeholder = "70" })
+            @Html.TextBoxFor(m => m.Par, new { placeholder = "70", required = "required" })
             @Html.ValidationMessageFor(m => m.Par)
 
         </div>

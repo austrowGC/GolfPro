@@ -96,4 +96,24 @@
         }
     });
 
+    $("#createLeague form").validate({
+        debug: false,
+        rules: {
+            Name: {
+                required: true,
+            },
+            CourseID: {
+                required: true,
+            }
+        },
+        messages: {
+            Name: {
+                required: "League Name is required"
+            },
+
+            CourseID: {
+                required: "Select Course is required"
+            }
+        }
+    };
 });
