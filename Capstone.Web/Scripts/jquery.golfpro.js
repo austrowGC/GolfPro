@@ -9,7 +9,7 @@
     $("form").children().addClass("form-group");
     $("form button:last-child").addClass("btn btn-primary");
     $("span.field-validation-error").addClass("error");
-    $("main div").not(".container").addClass("well");
+    $("main div").not(".container ").addClass("well");
     $('.dropdown-toggle').dropdown();
 
     $("input").addClass("form-control");

@@ -1,33 +1,90 @@
 ﻿@using Capstone.Web.Models;
 @using Capstone.Web.Models.ViewModels;
 @model Leaderboard
-@{ 
+@{
     Model.Users.Sort((x, y) => x.AverageScore.CompareTo(y.AverageScore));
-}
 
-<div>
-    <section style="min-height: 400px" class="container" id="features">
+}
+<style>
+    #boxer {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bolder;
+        background-color: lightgray;
+        border: solid;
+        border-color: darkgray;
+        box-shadow: 3px 3px 7px 3px lightblue;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    #namer {
+        color: black;
+        text-decoration: double;
+        text-shadow: 1px 1px 1px white;
+    }
+
+    #leaderboard {
+        border-color: black;
+        box-shadow: 3px 3px 7px 3px black;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .centered {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .table{
+        outline-color:black;
+        outline:solid;
+        text-align:left;
+    }
+</style>
+
+<div id="leaderboard">
+    <div style="min-height: 400px" id="features">
         <h1 style="text-align: center">League Leaderboard</h1>
         <br />
-        <section>
-            <section class="col-md-6">
-                <h2 style="text-align: center">Name</h2>
-                <br />
-                @foreach (LeaderboardUser user in Model.Users)
-                {
-                    <h5 style="text-align: center">@user.FirstName @user.LastName</h5>
-                    <br />
-                }
-            </section>
-            <section class="col-md-6">
-                <h2 style="text-align: center">Average Score</h2>
-                <br />
-                @foreach (LeaderboardUser user in Model.Users)
-                {
-                    <h5 style="text-align: center">@user.AverageScore</h5>
-                    <hr />
-                }
-            </section>
-        </section>
-    </section>
+        <div class="col-md-2 invisible"></div>
+        <div id="boxer" class="col-md-8">
+            <table class="table table-striped">
+                <thead>
+                    <tr class="table">
+                        <th scope="col" id="namer">Rank</th>
+                        <th scope="col" id="namer">User Name</th>
+                        <th scope="col" id="namer">Average Score</th>
+                    </tr>
+                </thead>
+                <tfoot></tfoot>
+                <tbody>
+
+
+                    @for (int i = 1; i <= Model.Users.Count; i++)
+                    {
+                        <tr>
+                            <th scope="row">
+                                @if (i == 1)
+                                {<i class="fas fa-trophy" style="color:goldenrod;"></i>}
+                                else
+                                { @i}
+
+                            </th>
+                            <td>@Model.Users[i - 1].FirstName @Model.Users[i - 1].LastName</td>
+                            <td>@Model.Users[i - 1].AverageScore</td>
+                        </tr>
+
+                    }
+
+
+
+                </tbody>
+            </table>
+            <br />
+
+        </div>
+        <div class="col-md-2 invisible"></div>
+
+    </div>
 </div>
