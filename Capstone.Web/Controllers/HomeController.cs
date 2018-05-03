@@ -16,16 +16,17 @@ namespace Capstone.Web.Controllers
     public class HomeController : Controller
     {
         private GolfSqlDal dal;
+
         public HomeController(GolfSqlDal dal)
         {
             this.dal = dal;
         }
+
         public HomeController()
         {
 
         }
 
-        // GET: Home
         public ActionResult Index()
         {
             return View("Index");
@@ -43,6 +44,7 @@ namespace Capstone.Web.Controllers
                 return PartialView("_NavAuth");
             }
         }
+
         [ChildActionOnly]
         public ActionResult NavAdmin()
         {
@@ -56,27 +58,6 @@ namespace Capstone.Web.Controllers
             }
 
         }
-
-        //[ChildActionOnly]
-        //public ActionResult Content()
-        //{
-        //    if (Session[SessionKeys.Username] == null)
-        //    {
-        //        return PartialView("_Splash");
-        //    }
-        //    else
-        //    {
-        //        List<Course> courseList = dal.GetAllCourses();
-        //        User user = dal.GetUsername(Session[SessionKeys.Username].ToString());
-        //        Dashboard dashObject = new Dashboard
-        //        {
-
-        //            Profile = user,
-        //            courses = courseList
-        //        };
-        //        return PartialView("_Dashboard");
-        //    }
-        //}
 
         public ActionResult DashboardContent()
         {
@@ -96,12 +77,6 @@ namespace Capstone.Web.Controllers
             }
 
         }
-        //private ActionResult AssembleDashboard()
-        //{
-        //    UserProfile user = dal.GetUserProfile();
-            
-        //    return PartialView("_Dashboard");
-        //}
 
         public ActionResult Logout()
         {
@@ -126,11 +101,7 @@ namespace Capstone.Web.Controllers
             if (validCredentials)
             {
                 UserRole userRole = dal.GetUserRole(model.Username);
-                Session[SessionKeys.UserId] = userRole.Id;
-                Session[SessionKeys.Username] = userRole.Username;
-                Session[SessionKeys.IsAdmin] = userRole.IsAdministrator;
-                Session[SessionKeys.IsOrg] = userRole.IsOrganizer;
-
+                SetSession(userRole);
                 return RedirectToAction("Index");
             }
             else
@@ -139,6 +110,13 @@ namespace Capstone.Web.Controllers
                 return View("Login", model);
             }
 
+        }
+
+        private void SetSession(UserRole model)
+        {
+            Session[SessionKeys.UserId] = model.Id;
+            Session[SessionKeys.Username] = model.Username;
+            Session[SessionKeys.IsAdmin] = model.IsAdministrator;
         }
 
         public ActionResult Registration()
@@ -225,19 +203,6 @@ namespace Capstone.Web.Controllers
             };
             return View("CreateLeague", league);
         }
-
-        //public ActionResult LogMatchScore(string leagueName, Match match)
-        //{
-        //    List<User> userList = dal.GetLeaderboardUsernames(leagueName);
-
-        //    LogMatch logMatch = new LogMatch
-        //    {
-        //        leagueUsers = userList,
-        //        match = match
-        //    };
-
-        //    return View("LogMatchScore", logMatch);
-        //}
 
         public ActionResult AddNewCourse()
         {
@@ -414,11 +379,11 @@ namespace Capstone.Web.Controllers
 
             if (scoreWritten)
             {
-                SetMessage("Golfer has been successfully added to league!", MessageType.Success);
+                SetMessage("Score logged!", MessageType.Success);
             }
             else
             {
-                SetMessage("There was an error adding your golfer! Please make sure the user has an active account, then try the username again.", MessageType.Error);
+                SetMessage("There was an error updating the score.", MessageType.Error);
             }
 
             return RedirectToAction("Index", "Home");

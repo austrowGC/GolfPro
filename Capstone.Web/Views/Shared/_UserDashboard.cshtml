@@ -1,41 +1,6 @@
 ﻿@model Capstone.Web.Models.DashboardRobot
 
-
-<style>
-    #boxer {
-        text-align: center;
-        font-size: 20px;
-        font-weight: bolder;
-        background-color: lightgray;
-        border: solid;
-        border-color: darkgray;
-        box-shadow: 3px 3px 7px 3px lightblue;
-    }
-
-    #col01 {
-        border-color: black;
-        box-shadow: 3px 3px 7px 3px black;
-    }
-    #col03 {
-        border-color: black;
-        box-shadow: 3px 3px 7px 3px black;
-    }
-
-
-    #namer {
-        color: black;
-        text-decoration: double;
-        text-shadow: 1px 1px 1px white;
-    }
-
-    h2 {
-        text-align: center;
-        font-weight: bolder;
-    }
-</style>
-
-
-<div class="container">
+<div id="userdashboard" class="container">
     <div id="col01">
         @if (Model.PlayerScores != null)
         {
