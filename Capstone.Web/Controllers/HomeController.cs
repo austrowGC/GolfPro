@@ -183,11 +183,9 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CreateMatch(int leagueId)
         {
-            List<UserFace> userList = dal.GetLeaderboardUsernames(leagueId);
-
             Match match = new Match()
             {
-                leagueUsers = userList
+                LeagueId = leagueId
             };
 
             return View("CreateMatch", match);
@@ -196,13 +194,13 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult CreateMatch(Match match)
         {
-            bool matchCreated = false;
-            matchCreated = dal.CreateMatch(match);
+            match.ID = dal.CreateMatch(match);
+            bool matchCreated = (match.ID > -1);
 
             bool playersAdded = false;
             if (matchCreated)
             {
-                //playersAdded = 
+                playersAdded = dal.InitLeagueMatch(match);
             }
 
             return RedirectToAction("Index", "Home");

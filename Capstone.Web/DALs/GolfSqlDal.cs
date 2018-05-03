@@ -11,7 +11,7 @@ namespace Capstone.Web.DALs
 {
     public interface GolfSqlDal
     {
-        bool CreateMatch(Match match);
+        int CreateMatch(Match match);
 
         bool CreateLeague(League league);
 
@@ -40,5 +40,7 @@ namespace Capstone.Web.DALs
         int GetLeagueId(string name);
 
         bool JoinLeague(UserAndLeague model);
+
+        bool InitLeagueMatch(Match match);
     }
 }
