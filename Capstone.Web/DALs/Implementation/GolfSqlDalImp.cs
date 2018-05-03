@@ -405,7 +405,7 @@ namespace Capstone.Web.DALs.Implementation
                                              join users_leagues on users_leagues.userId = users.id
                                              join leagues on leagues.id = users_leagues.leagueId
                                              join courses on leagues.courseId = courses.id where leagues.id = @leagueId
-                                             group by courses.holeCount, users.firstName, users.lastName;";
+                                             group by courses.holeCount, users.firstName, users.lastName order by totalStrokes desc;";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

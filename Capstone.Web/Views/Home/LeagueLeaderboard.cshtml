@@ -1,9 +1,6 @@
 ﻿@using Capstone.Web.Models;
 @using Capstone.Web.Models.ViewModels;
 @model Leaderboard
-@{ 
-    Model.Users = Model.Users.OrderBy(p => p).ToList();
-}
 
 @*<div class="main">
     <table>
