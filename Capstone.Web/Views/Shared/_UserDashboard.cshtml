@@ -2,7 +2,7 @@
 
 
 <style>
-    #dumshit {
+    #boxer {
         text-align: center;
         font-size: 20px;
         font-weight: bolder;
@@ -11,18 +11,26 @@
         border-color: darkgray;
         box-shadow: 3px 3px 7px 3px lightblue;
     }
+    #boxer2 {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bolder;
+        background-color: darkgray;
+        border: solid;
+        border-color: lightgray;
+        box-shadow: 3px 3px 7px 3px lightblue;
+    }
 
-  #namer{
-      color:black;
-      text-decoration:double;
-      text-shadow: 1px 1px 1px white;
+    #namer {
+        color: black;
+        text-decoration: double;
+        text-shadow: 1px 1px 1px white;
+    }
 
-  }
-  h2{
-      text-align:center;
-      font-weight:bolder;
-  }
- 
+    h2 {
+        text-align: center;
+        font-weight: bolder;
+    }
 </style>
 
 
@@ -36,21 +44,26 @@
         {
             if (Model.PlayerScores.Count > 0)
             {
-                <p>
-                    @{ Write(Model.MessageAverage());}
-                </p>
-                <p>
-                    @{ Write(Model.MessageBest18());}
-                </p>
-                <p>
-                    @{ Write(Model.MessageBest9());}
-                </p>
+                <h2>Personal Records</h2>
+                <div id="boxer2">
+                    <p id="namer">
+                        @{ Write(Model.MessageAverage());}
+                    </p>
+                    <p id="namer">
+                        @{ Write(Model.MessageBest18());}
+                    </p>
+                    <p id="namer">
+                        @{ Write(Model.MessageBest9());}
+                    </p>
+                </div>
                 <br />
                 <h2>Match History</h2>
                 foreach (var sm in Model.PlayerScores)
                 {
-                    <div>
+                    <div id="boxer2">
                         <p>@{Write(sm.Date);}</p>
+                        <p>@{Write(sm.CourseName);}</p>
+                        <p>@{Write(sm.LeagueName);}</p>
                         <p>@{Write(Model.MessageMatchScore(sm));}</p>
                     </div>
                 }
@@ -78,7 +91,7 @@
                 <h2>Your Leagues</h2>
                 foreach (var league in Model.PlayerLeagues)
                 {
-                    <div id="dumshit">
+                    <div id="boxer">
                         <a href="@Url.Action("LeagueLeaderBoard", "Home", new { leagueId = league.ID })">
 
                             <p><span id="namer">League: </span> @{Write($"{league.Name} ");}</p>
