@@ -75,7 +75,7 @@ ALTER TABLE [leagues] CHECK CONSTRAINT [FK_users_id]
 CREATE TABLE [matches](
 	[id] [int] IDENTITY NOT NULL,
 	[date] [datetime] NOT NULL,
-	[playerCount] [int] NOT NULL
+	[playerCount] [int]
  CONSTRAINT [PK_matches] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
@@ -109,7 +109,7 @@ CREATE TABLE [leagues_matches](
 ) ON [PRIMARY]
 
 
-ALTER TABLE [leagues_matches]  WITH CHECK ADD  CONSTRAINT [FK_leagues_matches_id] FOREIGN KEY([leagueId])
+ALTER TABLE [leagues_matches]  WITH CHECK ADD  CONSTRAINT [FK_leagues_matches_id] FOREIGN KEY([matchId])
 REFERENCES [matches] ([id])
 
 
@@ -126,7 +126,7 @@ ALTER TABLE [leagues_matches] CHECK CONSTRAINT [FK_matches_leagues_id]
 CREATE TABLE [users_matches](
 	[userId] [int] NOT NULL,
 	[matchId] [int] NOT NULL,
-	[score] [int] NOT NULL
+	[score] [int]
 ) ON [PRIMARY]
 
 

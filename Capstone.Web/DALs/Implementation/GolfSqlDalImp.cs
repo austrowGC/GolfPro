@@ -167,7 +167,7 @@ namespace Capstone.Web.DALs.Implementation
             string statement = @"select id from leagues where name = @name;";
             int leagueId = -1;
 
-            using(SqlConnection sqlC = new SqlConnection(connectionString))
+            using (SqlConnection sqlC = new SqlConnection(connectionString))
             {
                 sqlC.Open();
 
@@ -210,12 +210,10 @@ namespace Capstone.Web.DALs.Implementation
             return success;
         }
 
-        public bool CreateMatch(Match match)
+        public int CreateMatch(Match match)
         {
-            bool isSuccessful = false;
-            int rowsAffected = 0;
-            string SQL_CreateMatch = @"Insert into matches (date, numOfPlayers) 
-            values (@date, @numOfPlayers)";
+            int insertId = -1;
+            string SQL_CreateMatch = @"Insert into matches (date) OUTPUT Inserted.ID values (@date)";
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -225,18 +223,97 @@ namespace Capstone.Web.DALs.Implementation
                     SqlCommand cmd = new SqlCommand(SQL_CreateMatch, conn);
 
                     cmd.Parameters.Add(new SqlParameter("@date", match.Reservation));
-                    cmd.Parameters.Add(new SqlParameter("@numOfPlayers", match.NumberOfPlayers));
 
-                    rowsAffected = cmd.ExecuteNonQuery();
+                    insertId = (int)cmd.ExecuteScalar();
                 }
             }
-            catch (SqlException e)
+            catch (SqlException sqlEx)
             {
-                Console.WriteLine(e.Message);
-                isSuccessful = false;
+                Console.WriteLine(sqlEx.Message);
+            }
+            catch (InvalidCastException castEx)
+            {
+                Console.WriteLine(castEx.Message);
             }
 
-            return isSuccessful;
+            return insertId;
+        }
+
+        public bool InitLeagueMatch(Match match)
+        {
+            bool leagueComplete = LinkLeagueToMatch(match);
+            bool usersComplete = LinkUsersToMatch(match);
+
+            bool complete = (leagueComplete && usersComplete);
+
+            return complete;
+        }
+
+        private bool LinkUsersToMatch(Match match)
+        {
+            List<int> ids = new List<int>();
+            bool complete = false;
+            string statement = @"select userid from users_leagues where leagueid = @leagueid;";
+            string insert = @"insert into users_matches (userid, matchid) values (@userid, @matchid);";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(statement, conn);
+                cmd.Parameters.AddWithValue("@leagueid", match.LeagueId);
+                SqlDataReader sdr = cmd.ExecuteReader();
+
+                while (sdr.Read())
+                {
+                    ids.Add(Convert.ToInt32(sdr["userid"]));
+                }
+
+                if (ids.Count > 0)
+                {
+                    sdr.Close();
+                    cmd.Dispose();
+                    int count = 0;
+                    foreach (int id in ids)
+                    {
+                        cmd = new SqlCommand(insert, conn);
+                        cmd.Parameters.AddWithValue("@userid", id);
+                        cmd.Parameters.AddWithValue("@matchid", match.ID);
+                        count += cmd.ExecuteNonQuery();
+                        cmd.Dispose();
+                    }
+
+                    complete = (ids.Count == count);
+                }
+            }
+
+            return complete;
+        }
+
+        private bool LinkLeagueToMatch(Match match)
+        {
+            bool complete = false;
+            string insert = @"insert into leagues_matches values (@leagueid, @matchid);";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(insert, conn);
+                cmd.Parameters.AddWithValue("@leagueid", match.LeagueId);
+                cmd.Parameters.AddWithValue("@matchid", match.LeagueId);
+                try
+                {
+                    complete = (cmd.ExecuteNonQuery() == 1);
+                }
+                catch (SqlException sqlEx)
+                {
+                    Console.Write(sqlEx.Message);
+                    complete = false;
+                }
+
+            }
+            return complete;
         }
 
         public bool LogMatchScore(LogMatch logMatch)

@@ -3,7 +3,7 @@
 
 <div class="main">
 
-    <form method="post" action="@Url.Action("CreateMatch","Home")">
+    <form method="post" action="@Url.Action("CreateMatch","Home", Model)">
         <table>
             <tr>
                 <td class="box">
@@ -44,12 +44,6 @@
                         <option value="5:30"> 5:30 PM </option>
                         <option value="6:00"> 6:00 PM </option>
                     </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="box">
-                    Number of Players: @Model.leagueUsers.Count;
-                    <input type="hidden" value="@Model.leagueUsers.Count" name="NumberOfPlayers" />
                 </td>
             </tr>
             <tr>

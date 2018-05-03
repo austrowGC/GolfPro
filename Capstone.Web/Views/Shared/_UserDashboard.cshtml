@@ -2,14 +2,15 @@
 
 
 <style>
-  #dumshit{
-      text-align:center;
-      font-size: 20px;
-      font-weight:bolder;
-      background-color:lightgray;
-      border:solid;
-      border-color: darkgray;
-  }
+    #dumshit {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bolder;
+        background-color: lightgray;
+        border: solid;
+        border-color: darkgray;
+        box-shadow: 3px 3px 7px 3px lightblue;
+    }
 
   #namer{
       color:black;
@@ -64,6 +65,7 @@
             <h2>No matches on record</h2>
         }
     </div>
+
     <div id="col02" class="invisible">
 
     </div>
@@ -73,13 +75,14 @@
             if (Model.PlayerLeagues.Count > 0)
             {
 
-                <h2>Leagues</h2>
+                <h2>Your Leagues</h2>
                 foreach (var league in Model.PlayerLeagues)
                 {
                     <div id="dumshit">
                         <a href="@Url.Action("LeagueLeaderBoard", "Home", new { leagueId = league.ID })">
 
-                            <p><span id="namer">League: </span> @{Write($"{league.Name} - {league.OrganizerUsername}");}</p>
+                            <p><span id="namer">League: </span> @{Write($"{league.Name} ");}</p>
+                            <p><span id="namer">League Owner: </span> @{Write($"{league.OrganizerUsername}");}</p>
                             <p><span id="namer">Course Name: </span>@{Write(league.CourseName);}</p>
                         </a>
                         @if (Model.IsOrganizerOf(league))
