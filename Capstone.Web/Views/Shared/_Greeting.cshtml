@@ -1,7 +1,15 @@
 
 ﻿@model String
-
+<style>
+    .greeter {
+        font-weight:bold;
+        font-size:25px;
+        font-family:Perpetua;
+        text-shadow: 2px 2px 4px #000000;
+    }
+</style>
 ﻿<div id="greeting">
-    <h1>@{Write($"Logged in as {Model}");}</h1>
+    <p class="greeter">@{Write($"Username: {Model}");}</p>
+   
 </div>
 
