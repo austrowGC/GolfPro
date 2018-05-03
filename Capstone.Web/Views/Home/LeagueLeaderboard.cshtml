@@ -1,25 +1,9 @@
 ﻿@using Capstone.Web.Models;
 @using Capstone.Web.Models.ViewModels;
 @model Leaderboard
-
-@*<div class="main">
-    <table>
-        <thead>Leaderboard</thead>
-        <tbody>
-            <tr>
-                <td>Name</td>
-                <td>Average Score</td>
-            </tr>
-            @foreach (LeaderboardUser user in Model.Users)
-            {
-                <tr>
-                    <td>@user.FirstName @user.LastName</td>
-                    <td>@user.AverageScore</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>*@
+@{ 
+    Model.Users.Sort((x, y) => x.AverageScore.CompareTo(y.AverageScore));
+}
 
 <div>
     <section style="min-height: 400px" class="container" id="features">
@@ -41,7 +25,7 @@
                 @foreach (LeaderboardUser user in Model.Users)
                 {
                     <h5 style="text-align: center">@user.AverageScore</h5>
-                    <br />
+                    <hr />
                 }
             </section>
         </section>
