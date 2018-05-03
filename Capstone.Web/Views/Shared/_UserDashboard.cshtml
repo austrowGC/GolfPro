@@ -1,5 +1,30 @@
 ﻿@model Capstone.Web.Models.DashboardRobot
 
+
+<style>
+  #dumshit{
+      text-align:center;
+      font-size: 20px;
+      font-weight:bolder;
+      background-color:lightgray;
+      border:solid;
+      border-color: darkgray;
+  }
+
+  #namer{
+      color:black;
+      text-decoration:double;
+      text-shadow: 1px 1px 1px white;
+
+  }
+  h2{
+      text-align:center;
+      font-weight:bolder;
+  }
+ 
+</style>
+
+
 <div id="greeting">
     <h1>@{Write(Model.MessageGreeting());}</h1>
 </div>
@@ -39,19 +64,23 @@
             <h2>No matches on record</h2>
         }
     </div>
-    <div id="col02" class="col">
+    <div id="col02" class="invisible">
+
+    </div>
+    <div id="col03" class="col">
         @if (Model.PlayerLeagues != null)
         {
             if (Model.PlayerLeagues.Count > 0)
             {
+
                 <h2>Leagues</h2>
                 foreach (var league in Model.PlayerLeagues)
                 {
-                    <div>
+                    <div id="dumshit">
                         <a href="@Url.Action("LeagueLeaderBoard", "Home", new { leagueId = league.ID })">
 
-                            <p>@{Write($"{league.Name} - {league.OrganizerUsername}");}</p>
-                            <p>@{Write(league.CourseName);}</p>
+                            <p><span id="namer">League: </span> @{Write($"{league.Name} - {league.OrganizerUsername}");}</p>
+                            <p><span id="namer">Course Name: </span>@{Write(league.CourseName);}</p>
                         </a>
                         @if (Model.IsOrganizerOf(league))
                         {
@@ -60,6 +89,7 @@
                     </div>
 
                 }
+
             }
             else
             {
