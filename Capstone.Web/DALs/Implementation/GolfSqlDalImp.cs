@@ -606,7 +606,7 @@ namespace Capstone.Web.DALs.Implementation
         {
             #region statements
             string userDetailSql = @"select id, username, firstname, lastname from users where (username = @username);";
-            string userLeaguesSql = @"select l.id, l.name'leagueName', l.organizerid, u.username'orgUsername', u.firstname'orgFirstName', u.lastname'orgLastName', c.id'courseId', c.name'courseName' from users_leagues ul inner join leagues l on (l.id = ul.leagueId) inner join users u on (u.id = ul.userId) inner join courses c on (l.courseId = c.id) where ul.userId = @userId;";
+            string userLeaguesSql = @"select l.id, l.name'leagueName', l.organizerid, u.username'orgUsername', u.firstname'orgFirstName', u.lastname'orgLastName', c.id'courseId', c.name'courseName' from users_leagues ul inner join leagues l on (l.id = ul.leagueId) inner join users u on (u.id = l.organizerId) inner join courses c on (l.courseId = c.id) where (ul.userId = @userId);";
             string userMatchesSql = @"select m.id, m.date, um.score, l.name'leagueName', c.name'courseName', c.par, c.holeCount from users_matches as um inner join matches m on (m.id = um.matchId) inner join leagues_matches lm on (lm.matchId = um.matchId) inner join leagues l on (l.id = lm.leagueId) inner join courses c on (c.id = l.courseId) where (userId = @userId) and (um.score is not null);";
             #endregion
 
