@@ -5,13 +5,25 @@
     int numUnscored = Model.Count;
 }
 
-<div>
+<div id="matchselection">
     @if (numUnscored > 0)
     {
         Html.BeginForm("PostScore", "Home", FormMethod.Post);
-        <DropdownmenuIDK>
-            @foreach()
-        </DropdownmenuIDK>
+        <div class="form-group">
+            <label for="match">Choose match</label>
+            <select name="match" class="form-control">
+                @foreach (var um in Model)
+                {
+                    <option value="@um">@{Write($"Played on {um.MatchDate} - {um.User.Username}: {um.User.FirstName} {um.User.LastName}");}</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="score">Score</label>
+            <input class="form-control" name="score" type="number" />
+        </div>
+        <button type="submit">Submit Score</button>
+        Html.EndForm();
     }
     else
     {

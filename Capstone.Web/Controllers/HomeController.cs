@@ -369,8 +369,9 @@ namespace Capstone.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult PostScore(UserMatch model)
+        public ActionResult PostScore(UserMatch model, int score)
         {
+            model.Score = score;
             bool scoreWritten = false;
             if (model.Score > 0)
             {
